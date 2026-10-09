@@ -1,0 +1,2 @@
+repo,tipo,alvo,no_atribuido
+wms.ecommerce.backend,http-out,(URL dinamica),ext:?(URL dinamica)

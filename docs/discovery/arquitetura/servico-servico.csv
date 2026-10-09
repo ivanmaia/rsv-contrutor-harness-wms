@@ -1,0 +1,97 @@
+origem,destino,via,n_arestas,exemplos
+fly.backoffice.frontend,ext:Backends não-WMS do Fly,http,207,POST /schedule-file-clients | POST /schedule-files-back-office | PATCH /schedule-files-back-office/{id}
+fly.backoffice.frontend,wms.awx.monorepo,http,27,GET api/solicitacao/pedidos/{pedido}; consulta pedido para c | POST api/solicitacao/pre-visualizacao-cancelamento | GET api/solicitacao/motivos-cancelamento
+fly.backoffice.frontend,"ext:Logistica.Integrada.BFF (Helix, fora do escopo)",http,13,POST api/v1/recebimentos {chaveNfe} (iniciar); X-API-KEY + B | GET api/v1/recebimentos/{id}; X-API-KEY + Bearer Keycloak | DELETE api/v1/recebimentos/{id} (cancelar); X-API-KEY + Bear
+fly.backoffice.frontend,ext:Keycloak,http,4,POST token grant_type=password (login; tambem valida supervi | POST token grant_type=refresh_token | POST token grant_type=authorization_code (SSO Google/Soma)
+fly.backoffice.frontend,wms.trakta.backend,http,3,GET movimentacoes-fisicas/tipos (X-API-KEY TRAKTA_API_KEY) | POST movimentacoes-fisicas (paginado; X-API-KEY) | POST movimentacoes-fisicas/csv (fetch direto; X-API-KEY)
+fly.backoffice.frontend,print-zebra.utilitario.backend,http,1,GET printers (lista de impressoras do checkout)
+fly.backoffice.frontend,ext:VTEX,http,1,GET /api/dataentities/CL/search (X-VTEX-API-AppKey/AppToken)
+print-zebra.utilitario.backend,ext:Arquivo/processo local,outro,1,"Processo local: HTML -> PDF A4, tons de cinza (Wkhtmltopdf.N"
+reserva-net.api-gateway.backend,ext:ReservaNet (serviços sem repo no workspace),http,4,GET|POST|PUT|DELETE|OPTIONS http://reservanet-queries-api:80 | GET|POST|PUT|DELETE|OPTIONS http://reservanet-commands-api:8 | GET|POST|PUT|DELETE|OPTIONS http://reservanet-tasks:80/{ever
+reserva-net.api-gateway.backend,wms.ecommerce.backend,http,1,GET|POST|PUT|DELETE|OPTIONS http://reservanet-ecommerce-api:
+reserva-net.api-gateway.backend,reserva-net.b2b.backend,http,1,GET|POST|PUT|DELETE|OPTIONS http://reservanet-b2b-api:80/{ev
+reserva-net.api-gateway.backend,ext:E-mail (SendGrid/SMTP),http,1,GET|POST|PUT|DELETE|OPTIONS http://reservanet-smtp-api:80/{e
+reserva-net.api-gateway.backend,wms.conector.backend,http,1,GET|POST|PUT|DELETE|OPTIONS http://reservanet-linx-api:80/{e
+reserva-net.api-gateway.backend,wms.servidor.backend,http,1,GET|POST|PUT|PATCH|DELETE|OPTIONS http://<IP interno>:8087/a
+reserva-net.autenticacao.monolito,sqlagent (jobs do banco),banco,1,ReservaNet.sso.Armazem
+reserva-net.autenticacao.monolito,wms.ecommerce.backend,banco,1,ReservaNet.sso.Armazem
+reserva-net.autenticacao.monolito,ext:Active Directory,http,1,LDAP Connect/Bind/Search porta LdapServer:Port (não HTTP); S
+reserva-net.autenticacao.monolito,ext:E-mail (SendGrid/SMTP),http,1,envio de e-mail de redefinição de senha via ReservaNet.Share
+reserva-net.b2b.backend,wms.servidor.backend,banco,1,Reserva.dbo.RSV_ETIQUETA_BRASPRESS
+reserva-net.b2b.backend,ext:SFTP transportadoras,outro,2,"SFTP (SSH.NET, usuário/senha) UploadFile NOTFIS_<transportad | SFTP Connect (health check, timeout 10 s)"
+sqlagent (jobs do banco),wms.servidor.backend,banco,27,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+sqlagent (jobs do banco),wms.ecommerce.backend,banco,10,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+sqlagent (jobs do banco),reserva-net.b2b.backend,banco,6,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+sqlagent (jobs do banco),wms.conector.backend,banco,5,Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS | Reserva.dbo.RSV_ATG_ECOMMERCE_FILA_PEDIDOS_STATUS
+sqlagent (jobs do banco),wms.awx.monorepo,banco,4,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | WMS.dbo.NotaFiscal
+sqlagent (jobs do banco),wms.tms-finished.backend,banco,4,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+sqlagent (jobs do banco),wms.picking.backend,banco,3,Reserva.dbo.VENDAS | WMS.dbo.ItemProduto | WMS.dbo.Caixa
+wms.app.frontend,wms.servidor.backend,http,79,POST /api/Seguranca/Autentica (base API_URL; login e relogin | POST /api/Seguranca/AlteraSenha (base API_URL) | POST /api/Seguranca/DeslogaUsuario (base API_URL)
+wms.app.frontend,wms.ecommerce.backend,http,7,GET /api/ecommerce/checkout/pedido/{cup} (base RSV_NET_API_U | POST /api/ecommerce/checkout/v2 (base RSV_NET_API_URL; salva | GET /api/ecommerce/checkout/contagem (base RSV_NET_API_URL; 
+wms.app.frontend,wms.picking.backend,http,3,POST onda/{idExterno}/processar-atividade (base PICKING_API_ | POST colmeia/processar-distribuicao (base PICKING_API_URL; t | POST colmeia/processar-baixa (base PICKING_API_URL; tela Bai
+wms.app.frontend,print-zebra.utilitario.backend,http,1,GET http://10.1.1.236:8088/printers/2 (fetch direto; getPrin
+wms.app.frontend,ext:Observabilidade (Sentry/New Relic),http,1,SDK @sentry/react-native: erros e tracing de todas as chamad
+wms.app.frontend,ext:Revopush,http,1,checagem e download de bundle OTA ao retomar o app (CODEPUSH
+wms.awx.monorepo,wms.servidor.backend,banco,2,WMS.Recebimento.NotaFiscal | WMS.dbo.EntidadeExternaNotaFiscal
+wms.awx.monorepo,ext:LINX (APIs de integração),http,12,POST (URL base) | GET ?caixa={idFatura} | GET /{caixa}
+wms.awx.monorepo,wms.servidor.backend,http,2,POST api/checkout/volume-expedicao/gerar-identificador | POST /api/awx-checkout/validar-autorizacao-cancelamento (cód
+wms.awx.monorepo,print-zebra.utilitario.backend,http,1,"POST /print; body {PrinterId, Conteudo (ZPL), Extensao: txt}"
+wms.conector.backend,wms.servidor.backend,banco,5,Reserva.dbo.VENDAS | Reserva.dbo.VENDAS_PRODUTO | Reserva.dbo.VENDAS_PROD_EMBALADO
+wms.conector.backend,sqlagent (jobs do banco),banco,4,Reserva.dbo.VENDAS | Reserva.dbo.VENDAS_PRODUTO | Reserva.dbo.VENDAS_PROD_EMBALADO
+wms.conector.backend,wms.ecommerce.backend,banco,3,Reserva.dbo.VENDAS | Reserva.dbo.VENDAS_PROD_EMBALADO | Reserva.dbo.FATURAMENTO_CAIXAS
+wms.conector.backend,wms.picking.backend,banco,1,Reserva.dbo.VENDAS
+wms.conector.backend,wms.tms-finished.backend,banco,1,Reserva.dbo.VENDAS
+wms.conector.backend,reserva-net.b2b.backend,banco,1,Reserva.dbo.VENDAS
+wms.conector.backend,ext:Observabilidade (Sentry/New Relic),http,1,"SDK Sentry.AspNetCore; traces 10%, 0% para swagger e GET /"
+wms.ecommerce.backend,sqlagent (jobs do banco),banco,10,WMS.dbo.PickingECommerce | Reserva.dbo.VENDAS_PROD_EMBALADO | Reserva.dbo.RSV_ATG_ECOMMERCE_ORDER_INFO_STATUS
+wms.ecommerce.backend,wms.servidor.backend,banco,9,WMS.dbo.PickingECommerce | Reserva.dbo.VENDAS_PROD_EMBALADO | Reserva.dbo.RSV_ATG_ECOMMERCE_SITES
+wms.ecommerce.backend,wms.tms-finished.backend,banco,4,Reserva.dbo.RSV_ATG_ECOMMERCE_ORDER_INFO_STATUS | Reserva.dbo.RSV_ATG_ECOMMERCE_SITES | Reserva.dbo.rsv_atg_ecommerce_shipping_group_info
+wms.ecommerce.backend,wms.awx.monorepo,banco,1,WMS.dbo.PickingECommerce
+wms.ecommerce.backend,wms.conector.backend,banco,1,Reserva.dbo.VENDAS_PROD_EMBALADO
+wms.ecommerce.backend,wms.tms.backend,banco,1,Reserva.dbo.RSV_PEDIDOS_ECOMMERCE_INTELIPOST
+wms.ecommerce.backend,wms.servidor.backend,http,34,POST api/Seguranca/Autentica (AutenticarUsuarioIntegration;  | POST api/caixa-colmeia/operadores/{idUsuarioOperador} (Aloca | POST api/caixa-colmeia/{pedido}/baixar/{idUsuario} (BaixarCa
+wms.ecommerce.backend,print-zebra.utilitario.backend,http,4,POST print/multiples (EnviarParaZebraIntegration; CriarLoteT | POST print/binary (EnviarBase64ParaImpressoraIntegration; NO | POST pdfs/generate (GerarArquivoPdfIntegration; ImprimirNota
+wms.ecommerce.backend,reserva-net.autenticacao.monolito,http,1,JWT/OIDC authentication via ReservaNet.SharedKernel UseMyAut
+wms.ecommerce.backend,ext:Observabilidade (Sentry/New Relic),http,1,Sentry SDK error/trace export (TracesSampler 0.1; ArgumentEx
+wms.ecommerce.backend,ext:?(URL dinamica),http,1,GET arbitrary URL via WebClient.DownloadFileTaskAsync (Downl
+wms.ecommerce.frontend,wms.ecommerce.backend,http,92,GET /acesso/; base urlApi; telas: app; backend src/ReservaNe | GET /acesso/wms; base urlApi; telas: detalhes-pedido; backen | POST /acesso/wms; base urlApi; telas: login-wms; backend src
+wms.ecommerce.frontend,wms.servidor.backend,http,73,GET /clusters/obter-todos; base urlWmsApi = gateway /api/wms | GET /clusters/obter/{id}; base urlWmsApi = gateway /api/wms  | GET /clusters/zonas-disponiveis/{idTipo}; base urlWmsApi = g
+wms.ecommerce.frontend,reserva-net.autenticacao.monolito,http,5,PATCH /users/{documentoUsuario}/licenseds/{documentoLicencia | OIDC authorization code flow: GET {issuer}/.well-known/openi | SignalR hub {sso.url}/session (ServerSentEvents; envia geolo
+wms.ecommerce.frontend,wms.hubprodutividade.backend,http,2,GET /operadores/{operadorId}; base urlHubProdutividadeWmsApi | POST /clusters/produtividade; base urlHubProdutividadeWmsApi
+wms.hubprodutividade.backend,ext:Observabilidade (Sentry/New Relic),http,1,SDK Sentry.AspNetCore fora de Development; TracesSampleRate 
+wms.picking.backend,wms.awx.monorepo,fila,1,awx_checkout_solicitacao
+wms.picking.backend,wms.servidor.backend,http,10,"GET api/auth (valida token; header AutenticationToken; cache | GET api/picking/permissao-painel-gerencial | POST api/operadoratividade (cria atividade de operador, tipo"
+wms.picking.backend,ext:Observabilidade (Sentry/New Relic),outro,1,SDK Sentry.AspNetCore: UseSentry + UseSentryTracing (erros e
+wms.picking.frontend,wms.picking.backend,http,47,GET /catalogo/clientes; base urlApi; header AuthenticationTo | GET /catalogo/filiais; base urlApi; header AuthenticationTok | GET /catalogo/tipos-picking; base urlApi; header Authenticat
+wms.picking.frontend,wms.servidor.backend,http,1,"link de navegacao 'Voltar para o WMS' (href, sem chamada XHR"
+wms.servidor.backend,sqlagent (jobs do banco),banco,44,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+wms.servidor.backend,wms.ecommerce.backend,banco,18,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+wms.servidor.backend,reserva-net.b2b.backend,banco,6,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+wms.servidor.backend,wms.conector.backend,banco,6,Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS | Reserva.dbo.VENDAS_PRODUTO
+wms.servidor.backend,wms.picking.backend,banco,6,Reserva.dbo.VENDAS | WMS.dbo.ItemProduto | WMS.dbo.Usuario
+wms.servidor.backend,wms.awx.monorepo,banco,4,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | WMS.Recebimento.NotaFiscal
+wms.servidor.backend,wms.tms-finished.backend,banco,3,Reserva.dbo.FATURAMENTO | Reserva.dbo.FATURAMENTO_PROD | Reserva.dbo.VENDAS
+wms.servidor.backend,wms.hubprodutividade.backend,fila,2,wms-atividade_realizada | wms-sessao_operador_cluster
+wms.servidor.backend,wms.trakta.backend,fila,1,movimentacao.fisica.realizada
+wms.servidor.backend,wms.ecommerce.backend,http,12,POST expedicoes/coletor (Bearer SSO) | POST pre-expedicoes/adicionar-pedido-lote | POST pre-expedicoes/lotes
+wms.servidor.backend,print-zebra.utilitario.backend,http,6,POST/PUT /printers; DELETE /printers/{id}; GET printers | GET printers/{idEmpresa} | GET /printers/{id}
+wms.servidor.backend,wms.hubprodutividade.backend,http,5,GET /catalog-integration/catalog/{produtoId}/on-demand (x-ap | POST /clusters (x-api-key) | POST /operadores
+wms.servidor.backend,ext:E-mail (SendGrid/SMTP),http,2,envio de e-mail (SendGridClient) | envio de e-mail (SmtpClient)
+wms.servidor.backend,ext:Active Directory,http,2,autenticação por DirectoryEntry
+wms.servidor.backend,reserva-net.autenticacao.monolito,http,1,POST /connect/token (client credentials; segredo ReservaNetS
+wms.servidor.backend,wms.conector.backend,http,1,POST ordens-reservas (Bearer SSO)
+wms.servidor.backend,wms.picking.backend,http,1,POST /documento/b2b (exportar demanda para o Full Picking)
+wms.servidor.backend,ext:Intelipost,http,1,GET v1/shipment_order/{numeroPedido} (header api-key Intelip
+wms.servidor.backend,ext:Observabilidade (Sentry/New Relic),http,1,"SDK Sentry: erros e tracing, inclusive HTTP de saída"
+wms.servidor.backend,wms.picking.frontend,http,1,link/redirect do navegador para o front do Full Picking com 
+wms.tms-finished.backend,sqlagent (jobs do banco),banco,4,Reserva.dbo.RSV_ATG_ECOMMERCE_FILA_PEDIDOS_STATUS | Reserva.dbo.RSV_ATG_ECOMMERCE_ORDER_INFO_STATUS | Reserva.dbo.rsv_atg_ecommerce_order_info
+wms.tms-finished.backend,wms.ecommerce.backend,banco,3,Reserva.dbo.RSV_ATG_ECOMMERCE_FILA_PEDIDOS_STATUS | Reserva.dbo.RSV_ATG_ECOMMERCE_ORDER_INFO_STATUS | Reserva.dbo.rsv_atg_ecommerce_order_info
+wms.tms-finished.backend,wms.servidor.backend,banco,2,Reserva.dbo.RSV_ATG_ECOMMERCE_FILA_PEDIDOS_STATUS | Reserva.dbo.rsv_atg_ecommerce_order_info
+wms.tms-finished.backend,wms.conector.backend,banco,1,Reserva.dbo.RSV_ATG_ECOMMERCE_FILA_PEDIDOS_STATUS
+wms.tms-finished.backend,ext:Intelipost,http,1,GET https://api.intelipost.com.br/api/v1/shipment_order/invo
+wms.tms.backend,wms.tms-finished.backend,banco,1,Reserva.dbo.RSV_PEDIDOS_ECOMMERCE_INTELIPOST
+wms.tms.backend,wms.ecommerce.backend,banco,1,Reserva.dbo.RSV_PEDIDOS_ECOMMERCE_INTELIPOST
+wms.tms.backend,ext:Intelipost,http,2,POST shipment_order (JSON PedidoIntelipost; header api-key = | GET shipment_order/{order_number} (header api-key; timeout 3
+wms.tms.backend,ext:Arquivo/processo local,outro,1,"Append de log de erro (logEnvio, erroenvio, PedidoDetalhe, e"
+wms.tms.backend,ext:Observabilidade (Sentry/New Relic),outro,1,Pacotes NewRelic.Agent e NewRelic.Agent.Api referenciados; c
+wms.trakta.backend,ext:Observabilidade (Sentry/New Relic),http,1,SDK Sentry.AspNetCore; eventos >= Error; TracesSampleRate 0.

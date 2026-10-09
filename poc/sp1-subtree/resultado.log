@@ -1,0 +1,28 @@
+[23:08:48] remoto industria-logistica.wms.picking.backend: 589 arquivos
+[23:09:35] remoto industria-logistica.wms.servidor.backend: 5374 arquivos
+[23:10:31] remoto industria-logistica.reserva-net.autenticacao.monolito: 5638 arquivos
+[23:11:10] remoto industria-logistica.wms.ecommerce.backend: 1775 arquivos
+[23:11:13] subtree add repos/industria-logistica.wms.picking.backend: 3.0s
+[23:11:20] subtree add repos/industria-logistica.wms.servidor.backend: 7.1s
+[23:11:30] subtree add repos/industria-logistica.reserva-net.autenticacao.monolito: 9.6s
+[23:11:36] subtree add repos/industria-logistica.wms.ecommerce.backend: 6.1s
+[23:11:37] workspace: 13378 arquivos, .git 59 MB
+[23:11:41] subtree push repos/industria-logistica.wms.picking.backend -> feat/ciclo1: 3.0s
+[23:11:44] subtree push repos/industria-logistica.wms.servidor.backend -> feat/ciclo1: 2.7s
+[23:11:44] OK industria-logistica.wms.picking.backend/feat/ciclo1: 1 commit(s) à frente do main; arquivos: README.md 
+[23:11:44] OK industria-logistica.wms.servidor.backend/feat/ciclo1: 1 commit(s) à frente do main; arquivos: POC_CICLO1.txt 
+  CLAUDE.md raiz vazou para o remoto? ocorrências: 0
+warning: in the working copy of 'OUTRO_TIME.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'OUTRO_TIME.txt', LF will be replaced by CRLF the next time Git touches it
+[23:12:01] subtree pull repos/industria-logistica.wms.picking.backend: 3.3s
+[23:12:05] subtree pull repos/industria-logistica.wms.servidor.backend: 4.4s
+[23:12:07] subtree pull repos/industria-logistica.reserva-net.autenticacao.monolito: 1.4s
+[23:12:08] subtree pull repos/industria-logistica.wms.ecommerce.backend: 1.4s
+[23:12:13] subtree push repos/industria-logistica.wms.servidor.backend -> feat/ciclo2: 3.8s
+[23:12:14] OK industria-logistica.wms.servidor.backend/feat/ciclo2: 1 commit(s) à frente do main; arquivos: POC_CICLO2.txt 
+[23:12:15] GUARDA: a branch adiciona/altera arquivos de harness em repos/industria-logistica.wms.picking.backend; push recusado
+[23:15:08] split após 200 commits (industria-logistica.wms.servidor.backend): 39.2s
+[23:15:49] split repetido (cache) (industria-logistica.wms.servidor.backend): 41.5s
+[23:16:33] split após 200 commits (industria-logistica.wms.picking.backend): 43.1s
+[23:17:14] split repetido (cache) (industria-logistica.wms.picking.backend): 41.1s
+[23:17:14] FIM

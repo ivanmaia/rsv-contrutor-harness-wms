@@ -1,0 +1,212 @@
+[
+ {
+  "caller": "ObterListaNotaFiscalComPaginacao",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/NotaFiscalServico.cs",
+  "line": 144,
+  "callee": "ObterListaComPaginacaoPorFiltro",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/NotaFiscalRepositorio.cs"
+ },
+ {
+  "caller": "ProcessaCrossdocking",
+  "caller_file": "Reserva.WMS3.API/Controllers/CrossdockingController.cs",
+  "line": 84,
+  "callee": "CrossdockingFinalizado",
+  "callee_file": "Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoCrossdockingServico.cs"
+ },
+ {
+  "caller": "BipaEnderecoRecebimento",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoContagemServico.cs",
+  "line": 330,
+  "callee": "AtualizaCaixaStatus",
+  "callee_file": "Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs"
+ },
+ {
+  "caller": "ObterItensAtvMono",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/ECommerce/VoltarPedidoEmSeparacaoParaEmAbertoServico.cs",
+  "line": 165,
+  "callee": "NaoEhNulo",
+  "callee_file": "Reserva.WMS3.Dominio/Shared/Validadores/ObjetoValidadorExtensao.cs"
+ },
+ {
+  "caller": "ValidarTipoEnderecoDaCaixa",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/DevolucoesEcommerce/OperacaoConferenciaDevolucaoEcommerceServico.cs",
+  "line": 248,
+  "callee": "ObterNomeTipoEndereco",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/EnderecoRepositorio.cs"
+ },
+ {
+  "caller": "ValidarTransferenciaPecaParcialAsync",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/ValidarMovimentacaoServico.cs",
+  "line": 36,
+  "callee": "ComValidacaoItensNaCaixaOrigem",
+  "callee_file": "Reserva.WMS3.Dominio/Modelo/DTO/Movimentacao/ValidacaoMovimentacaoOpcoes.cs"
+ },
+ {
+  "caller": "TransferirCaixaDeEnderecoCoreAsync",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs",
+  "line": 173,
+  "callee": "RemoverPorCaixaAsync",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/CaixaEnderecoRepositorio.cs"
+ },
+ {
+  "caller": "ObterReembolsoId",
+  "caller_file": "Reserva.WMS3.Infraestrutura/Servicos/DevolucoesEcommerce/AcertarReembolsoDevolucaoRastreada/AcertarReembolsoDevolucaoRastreadaServicoDominio.cs",
+  "line": 132,
+  "callee": "ValidarNuloEThrow",
+  "callee_file": "Reserva.WMS3.Dominio/Shared/Validadores/ObjetoValidadorExtensao.cs"
+ },
+ {
+  "caller": "ObterFaixaDeEnderecos",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/EnderecoServico.cs",
+  "line": 39,
+  "callee": "ObterRangeEndereco",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/EnderecoRepositorio.cs"
+ },
+ {
+  "caller": "BindCollection",
+  "caller_file": "UseReserva.DataAccess/Repositories/BaseRepository.cs",
+  "line": 268,
+  "callee": "SetValue",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/Global/RepositorioSomenteLeitura.cs"
+ },
+ {
+  "caller": "Remover",
+  "caller_file": "Reserva.WMS3.Dominio/Shared/Tratamentos/StringTratamentoExtensao.cs",
+  "line": 14,
+  "callee": "ENuloOuVazio",
+  "callee_file": "Reserva.WMS3.Dominio/Shared/Validadores/StringValidadorExtensao.cs"
+ },
+ {
+  "caller": "ProcessaInventarioRotativo",
+  "caller_file": "Reserva.WMS3.API/Controllers/InventarioRotativoController.cs",
+  "line": 81,
+  "callee": "SolicitarPermissao",
+  "callee_file": "Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoInventarioRotativoServico.cs"
+ },
+ {
+  "caller": "ProcessaInventarioRotativo",
+  "caller_file": "Reserva.WMS3.API/Controllers/InventarioRotativoController.cs",
+  "line": 65,
+  "callee": "BiparEndereco",
+  "callee_file": "Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoInventarioRotativoServico.cs"
+ },
+ {
+  "caller": "TransferirPecaTotalAsync",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs",
+  "line": 78,
+  "callee": "ValidarTransferenciaPecaTotalAsync",
+  "callee_file": "Reserva.WMS3.Aplicacao/Servicos/ValidarMovimentacaoServico.cs"
+ },
+ {
+  "caller": "ValidarEAplicarCupAsync",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/DevolucoesEcommerce/OperacaoConferenciaDevolucaoEcommerceServico.cs",
+  "line": 203,
+  "callee": "DefinirCodigoBarraProdutoAlterado",
+  "callee_file": "Reserva.WMS3.Dominio/Modelo/Entidade/DevolucoesEcommerce/Produtos/ProdutoDevolucaoEcommerce.cs"
+ },
+ {
+  "caller": "CriarPedidos",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/ECommerce/GerarOndaECommerceServico.cs",
+  "line": 283,
+  "callee": "AguardarAlocacaoColmeia",
+  "callee_file": "Reserva.WMS3.Dominio/Modelo/Entidade/ECommerce/Onda/PedidoOndaECommerce.cs"
+ },
+ {
+  "caller": "MapearSolicitacaoDistribuicao",
+  "caller_file": "Reserva.WMS3.Infraestrutura/Respositorios/CrossDocking/Distribuicao/MapearDataModelParaSolicitacaoDistribuicao.cs",
+  "line": 16,
+  "callee": "ENuloOuVazio",
+  "callee_file": "Reserva.WMS3.Dominio/Shared/Validadores/StringValidadorExtensao.cs"
+ },
+ {
+  "caller": "CarregaListasGeraCrossdocking",
+  "caller_file": "UseReserva.Web/Controllers/CrossdockingController.cs",
+  "line": 184,
+  "callee": "ObterListaNotaFiscalTriagemPor",
+  "callee_file": "Reserva.WMS3.Aplicacao/Servicos/NotaFiscalServico.cs"
+ },
+ {
+  "caller": "BiparCup",
+  "caller_file": "Reserva.WMS3.API/Controllers/DistribuicaoOndaCaixaColmeiaController.cs",
+  "line": 49,
+  "callee": "DefinirCamposExcecao",
+  "callee_file": "Reserva.WMS3.API/Helpers/ApiControllerExtensions.cs"
+ },
+ {
+  "caller": "GetSSOToken",
+  "caller_file": "Reserva.WMS3.Infraestrutura/Shared/Configurations/ReservaNetTokenConfigurationFactory.cs",
+  "line": 30,
+  "callee": "GetDescription",
+  "callee_file": "Reserva.WMS3.Global/Auxiliar/EnumHelper.cs"
+ },
+ {
+  "caller": "GerarMovimentacaoEstoqueDeSobra",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/ConferenciaNotaFiscal/SalvarConferenciaNotaFiscalServico.cs",
+  "line": 1094,
+  "callee": "ProcessarMovimentacaoAsync",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Integracoes/Linx/MovimentacaoEstoque/MovimentacaoEstoqueFachadaBase.cs"
+ },
+ {
+  "caller": "DeTipoPedidoParaTratamentoSistemico",
+  "caller_file": "Reserva.WMS3.Dominio/Modelo/Enumeradores/DevolucaoEcommerce/TratamentoSistemico.cs",
+  "line": 18,
+  "callee": "EhTipoQueProcessaEntradaDeTerceiros",
+  "callee_file": "Reserva.WMS3.Dominio/Modelo/Enumeradores/DevolucaoEcommerce/TipoPedidoDevolucaoECommerce.cs"
+ },
+ {
+  "caller": "ObterEValidarCaixasParaMovimentacaoAsync",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/DevolucoesEcommerce/OperacaoConferenciaDevolucaoEcommerceServico.cs",
+  "line": 217,
+  "callee": "ObterPorCodigoBarraAsync",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/CaixaRepositorio.cs"
+ },
+ {
+  "caller": "SalvarParametroMetaCluster",
+  "caller_file": "Reserva.WMS3.Infraestrutura/Integracoes/HubProdutividadeFachada.cs",
+  "line": 149,
+  "callee": "CreateApiBaseUrl",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Shared/Configurations/HubProdutividadeConfigurationFactory.cs"
+ },
+ {
+  "caller": "ObterListaParaUsuarioSemPermissao",
+  "caller_file": "UseReserva.Application/Services/PermissaoUsuarioService.cs",
+  "line": 22,
+  "callee": "ListaSemPermissao",
+  "callee_file": "UseReserva.DataAccess/Repositories/PermissaoUsuarioRepository.cs"
+ },
+ {
+  "caller": "RetirarCaixaDoTransporte",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoCrossdockingServico.cs",
+  "line": 848,
+  "callee": "MovimentaCaixa",
+  "callee_file": "Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs"
+ },
+ {
+  "caller": "ListarCaixas",
+  "caller_file": "Reserva.WMS3.API/Controllers/CaixaColmeiaController.cs",
+  "line": 66,
+  "callee": "RecuperarUsuarioLogado",
+  "callee_file": "Reserva.WMS3.API/Helpers/ApiControllerExtensions.cs"
+ },
+ {
+  "caller": "AuditarItensDaCaixaAsync",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/Auditoria/AuditoriaServico.cs",
+  "line": 472,
+  "callee": "DefinirStatus",
+  "callee_file": "Reserva.WMS3.Dominio/Modelo/Entidade/AuditoriaContexto/Auditoria.cs"
+ },
+ {
+  "caller": "ExecutarCancelamentoErp",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/PickingECommerceContexto/CancelarItemProdutoPickingECommerceServico.cs",
+  "line": 388,
+  "callee": "CancelarTotalAsync",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/PickingECommerceContexto/CancelarPedidoVendaRepositorio.cs"
+ },
+ {
+  "caller": "AdicionandoRegistrosPorItensInformados",
+  "caller_file": "Reserva.WMS3.Aplicacao/Servicos/Auditoria/AuditoriaServico.cs",
+  "line": 368,
+  "callee": "ObterGradePorProdutoEhTamanhoAsync",
+  "callee_file": "Reserva.WMS3.Infraestrutura/Respositorios/ProdutoRepositorio.cs"
+ }
+]

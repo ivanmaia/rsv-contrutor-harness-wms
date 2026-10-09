@@ -1,0 +1,18 @@
+sistema,aplicacao_icepanel,repo,url
+WMS,API Gateway Logística e Indústria,industria-logistica.reserva-net.api-gateway.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.reserva-net.api-gateway.backend
+WMS,Linx API,industria-logistica.wms.conector.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.conector.backend
+WMS,ReservaNet.Ecommerce API,industria-logistica.wms.ecommerce.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.ecommerce.backend
+WMS,ReservaNet.Ecommerce.UI,industria-logistica.wms.ecommerce.frontend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.ecommerce.frontend
+WMS,WMS3.WEB/WMS3.API/WMS3.TASKS,industria-logistica.wms.servidor.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.servidor.backend
+WMS,WMS3.Coletor,industria-logistica.wms.app.frontend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.app.frontend
+WMS,WMS3.IntelipostFinished,industria-logistica.wms.tms-finished.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.tms-finished.backend
+WMS,Full Picking B2B API,industria-logistica.wms.picking.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.picking.backend
+WMS,NOTIFIS B2B,industria-logistica.reserva-net.b2b.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.reserva-net.b2b.backend
+WMS,Printers API,industria-logistica.print-zebra.utilitario.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.print-zebra.utilitario.backend
+WMS,WMS3.Intelipost Services,industria-logistica.wms.tms.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.tms.backend
+WMS,Reservanet.SSO,industria-logistica.reserva-net.autenticacao.monolito,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.reserva-net.autenticacao.monolito
+WMS,Trakta,industria-logistica.wms.trakta.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.trakta.backend
+WMS,WMS.Produtividade.Backend,industria-logistica.wms.hubprodutividade.backend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.hubprodutividade.backend
+WMS,Full Picking UI,industria-logistica.wms.picking.frontend,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.picking.frontend
+AWX,AWX.*,industria-logistica.wms.awx.monorepo,https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.awx.monorepo
+Fly,Fly Frontend (Novo Backoffice),integracoes.core.plataforma.backoffice.frontend,https://dev.azure.com/ARECO/AReCO/_git/integracoes.core.plataforma.backoffice.frontend

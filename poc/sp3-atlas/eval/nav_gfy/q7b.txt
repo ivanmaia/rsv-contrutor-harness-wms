@@ -1,0 +1,13 @@
+Node: .ObterIdTipoPedidoAsync()
+  ID:        src_integrations_awx_integracaolegadowms_src_awx_integracaolegadowms_application_abstractions_iwmspedidosrepository_awx_integracaolegadowms_application_abstractions_iwmspedidosrepository_obteridtipopedidoasync
+  Source:    industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs L7
+  Type:      code
+  Community: IWmsPedidosRepository
+  Degree:    5
+
+Connections (5):
+  <-- .CriarAsync() [calls] [INFERRED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Pedidos/CriarPedidoWmsService.cs:L19
+  <-- IWmsPedidosRepository [method] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L7
+  --> .ObterIdTipoPedidoAsync() [dispatches_to] [INFERRED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Infra.Data/Repositories/WmsPedidosRepository.cs:L11
+  --> CancellationToken [references] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L7
+  --> Task [references] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L7

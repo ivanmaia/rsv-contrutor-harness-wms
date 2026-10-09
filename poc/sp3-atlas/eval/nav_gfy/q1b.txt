@@ -1,0 +1,13 @@
+Node: .AtualizaCaixaStatus()
+  ID:        reserva_wms3_aplicacao_servicos_caixaservico_reserva_wms3_aplicacao_servicos_caixaservico_atualizacaixastatus
+  Source:    industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs L111
+  Type:      code
+  Community: CaixaDTO
+  Degree:    5
+
+Connections (5):
+  --> CaixaDTO [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L113
+  --> enmStatus [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L111
+  <-- CaixaServico [method] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L111
+  <-- .AtualizaCaixaStatus() [dispatches_to] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L23
+  --> .AtualizarCaixaStatus() [calls] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L115

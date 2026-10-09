@@ -1,0 +1,9 @@
+Re-extracting code files in industria-logistica.wms.picking.frontend (no LLM needed)...
+[graphify watch] 27 file(s) not classified (no supported extension or shebang), skipped: .editorconfig, .gitignore, .gitkeep, Dockerfile, accordion.component.css, app.component.css (+21 more)
+  AST extraction: 100/177 uncached files (56%) [8 workers]
+  AST extraction: 177/177 uncached files (100%) [8 workers]
+  warning: 7 code file(s) yielded no symbols (0.00 MB) — a data file, or source this extractor models no symbols for: src/app/app.component.spec.ts, src/app/pages/pre-visualizacao-onda/pre-visualizacao-onda.component.spec.ts, src/assets/labels/errors.ts, src/assets/labels/session.ts, src/assets/labels/success.ts (+2 more)
+[graphify watch] Rebuilt: 1027 nodes, 2056 edges, 78 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in industria-logistica.wms.picking.frontend\graphify-out
+Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.
+Tip: set GEMINI_API_KEY or GOOGLE_API_KEY to use Gemini for semantic extraction.

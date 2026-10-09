@@ -1,0 +1,86 @@
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.print-zebra.utilitario.backend
+ * branch            main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.print-zebra.utilitario.backend'
+ws: adicionado repos/industria-logistica.print-zebra.utilitario.backend (17 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.reserva-net.api-gateway.backend
+ * branch            main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.reserva-net.api-gateway.backend'
+ws: adicionado repos/industria-logistica.reserva-net.api-gateway.backend (3 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.reserva-net.autenticacao.monolito
+ * branch            main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.reserva-net.autenticacao.monolito'
+ws: adicionado repos/industria-logistica.reserva-net.autenticacao.monolito (13 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.reserva-net.b2b.backend
+ * branch            main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.reserva-net.b2b.backend'
+ws: adicionado repos/industria-logistica.reserva-net.b2b.backend (3 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.app.frontend
+ * branch              main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.app.frontend'
+ws: adicionado repos/industria-logistica.wms.app.frontend (12 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.awx.monorepo
+ * branch              main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.awx.monorepo'
+ws: adicionado repos/industria-logistica.wms.awx.monorepo (33 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.conector.backend
+ * branch              main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.conector.backend'
+ws: adicionado repos/industria-logistica.wms.conector.backend (6 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.ecommerce.backend
+ * branch              main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.ecommerce.backend'
+ws: adicionado repos/industria-logistica.wms.ecommerce.backend (17 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.ecommerce.frontend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.ecommerce.frontend'
+ws: adicionado repos/industria-logistica.wms.ecommerce.frontend (14 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.hubprodutividade.backend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.hubprodutividade.backend'
+ws: adicionado repos/industria-logistica.wms.hubprodutividade.backend (4 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.picking.backend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.picking.backend'
+ws: adicionado repos/industria-logistica.wms.picking.backend (4 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.picking.frontend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.picking.frontend'
+ws: adicionado repos/industria-logistica.wms.picking.frontend (5 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.servidor.backend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.servidor.backend'
+ws: adicionado repos/industria-logistica.wms.servidor.backend (27 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.tms-finished.backend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.tms-finished.backend'
+ws: adicionado repos/industria-logistica.wms.tms-finished.backend (13 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.tms.backend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.tms.backend'
+ws: adicionado repos/industria-logistica.wms.tms.backend (3 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.trakta.backend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/industria-logistica.wms.trakta.backend'
+ws: adicionado repos/industria-logistica.wms.trakta.backend (4 s)
+warning: no common commits
+From https://dev.azure.com/ARECO/AReCO/_git/integracoes.core.plataforma.backoffice.frontend
+ * branch                main       -> FETCH_HEAD
+Added dir 'repos/integracoes.core.plataforma.backoffice.frontend'
+ws: adicionado repos/integracoes.core.plataforma.backoffice.frontend (10 s)
+rc=0 total=189s

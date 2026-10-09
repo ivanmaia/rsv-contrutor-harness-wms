@@ -1,0 +1,6 @@
+Ambiguous: 'ObterIdTipoPedidoAsync' matches 2 nodes in different files.
+  industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs
+    id: src_integrations_awx_integracaolegadowms_src_awx_integracaolegadowms_application_abstractions_iwmspedidosrepository_awx_integracaolegadowms_application_abstractions_iwmspedidosrepository_obteridtipopedidoasync
+  industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Infra.Data/Repositories/WmsPedidosRepository.cs
+    id: src_integrations_awx_integracaolegadowms_src_awx_integracaolegadowms_infra_data_repositories_wmspedidosrepository_awx_integracaolegadowms_infra_data_repositories_wmspedidosrepository_obteridtipopedidoasync
+Retry with path::symbol using one of the paths above (e.g. <path>::.ObterIdTipoPedidoAsync()) or the full node id.

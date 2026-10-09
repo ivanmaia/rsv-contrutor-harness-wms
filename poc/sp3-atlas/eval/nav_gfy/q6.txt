@@ -1,0 +1,19 @@
+Node: IWmsPedidosRepository
+  ID:        src_integrations_awx_integracaolegadowms_src_awx_integracaolegadowms_application_abstractions_iwmspedidosrepository_awx_integracaolegadowms_application_abstractions_iwmspedidosrepository
+  Source:    industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs L5
+  Type:      code
+  Community: IWmsPedidosRepository
+  Degree:    11
+
+Connections (11):
+  <-- .AddInfraData() [references] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Infra.Data/Configuration/DependencyInjectionExtensions.cs:L53
+  <-- WmsPedidosRepository [implements] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Infra.Data/Repositories/WmsPedidosRepository.cs:L11
+  <-- CriarPedidoWmsServiceTests [references] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/tests/AWX.IntegracaoLegadoWMS.Tests/Pedidos/CriarPedidoWmsServiceTests.cs:L10
+  <-- AtualizarStatusPedidoWmsServiceTests [references] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/tests/AWX.IntegracaoLegadoWMS.Tests/Pedidos/AtualizarStatusPedidoWmsServiceTests.cs:L9
+  <-- AtualizarStatusPedidoWmsService [references] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Pedidos/AtualizarStatusPedidoWmsService.cs:L9
+  <-- CriarPedidoWmsService [references] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Pedidos/CriarPedidoWmsService.cs:L10
+  --> .InserirAsync() [method] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L9
+  --> .AtualizarStatusAsync() [method] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L10
+  --> .ObterIdTipoPedidoAsync() [method] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L7
+  --> .ExisteAsync() [method] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L8
+  <-- IWmsPedidosRepository.cs [contains] [EXTRACTED] industria-logistica.wms.awx.monorepo/src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs:L5

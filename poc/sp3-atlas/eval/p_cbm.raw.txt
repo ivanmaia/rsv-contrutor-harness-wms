@@ -1,0 +1,40 @@
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["GerarPedidoVenda","Reserva.WMS3.Aplicacao/Servicos/NotaFiscalContexto/LiberarNotaFiscalServico.cs","128","153","GerarPedidoVendaRequisicao"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["MapearOrdemReservaVarejo","Reserva.WMS3.Infraestrutura/Respositorios/CrossDocking/SolicitacoesOrdemReservaVarejo/MapearDataModelParaOrdemReservaVarejo.cs","13","40","CriarRequisicao"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["ObterInternalAsync","Reserva.WMS3.Infraestrutura/Respositorios/NotaFiscal/OperacaoConferenciaRepositorio.cs","33","57","DefinirVolumes"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["Executar_DeveRetornarOperadorComHorasOnline_QuandoCheckinSemCheckout","Reserva.WMS3.Testes/Servicos/ECommerce/AlocacaoAutomatica/CalcularPainelMonitoramentoOperadoresServicoTestes.cs","24","52","CheckinCheckoutOperadorEGestorDto"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["Executar","Reserva.WMS3.Aplicacao/Servicos/CrossDocking/ObterFiliaisCrossDockingServicoAplicacao.cs","21","26","ValidarNuloEThrow"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["ObterAsync","Reserva.WMS3.Infraestrutura/Respositorios/DevolucoesEcommerce/ConferenciaProdutoDevolucaoEcommerceRepositorio.cs","28","39","ObterSqlSelectBase"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["FindOperadorAtividade","UseReserva.Application/Services/OperadorAtividadeDistribuicaoService.cs","16","19","FindOperadorAtividade"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["DeveNaoSerUsuarioComPermissao","Reserva.WMS3.Testes/Infraestrutura/Querys/ObterPermissaoCancelarPedidoPickingECommerce/ObterPermissaoCancelarPedidoPickingECommerceQueryTestes.cs","25","27","FiltroUsuario"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["Executar","Reserva.WMS3.Aplicacao/Servicos/Clusters/AlocarOperadorNoClusterServico.cs","48","122","ValidarMenorOuIgualQueZeroEThrow"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["SolicitaPermissao","Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoAuditoriaServico.cs","288","327","NaoEhNuloOuVazio"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["ObterDevolucoes","Reserva.WMS3.API/Controllers/DevolucaoEcommerce/DevolucaoEcommerceController.cs","45","56","TemElementos"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["LoadBagsFiltro","UseReserva.Web/Controllers/NotaFiscalController.cs","324","348","ObterListaPorAsync"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[["Executar","Reserva.WMS3.Aplicacao/Servicos/ECommerce/ExcluirAtividadePickingECommerceServico.cs","30","61","AguardarAlocacao"]],"returned":1,"total":1,"total_relation":"eq","has_more":false,"truncated":false}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[],"returned":0,"total":0,"total_relation":"eq","has_more":false,"truncated":false,"hint":"Query returned no results. Use get_graph_schema() to see available labels and edge types."}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[],"returned":0,"total":0,"total_relation":"eq","has_more":false,"truncated":false,"hint":"Query returned no results. Use get_graph_schema() to see available labels and edge types."}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[],"returned":0,"total":0,"total_relation":"eq","has_more":false,"truncated":false,"hint":"Query returned no results. Use get_graph_schema() to see available labels and edge types."}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[],"returned":0,"total":0,"total_relation":"eq","has_more":false,"truncated":false,"hint":"Query returned no results. Use get_graph_schema() to see available labels and edge types."}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[],"returned":0,"total":0,"total_relation":"eq","has_more":false,"truncated":false,"hint":"Query returned no results. Use get_graph_schema() to see available labels and edge types."}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[],"returned":0,"total":0,"total_relation":"eq","has_more":false,"truncated":false,"hint":"Query returned no results. Use get_graph_schema() to see available labels and edge types."}
+
+{"columns":["a.name","a.file_path","a.start_line","a.end_line","b.name"],"rows":[],"returned":0,"total":0,"total_relation":"eq","has_more":false,"truncated":false,"hint":"Query returned no results. Use get_graph_schema() to see available labels and edge types."}
+

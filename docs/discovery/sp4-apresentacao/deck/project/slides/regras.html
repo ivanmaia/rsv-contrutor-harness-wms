@@ -1,0 +1,19 @@
+<section id="regras" data-transition="fade" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Três regras que não se quebram</h2>
+<div style="display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:row;gap:40px;align-items:flex-start">
+<p style="font-size:40px;font-weight:700;color:#b5452f;width:64px">1</p>
+<p style="font-size:32px;line-height:1.4;width:1500px">Nunca rode <span style="color:#2f5f7f">git push</span> para os repos nem <span style="color:#2f5f7f">git subtree</span> à mão: quem envia é o <span style="color:#2f5f7f">ws push</span>.</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:40px;align-items:flex-start">
+<p style="font-size:40px;font-weight:700;color:#b5452f;width:64px">2</p>
+<p style="font-size:32px;line-height:1.4;width:1500px">Dentro de <span style="color:#2f5f7f">repos/&lt;repo&gt;/</span>, não crie nem altere <span style="color:#2f5f7f">.specify/</span>, <span style="color:#2f5f7f">specs/</span> e <span style="color:#2f5f7f">.claude/skills/speckit-*</span>.</p>
+</div>
+<div style="display:flex;flex-direction:row;gap:40px;align-items:flex-start">
+<p style="font-size:40px;font-weight:700;color:#b5452f;width:64px">3</p>
+<p style="font-size:32px;line-height:1.4;width:1500px">Durante uma feature, não altere o harness. Achou um problema nele? Registre para o time do harness.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 16/24</p>
+<aside>As regras vêm da camada 1. A primeira: o envio passa pelo ws push, que sabe separar as mudanças de cada repo. A segunda: esses arquivos são do time dono do repo, e o ws push recusa a branch se eles mudarem. A terceira: o harness é tools, .specify, .claude e AGENTS.md; mudanças nele vão numa branch própria. Tempo: 1,5 min</aside>
+</section>

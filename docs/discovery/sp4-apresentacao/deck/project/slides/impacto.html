@@ -1,0 +1,13 @@
+<section id="impacto" data-transition="fade" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Quem toca esta tabela?</h2>
+<div style="background:#1d2433;color:#f6f4ef;border-radius:16px;padding:40px 48px;display:flex;flex-direction:column;gap:12px;font-family:'IBM Plex Mono', Consolas, monospace">
+<p style="font-size:24px;color:#e8846f">docs/atlas/impacto · Audit.DBO.ADT_CAIXA (resumida)</p>
+<p style="font-size:28px">### banco WMS</p>
+<p style="font-size:28px">- WMS.dbo.tr_CAIXA_Insert (trigger) — distância 1</p>
+<p style="font-size:28px">### industria-logistica.wms.servidor.backend</p>
+<p style="font-size:28px">- servidor.backend (código) — distância 2, via a trigger; db-write em WMS.dbo.Caixa</p>
+</div>
+<p style="font-size:32px;line-height:1.4">O código grava em <span style="color:#2f5f7f">WMS.dbo.Caixa</span>; a trigger dessa tabela grava no Audit. Mudar a tabela do Audit afeta quem grava em <span style="color:#2f5f7f">Caixa</span>.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 19/24</p>
+<aside>Exemplo real, o mesmo da camada 3. Cada página de impacto diz quem é afetado, a distância e por onde o impacto chega. Código e jobs são as pontas. Só ganha página o objeto que algum repo ou job do WMS alcança. Para achar a página, procure o objeto em docs/atlas/impacto/indice.csv, ou pergunte ao agente: quem é afetado se eu mudar a tabela WMS.dbo.Caixa? Tempo: 2,5 min</aside>
+</section>

@@ -1,0 +1,31 @@
+Node: OndaService
+  ID:        src_app_services_onda_service_ondaservice
+  Source:    industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts L22
+  Type:      code
+  Community: OndaService
+  Degree:    23
+
+Connections (23):
+  <-- ondas.component.ts [imports] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/ondas/ondas.component.ts:L9
+  <-- onda.service.ts [contains] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L22
+  <-- detalhes-onda-colmeia.component.ts [imports] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/detalhes-onda-colmeia/detalhes-onda-colmeia.component.ts:L3
+  <-- pre-visualizacao-onda.component.ts [imports] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/pre-visualizacao-onda/pre-visualizacao-onda.component.ts:L11
+  <-- detalhes-onda.component.ts [imports] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/detalhes-onda/detalhes-onda.component.ts:L5
+  <-- .constructor() [references] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/ondas/ondas.component.ts:L115
+  --> .getOndasPaginado() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L25
+  --> .getDetalhes() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L36
+  --> .postGerarOnda() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L65
+  --> .postForcarEnvioRepescagem() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L98
+  --> .getAtividades() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L42
+  --> .getQuantidadePecasDisponiveisPorZona() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L48
+  --> .getPrevisualizacoesGerarOnda() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L56
+  --> .getStatusOnda() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L69
+  --> .putAlocarOperador() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L73
+  --> .putAlterarOperadorAlocado() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L80
+  --> .putAlocarOperadorZona() [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L87
+  <-- .constructor() [references] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/detalhes-onda-colmeia/detalhes-onda-colmeia.component.ts:L60
+  <-- .constructor() [references] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/detalhes-onda/detalhes-onda.component.ts:L43
+  <-- .constructor() [references] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/pages/pre-visualizacao-onda/pre-visualizacao-onda.component.ts:L27
+  ... and 3 more
+  Grouped by file:
+    --> industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts: 3 connections

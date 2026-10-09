@@ -1,0 +1,63 @@
+Re-extracting code files in industria-logistica.wms.servidor.backend (no LLM needed)...
+[graphify watch] 149 file(s) not classified (no supported extension or shebang), skipped: .editorconfig, .gitignore, AdminLTE.min.css, FontAwesome.otf, Global.asax, NLog.config (+143 more)
+  AST extraction: 100/5137 uncached files (1%) [8 workers]
+  AST extraction: 200/5137 uncached files (3%) [8 workers]
+  AST extraction: 300/5137 uncached files (5%) [8 workers]
+  AST extraction: 400/5137 uncached files (7%) [8 workers]
+  AST extraction: 500/5137 uncached files (9%) [8 workers]
+  AST extraction: 600/5137 uncached files (11%) [8 workers]
+  AST extraction: 700/5137 uncached files (13%) [8 workers]
+  AST extraction: 800/5137 uncached files (15%) [8 workers]
+  AST extraction: 900/5137 uncached files (17%) [8 workers]
+  AST extraction: 1000/5137 uncached files (19%) [8 workers]
+  AST extraction: 1100/5137 uncached files (21%) [8 workers]
+  AST extraction: 1200/5137 uncached files (23%) [8 workers]
+  AST extraction: 1300/5137 uncached files (25%) [8 workers]
+  AST extraction: 1400/5137 uncached files (27%) [8 workers]
+  AST extraction: 1500/5137 uncached files (29%) [8 workers]
+  AST extraction: 1600/5137 uncached files (31%) [8 workers]
+  AST extraction: 1700/5137 uncached files (33%) [8 workers]
+  AST extraction: 1800/5137 uncached files (35%) [8 workers]
+  AST extraction: 1900/5137 uncached files (36%) [8 workers]
+  AST extraction: 2000/5137 uncached files (38%) [8 workers]
+  AST extraction: 2100/5137 uncached files (40%) [8 workers]
+  AST extraction: 2200/5137 uncached files (42%) [8 workers]
+  AST extraction: 2300/5137 uncached files (44%) [8 workers]
+  AST extraction: 2400/5137 uncached files (46%) [8 workers]
+  AST extraction: 2500/5137 uncached files (48%) [8 workers]
+  AST extraction: 2600/5137 uncached files (50%) [8 workers]
+  AST extraction: 2700/5137 uncached files (52%) [8 workers]
+  AST extraction: 2800/5137 uncached files (54%) [8 workers]
+  AST extraction: 2900/5137 uncached files (56%) [8 workers]
+  AST extraction: 3000/5137 uncached files (58%) [8 workers]
+  AST extraction: 3100/5137 uncached files (60%) [8 workers]
+  AST extraction: 3200/5137 uncached files (62%) [8 workers]
+  AST extraction: 3300/5137 uncached files (64%) [8 workers]
+  AST extraction: 3400/5137 uncached files (66%) [8 workers]
+  AST extraction: 3500/5137 uncached files (68%) [8 workers]
+  AST extraction: 3600/5137 uncached files (70%) [8 workers]
+  AST extraction: 3700/5137 uncached files (72%) [8 workers]
+  AST extraction: 3800/5137 uncached files (73%) [8 workers]
+  AST extraction: 3900/5137 uncached files (75%) [8 workers]
+  AST extraction: 4000/5137 uncached files (77%) [8 workers]
+  AST extraction: 4100/5137 uncached files (79%) [8 workers]
+  AST extraction: 4200/5137 uncached files (81%) [8 workers]
+  AST extraction: 4300/5137 uncached files (83%) [8 workers]
+  AST extraction: 4400/5137 uncached files (85%) [8 workers]
+  AST extraction: 4500/5137 uncached files (87%) [8 workers]
+  AST extraction: 4600/5137 uncached files (89%) [8 workers]
+  AST extraction: 4700/5137 uncached files (91%) [8 workers]
+  AST extraction: 4800/5137 uncached files (93%) [8 workers]
+  AST extraction: 4900/5137 uncached files (95%) [8 workers]
+  AST extraction: 5000/5137 uncached files (97%) [8 workers]
+  AST extraction: 5100/5137 uncached files (99%) [8 workers]
+  AST extraction: 5137/5137 uncached files (100%) [8 workers]
+  warning: 1 file(s) had syntax errors and may be partially extracted: UseReserva.Web/Scripts/_references.js (first error at line 1, no symbols extracted)
+  warning: 508 code file(s) yielded no symbols (4.40 MB) — a data file, or source this extractor models no symbols for: Reserva.WMS3.API/Properties/AssemblyInfo.cs, Reserva.WMS3.Aplicacao/Properties/AssemblyInfo.cs, Reserva.WMS3.Dominio/Modelo/Entidade/CrossDocking/Solicitacoes/OrdensReservas/OrdemReservaTransferenciaEstoqueSolicitacaoCrossDockingFabrica.cs, Reserva.WMS3.Dominio/Properties/AssemblyInfo.cs, Reserva.WMS3.Global/Properties/AssemblyInfo.cs (+503 more)
+Graph has 36676 nodes (above 5000 limit). Building aggregated community view...
+graph.html written (aggregated: 1852 community nodes, 6123 cross-community edges)
+Tip: run with --obsidian for full node-level detail.
+[graphify watch] Rebuilt: 36676 nodes, 85833 edges, 1852 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in industria-logistica.wms.servidor.backend\graphify-out
+Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.
+Tip: set GEMINI_API_KEY or GOOGLE_API_KEY to use Gemini for semantic extraction.

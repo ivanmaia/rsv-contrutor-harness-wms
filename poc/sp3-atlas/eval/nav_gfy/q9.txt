@@ -1,0 +1,12 @@
+Node: .postGerarOnda()
+  ID:        src_app_services_onda_service_ondaservice_postgeraronda
+  Source:    industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts L65
+  Type:      code
+  Community: PreVisualizacaoOndaComponent
+  Degree:    4
+
+Connections (4):
+  <-- OndaService [method] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L65
+  --> Onda [references] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L65
+  --> GerarOndaPayload [references] [EXTRACTED] industria-logistica.wms.picking.frontend/src/app/services/onda.service.ts:L65
+  <-- .gerarOnda() [calls] [INFERRED] industria-logistica.wms.picking.frontend/src/app/pages/pre-visualizacao-onda/pre-visualizacao-onda.component.ts:L126

@@ -1,0 +1,17 @@
+Node: .TransferirPecaTotalAsync()
+  ID:        reserva_wms3_aplicacao_servicos_movimentacaoservico_reserva_wms3_aplicacao_servicos_movimentacaoservico_transferirpecatotalasync
+  Source:    industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs L70
+  Type:      code
+  Community: TransferirPecaTotalObjetoValor
+  Degree:    9
+
+Connections (9):
+  <-- MovimentacaoServico [method] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L70
+  --> .ProcessarEPersistirMovimentacoesAsync() [calls] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L80
+  --> TransferirPecaTotalObjetoValor [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L70
+  --> Task [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L70
+  --> .ExecutarAsync() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L72
+  <-- .TransferirPecaTotal_DeveChamarValidacaoEAtualizarItens() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Testes/Aplicacao/Movimentacao/TransferirPecaTotalTestes.cs:L135
+  --> .ValidarTransferenciaPecaTotalAsync() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L78
+  <-- .TransferirPecaTotalAsync() [dispatches_to] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L21
+  --> .ParaTransferenciaTotal() [calls] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs:L73

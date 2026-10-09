@@ -1,0 +1,24 @@
+Re-extracting code files in industria-logistica.wms.awx.monorepo (no LLM needed)...
+[graphify watch] 48 file(s) not classified (no supported extension or shebang), skipped: .dockerignore, .editorconfig, .gitignore, .gitkeep, AWX.Checkout.Ui.WebApi.http, Awx.ErpConnector.Ui.WebApi.http (+42 more)
+  AST extraction: 100/1316 uncached files (7%) [8 workers]
+  AST extraction: 200/1316 uncached files (15%) [8 workers]
+  AST extraction: 300/1316 uncached files (22%) [8 workers]
+  AST extraction: 400/1316 uncached files (30%) [8 workers]
+  AST extraction: 500/1316 uncached files (37%) [8 workers]
+  AST extraction: 600/1316 uncached files (45%) [8 workers]
+  AST extraction: 700/1316 uncached files (53%) [8 workers]
+  AST extraction: 800/1316 uncached files (60%) [8 workers]
+  AST extraction: 900/1316 uncached files (68%) [8 workers]
+  AST extraction: 1000/1316 uncached files (75%) [8 workers]
+  AST extraction: 1100/1316 uncached files (83%) [8 workers]
+  AST extraction: 1200/1316 uncached files (91%) [8 workers]
+  AST extraction: 1300/1316 uncached files (98%) [8 workers]
+  AST extraction: 1316/1316 uncached files (100%) [8 workers]
+  warning: 28 code file(s) yielded no symbols (0.05 MB) — a data file, or source this extractor models no symbols for: src/Integrations/AWX.ERP.Connector/src/Presentation/AWX.ERP.Connector.Api/Program.cs, src/Integrations/AWX.ERP.Connector/src/Presentation/AWX.ERP.Connector.Worker/Program.cs, src/Integrations/AWX.Impressao/src/Application/Awx.Impressao.Application/GlobalUsings.cs, src/Integrations/AWX.Impressao/src/Presentation/AWX.Impressao.Api/GlobalUsings.cs, src/Integrations/AWX.Impressao/src/Presentation/AWX.Impressao.Api/Program.cs (+23 more)
+Graph has 11242 nodes (above 5000 limit). Building aggregated community view...
+graph.html written (aggregated: 489 community nodes, 1815 cross-community edges)
+Tip: run with --obsidian for full node-level detail.
+[graphify watch] Rebuilt: 11242 nodes, 24436 edges, 489 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in industria-logistica.wms.awx.monorepo\graphify-out
+Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.
+Tip: set GEMINI_API_KEY or GOOGLE_API_KEY to use Gemini for semantic extraction.

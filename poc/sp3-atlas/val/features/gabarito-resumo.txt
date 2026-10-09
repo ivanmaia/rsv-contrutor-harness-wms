@@ -1,0 +1,104 @@
+##### A
+== 16513 wms.awx.monorepo {'src/Integrations/AWX.ERP.Connector': 11, 'src/Integrations/AWX.IntegracaoLegadoWMS': 12, 'src/BuildingBlocks/AWX.SharedKernel': 1}
+     add Awx.ErpConnector.Application/Abstractions/ILinxAuditoriaMovimentacaoClient.cs
+     add Awx.ErpConnector.Application/Auditoria/LinxAuditoriaMovimentacaoClient.cs
+     add AWX.IntegracaoLegadoWMS.Api/Endpoints/AuditoriaEndpoints.cs
+     add AWX.ERP.Connector.Api/Endpoints/AuditoriaEndpoints.cs
+     edit Awx.ErpConnector.Core/Integrations/LinxIntegrationHttpClients.cs
+     add Awx.IntegracaoLegadoWms.Infra.Data/Http/ErpConnectorAuditoriaClient.cs
+     edit AWX.SharedKernel/Http/AwxHttpClientBase.cs
+     add Awx.IntegracaoLegadoWms.Application/Abstractions/IErpConnectorAuditoriaClient.cs
+== 16514 wms.servidor.backend {'Reserva.WMS3.Aplicacao/Reserva.WMS3.Aplicacao.csproj': 1, 'Reserva.WMS3.Aplicacao/Servicos/Auditoria': 1, 'Reserva.WMS3.Dominio/Modelo/DTO': 1, 'Reserva.WMS3.Aplicacao/packages.config': 1, 'Reserva.WMS3.Dominio/Reserva.WMS3.Dominio.csproj': 1, 'Reserva.WMS3.Aplicacao/app.config': 1, 'Reserva.WMS3.Inicializacao/Reserva.WMS3.Inicializacao.csproj': 1, 'Reserva.WMS3.Inicializacao/InjecaoDependenciaResolver/AddIntegracoesResolver.cs': 1, 'Reserva.WMS3.Infraestrutura/Respositorios/ProdutoRepositorio.cs': 1, 'Reserva.WMS3.Infraestrutura/Reserva.WMS3.Infraestrutura.csproj': 1, 'Reserva.WMS3.Infraestrutura/Shared/Configurations': 1, 'Reserva.WMS3.Infraestrutura/packages.config': 1, 'Reserva.WMS3.Inicializacao/packages.config': 1, 'Reserva.WMS3.Inicializacao/app.config': 1, 'Reserva.WMS3.Infraestrutura/Integracoes/IntegracaoLegadoFachada.cs': 1, 'Reserva.WMS3.Dominio/Interfaces/Integracoes': 1, 'Reserva.WMS3.Tasks/Web.config': 1, 'Reserva.WMS3.Inicializacao/InjecaoDependenciaResolver/AddServicosAplicacaoResolver.cs': 1, 'Reserva.WMS3.API/Controllers/AuditoriaController.cs': 1}
+     edit Reserva.WMS3.Infraestrutura/Respositorios/ProdutoRepositorio.cs
+     edit Reserva.WMS3.API/Controllers/AuditoriaController.cs
+== 16642 integracoes.wms.servicos-linx-wms.monorepo {'src/Awx.LinxIntegracao.Application/DependencyInjection.cs': 1, 'src/Awx.LinxIntegracao.Application/Dtos': 1, 'src/Awx.LinxIntegracao.Domain/Dtos': 1, 'src/Awx.LinxIntegracao.Application/UseCases': 2, 'src/Awx.LinxIntegracao.Application/Validators': 1, 'src/Awx.LinxIntegracao.Application/Contracts': 1, 'src/Awx.LinxIntegracao.Infrastructure/DependencyInjection.cs': 1, 'src/Awx.LinxIntegracao.Presentation/Awx.LinxIntegracao.Ui.WebApi': 2, 'scripts/sql/72196-parametrizacao-filial-auditoria.sql': 1, 'src/Awx.LinxIntegracao.Domain/Ports': 1, 'AGENTS.md': 1, 'src/Awx.LinxIntegracao.Infrastructure/Data': 1}
+     add Awx.LinxIntegracao.Ui.WebApi/Endpoints/AuditoriaMovimentacaoEndpoints.cs
+     add scripts/sql/72196-parametrizacao-filial-auditoria.sql
+     add Awx.LinxIntegracao.Domain/Ports/IAuditoriaMovimentacaoRepository.cs
+     add Data/Repositories/AuditoriaMovimentacaoRepository.cs
+##### B
+== 16647 wms.ecommerce.backend {'sql/Checkout/carga-inicial-checkout.parametrizacao_embalagem_presente.sql': 1, 'sql/Checkout/create-table-checkout.parametrizacao_embalagem_presente.sql': 1, 'sql/Checkout/create-table-checkout.parametrizacao_exigencia_bipe.sql': 1, 'src/ReservaNet.ECommerce.API/Controllers': 1, 'sql/Checkout/pr_RESERVANET_ECOMMERCE_DETALHE_PEDIDO_CHECKOUT.sql': 1, 'src/ReservaNet.ECommerce.Commands.Abstractions/SalvarParametrizacaoEmbalagemPresenteCommand': 2, 'src/ReservaNet.ECommerce.Commands/SalvarParametrizacaoEmbalagemPresente': 1, 'src/ReservaNet.ECommerce.Commands.Abstractions/SalvarParametrizacaoExigenciaBipeCommand': 2, 'src/ReservaNet.ECommerce.Commands/SalvarParametrizacaoExigenciaBipe': 1, 'src/ReservaNet.ECommerce.Infra.Repositories/Repositories': 4, 'src/ReservaNet.ECommerce.Domain/Checkout': 8, 'src/ReservaNet.ECommerce.Infra.Repositories.Abstractions/Repositories': 4, 'src/ReservaNet.ECommerce.Queries.Abstractions/DetalhesPedidoCheckout': 1, 'sql/Checkout/create-table-checkout.parametrizacao_valor_aviso_caixa.sql': 1, 'src/ReservaNet.ECommerce.Commands.Abstractions/SalvarParametrizacaoValorAvisoCaixaCommand': 2, 'src/ReservaNet.ECommerce.Queries/ObterParametrizacaoExigenciaBipe': 1, 'src/ReservaNet.ECommerce.Queries.Abstractions/ObterParametrizacaoEmbalagemPresente': 1, 'src/ReservaNet.ECommerce.Queries/DetalhesPedidoCheckout': 1, 'src/ReservaNet.ECommerce.Commands/SalvarParametrizacaoValorAvisoCaixa': 1, 'sql/Checkout/carga-inicial-checkout.parametrizacao_valor_aviso_caixa.sql': 1, 'src/ReservaNet.ECommerce.Queries/ObterParametrizacaoValorAvisoCaixa': 1, 'sql/pr_RESERVANET_ECOMMERCE_PEDIDO_OBTER_ALERTAS.sql': 1, 'src/ReservaNet.ECommerce.Queries.Abstractions/ObterParametrizacaoValorAvisoCaixa': 1, 'src/ReservaNet.ECommerce.DomainServices/ObterAlertasPedidoCheckoutDomainService': 1, 'src/ReservaNet.ECommerce.Queries/ObterParametrizacaoEmbalagemPresente': 1, 'src/ReservaNet.ECommerce.Queries.Abstractions/ObterParametrizacaoExigenciaBipe': 1}
+     add sql/Checkout/carga-inicial-checkout.parametrizacao_embalagem_presente.sql
+     add sql/Checkout/create-table-checkout.parametrizacao_embalagem_presente.sql
+     add sql/Checkout/create-table-checkout.parametrizacao_exigencia_bipe.sql
+     edit ReservaNet.ECommerce.API/Controllers/CheckoutController.cs
+     edit sql/Checkout/pr_RESERVANET_ECOMMERCE_DETALHE_PEDIDO_CHECKOUT.sql
+     add ReservaNet.ECommerce.Infra.Repositories/Repositories/MarcaCheckoutRepository.cs
+     add ReservaNet.ECommerce.Infra.Repositories/Repositories/ParametrizacaoExigenciaBipeRepository.cs
+     add ReservaNet.ECommerce.Infra.Repositories/Repositories/ParametrizacaoEmbalagemPresenteRepository.cs
+     add ReservaNet.ECommerce.Infra.Repositories.Abstractions/Repositories/IMarcaCheckoutRepository.cs
+     add ReservaNet.ECommerce.Infra.Repositories.Abstractions/Repositories/IParametrizacaoExigenciaBipeRepository.cs
+     add ReservaNet.ECommerce.Infra.Repositories.Abstractions/Repositories/IParametrizacaoEmbalagemPresenteRepository.cs
+     add sql/Checkout/create-table-checkout.parametrizacao_valor_aviso_caixa.sql
+     add ReservaNet.ECommerce.Infra.Repositories.Abstractions/Repositories/IParametrizacaoValorAvisoCaixaRepository.cs
+     add sql/Checkout/carga-inicial-checkout.parametrizacao_valor_aviso_caixa.sql
+     edit sql/pr_RESERVANET_ECOMMERCE_PEDIDO_OBTER_ALERTAS.sql
+     add ReservaNet.ECommerce.Infra.Repositories/Repositories/ParametrizacaoValorAvisoCaixaRepository.cs
+== 16648 wms.ecommerce.frontend {'src/app/app.module.ts': 1, 'src/app/modules': 10, 'angular.json': 1, 'package.json': 1, 'src/environments/environment.prod-gcp.ts': 1, 'esteiras/build-validation.yml': 1, 'esteiras/pipeline.yml': 1}
+     edit pages/checkout-parametrizacoes/checkout-parametrizacoes.component.ts
+     add services/ecommerce-service/parametrizacao-valor-aviso-caixa.service.ts
+     add services/ecommerce-service/parametrizacao-exigencia-bipe.service.ts
+     add services/ecommerce-service/parametrizacao-embalagem-presente.service.ts
+##### C
+== 16790 wms.ecommerce.backend {'src/ReservaNet.ECommerce.API/Controllers': 1, 'src/ReservaNet.ECommerce.Domain/Checkout': 6, 'src/ReservaNet.ECommerce.Infra.Repositories/Repositories': 1, 'src/ReservaNet.ECommerce.Infra.Repositories.Abstractions/Repositories': 1, 'src/ReservaNet.ECommerce.Queries/ObterTrilhaParametrizacao': 1, 'src/ReservaNet.ECommerce.Queries.Abstractions/ObterTrilhaParametrizacao': 1}
+     edit ReservaNet.ECommerce.API/Controllers/CheckoutController.cs
+     add ReservaNet.ECommerce.Infra.Repositories/Repositories/ParametrizacaoTrilhaRepository.cs
+     add ReservaNet.ECommerce.Infra.Repositories.Abstractions/Repositories/IParametrizacaoTrilhaRepository.cs
+== 16791 wms.ecommerce.frontend {'src/app/modules': 6}
+     edit components/login-wms/login-wms.component.ts
+     add services/ecommerce-service/trilha-parametrizacao.service.ts
+     edit pages/checkout-parametrizacoes/checkout-parametrizacoes.component.ts
+##### D
+== 16278 wms.awx.monorepo {'.claude/skills/qualidade-codigo': 3, 'src/Integrations/AWX.ERP.Connector': 4, 'src/Services/AWX.Estoque': 9}
+     edit Awx.ErpConnector.Application/Produtos/AwxEstoqueProdutosClient.cs
+     edit AWX.Estoque.Api/Endpoints/ProdutosEndpoints.cs
+     add AWX.Estoque.Infra.Data/Migrations/20260909172049_AddClassificacaoProdutos.cs
+     add AWX.Estoque.Infra.Data/Migrations/20260909172049_AddClassificacaoProdutos.Designer.cs
+     edit AWX.Estoque.Infra.Data/Migrations/EstoqueDbContextModelSnapshot.cs
+== 16277 integracoes.wms.servicos-linx-wms.monorepo {'src/Awx.LinxIntegracao.Domain/Dtos': 1, 'src/Awx.LinxIntegracao.Infrastructure/Data': 1}
+     edit Data/Repositories/ProdutoLinxRepository.cs
+== 16320 integracoes.wms.servicos-linx-wms.monorepo {'.gitignore': 1, 'src/Awx.LinxIntegracao.Application/DependencyInjection.cs': 1, 'src/Awx.LinxIntegracao.Application/UseCases': 4, 'src/Awx.LinxIntegracao.Domain/Ports': 2, 'src/Awx.LinxIntegracao.Infrastructure/DependencyInjection.cs': 1, 'src/Awx.LinxIntegracao.Infrastructure/Data': 2, 'src/Awx.LinxIntegracao.Domain/Exceptions': 1, 'src/Awx.LinxIntegracao.Domain/Dtos': 2, 'src/Awx.LinxIntegracao.Presentation/Awx.LinxIntegracao.Ui.WebApi': 3}
+     add Awx.LinxIntegracao.Domain/Ports/IProdutoPorSkuRepository.cs
+     add Data/Repositories/ProdutoPorCupRepository.cs
+     add Awx.LinxIntegracao.Domain/Ports/IProdutoPorCupRepository.cs
+     add Data/Repositories/ProdutoPorSkuRepository.cs
+     add Awx.LinxIntegracao.Ui.WebApi/Endpoints/ProdutoEndpoints.cs
+== 16356 wms.awx.monorepo {'src/Contracts/AWX.Contracts.Integration': 1, 'src/Integrations/AWX.ERP.Connector': 17}
+     add Awx.ErpConnector.Application/Produtos/LinxProdutoPorSkuClient.cs
+     add Awx.ErpConnector.Application/Produtos/ILinxProdutoPorSkuClient.cs
+     edit Awx.ErpConnector.Core/Integrations/LinxIntegrationHttpClients.cs
+     add Awx.ErpConnector.Application/ProdutosCup/ILinxProdutoPorCupClient.cs
+     add Awx.ErpConnector.Application/ProdutosCup/LinxProdutoPorCupClient.cs
+     edit AWX.ERP.Connector.Api/Endpoints/ProdutosCupEndpoints.cs
+     edit AWX.ERP.Connector.Api/Endpoints/ProdutosEndpoints.cs
+== 16397 wms.awx.monorepo {'src/Contracts/AWX.Contracts.Integration': 2, 'src/Services/AWX.Estoque': 16, 'src/BuildingBlocks/AWX.SharedKernel': 1}
+     edit AWX.Estoque.Api/Endpoints/ProdutosEndpoints.cs
+     add AWX.Estoque.Application/Interfaces/IErpConnectorProdutosClient.cs
+     add AWX.Estoque.Infra.Data/Http/ErpConnectorProdutosClient.cs
+     add AWX.SharedKernel/Http/AwxHttpClientBase.cs
+== 16481 wms.awx.monorepo {'.config/dotnet-tools.json': 1, 'CLAUDE.md': 1, 'src/Integrations/AWX.ERP.Connector': 1, 'src/Contracts/AWX.Contracts.Integration': 1, 'src/BuildingBlocks/AWX.SharedKernel': 1, 'src/Integrations/AWX.IntegracaoLegadoWMS': 20}
+     edit AWX.SharedKernel/Http/AwxHttpClientBase.cs
+     edit AWX.IntegracaoLegadoWMS.Api/Endpoints/ProdutosEndpoints.cs
+     edit AWX.IntegracaoLegadoWMS/db/006_produtos_produto.sql
+     add Awx.IntegracaoLegadoWms.Application/Abstractions/IEstoqueProdutosClient.cs
+     add Awx.IntegracaoLegadoWms.Infra.Data/Http/EstoqueProdutosClient.cs
+     edit Awx.IntegracaoLegadoWms.Infra.Data/Repositories/WmsProdutosRepository.cs
+== 16502 wms.servidor.backend {'Reserva.WMS3.API/Controllers/NotasController.cs': 1, 'Reserva.WMS3.API/Web.config': 1, 'Reserva.WMS3.Aplicacao/Interfaces/INotaFiscalServico.cs': 1, 'Reserva.WMS3.Aplicacao/Servicos/Operacoes': 1, 'Reserva.WMS3.Aplicacao/Interfaces/IProdutoServico.cs': 1, 'Reserva.WMS3.Aplicacao/Servicos/NotaFiscalServico.cs': 1, 'Reserva.WMS3.Dominio/Modelo/DTO': 1, 'Reserva.WMS3.Aplicacao/Servicos/ProdutoServico.cs': 1, 'Reserva.WMS3.Dominio/Interfaces/Integracoes': 1, 'Reserva.WMS3.Infraestrutura/Integracoes/IntegracaoLegadoFachada.cs': 1, 'Reserva.WMS3.Dominio/Interfaces/Repositorios': 1, 'Reserva.WMS3.Infraestrutura/Reserva.WMS3.Infraestrutura.csproj': 1, 'Reserva.WMS3.Dominio/Reserva.WMS3.Dominio.csproj': 1, 'Reserva.WMS3.Testes/Aplicacao/ObterProdutoPorCupTestes.cs': 1, 'UseReserva.Web/Views/DashboardAuditoria': 1, 'Reserva.WMS3.Infraestrutura/Shared/Configurations': 1, 'UseReserva.Web/Controllers/DashboardAuditoriaController.cs': 1, 'Reserva.WMS3.Inicializacao/InjecaoDependenciaResolver/AddIntegracoesResolver.cs': 1, 'Reserva.WMS3.Infraestrutura/Respositorios/NotaFiscalRepositorio.cs': 1, 'Reserva.WMS3.Testes/Reserva.WMS3.Testes.csproj': 1}
+     edit Reserva.WMS3.API/Controllers/NotasController.cs
+     edit Interfaces/Repositorios/INotaFiscalRepositorio.cs
+     edit UseReserva.Web/Controllers/DashboardAuditoriaController.cs
+     edit Reserva.WMS3.Infraestrutura/Respositorios/NotaFiscalRepositorio.cs
+##### E
+== 16490 wms.ecommerce.backend {'src/ReservaNet.ECommerce.DomainServices/ConciliarPedidoPreExpedicaoDomainService': 1, 'src/ReservaNet.ECommerce.DomainServices/ValidarPickingECommerceDomainService': 1}
+== 16491 wms.servidor.backend {'Reserva.WMS3.API/Reserva.WMS3.API.csproj': 1, 'Reserva.WMS3.Aplicacao/Servicos/ProcessarCancelamentoPedidosFraudeServico.cs': 1, 'Reserva.WMS3.Aplicacao/Reserva.WMS3.Aplicacao.csproj': 1, 'Reserva.WMS3.Dominio/Interfaces/Global': 1, 'Reserva.WMS3.Infraestrutura/Scripts/72631': 8, 'Reserva.WMS3.Infraestrutura/Reserva.WMS3.Infraestrutura.csproj': 1, 'Reserva.WMS3.Inicializacao/InjecaoDependenciaResolver/AddRepositoriesResolver.cs': 1, 'Reserva.WMS3.Inicializacao/InjecaoDependenciaResolver/AddServicosAplicacaoResolver.cs': 1, 'Reserva.WMS3.Dominio/Reserva.WMS3.Dominio.csproj': 1, 'Reserva.WMS3.Infraestrutura/Respositorios/Global': 1, 'Reserva.WMS3.Testes.Integracao/Servico/AuditoriaServicoTestes.cs': 1}
+     add 72631/rollback/pedidobloqueado.sql
+     edit Reserva.WMS3.Inicializacao/InjecaoDependenciaResolver/AddRepositoriesResolver.cs
+     add Scripts/72631/drop PedidoBloqueadoLogAtividade.sql
+     add 72631/rollback/PedidoBloqueadoLogAtividade.sql
+     add 72631/rollback/PedidoBloqueadoProcessamento.sql
+     add Scripts/72631/drop PedidoBloqueadoProcessamento.sql
+     add 72631/rollback/pr_inserir_pedido_bloqueado.sql
+     add Scripts/72631/drop PedidoBloqueado.sql
+     add Scripts/72631/drop pr_inserir_pedido_bloqueado.sql
+== 16492 wms.erp-dinossauro.backend {'Reserva.Proxy/Repositorios/Implementacoes': 1, 'Reserva.Win.ERP/Properties/AssemblyInfo.cs': 1, 'Reserva.Win.ERP/Reserva.Win.ERP.csproj': 1, 'Reserva.Win.ERP/eCommerce/frmNewConciliacaoExpedicao.cs': 1, 'Reserva.Win.ERP/eCommerce/frmNewConciliacaoExpedicaoLotePre.cs': 1}
+     edit Repositorios/Implementacoes/RepositorioWMS.cs

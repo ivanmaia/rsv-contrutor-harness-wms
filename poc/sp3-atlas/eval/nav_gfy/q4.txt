@@ -1,0 +1,32 @@
+Node: IEnderecoServico
+  ID:        reserva_wms3_aplicacao_interfaces_ienderecoservico_reserva_wms3_aplicacao_interfaces_ienderecoservico
+  Source:    industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs L11
+  Type:      code
+  Community: EnderecoDTO
+  Degree:    22
+
+Connections (22):
+  <-- .Resolve() [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Inicializacao/InjecaoDependenciaResolver/AplicacaoResolver.cs:L218
+  --> IAplicacaoServico [inherits] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs:L11
+  <-- AuditoriaServico [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Auditoria/AuditoriaServico.cs:L30
+  <-- OperacaoTransferenciaParcialServico [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoTransferenciaParcialServico.cs:L37
+  <-- ProdutoServico [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/ProdutoServico.cs:L21
+  --> Endereco [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs:L11
+  <-- GerarPainelClienteController [references] [EXTRACTED] industria-logistica.wms.servidor.backend/UseReserva.Web/Controllers/GerarPainelClienteController.cs:L30
+  <-- OperacaoTransferenciaCaixaServico [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoTransferenciaCaixaServico.cs:L33
+  <-- AuditoriaController [references] [EXTRACTED] industria-logistica.wms.servidor.backend/UseReserva.Web/Controllers/AuditoriaController.cs:L17
+  <-- .InicializarServico() [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Testes/Servicos/AuditoriaServicoTestes.cs:L28
+  <-- SalvarReferenciaCaixaServico [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/ReferenciaCaixaContexto/SalvarReferenciaCaixaServico.cs:L18
+  <-- EnderecoServico [implements] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/EnderecoServico.cs:L15
+  <-- IEnderecoServico.cs [contains] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs:L11
+  <-- ObterReferenciaCaixaPorEnderecoServico [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/ReferenciaCaixaContexto/ObterReferenciaCaixaPorEnderecoServico.cs:L18
+  --> .ObterListaViewPorFiltroAsync() [method] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs:L16
+  <-- EnderecoController [references] [EXTRACTED] industria-logistica.wms.servidor.backend/UseReserva.Web/Controllers/EnderecoController.cs:L15
+  <-- CaixaEnderecoController [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.API/Controllers/CaixaEnderecoController.cs:L13
+  <-- AlterarTipoEnderecoServico [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/ReferenciaCaixaContexto/AlterarTipoEnderecoServico.cs:L11
+  --> .ObterFaixaDeEnderecos() [method] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs:L13
+  --> .AlterarTipoEndereco() [method] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs:L15
+  ... and 2 more
+  Grouped by file:
+    <-- industria-logistica.wms.servidor.backend/Reserva.WMS3.Testes.Integracao/Servico/EnderecoServicoTestes.cs: 1 connection
+    --> industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IEnderecoServico.cs: 1 connection

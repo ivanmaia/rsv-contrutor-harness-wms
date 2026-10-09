@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "codebase-discovery": {
+      "source": "DiUS/agent-toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/codebase-discovery/SKILL.md",
+      "computedHash": "def8c83d768b09a1e6c2adc837220282050ef48e2541aa308192ae9258045cb8"
+    },
+    "evaluate-existing-solutions": {
+      "source": "citypaul/.dotfiles",
+      "sourceType": "github",
+      "skillPath": "claude/.claude/skills/evaluate-existing-solutions/SKILL.md",
+      "computedHash": "f82232bacd9dbf0b9c9f2f374a5f3bc54c8f63fc50459226d907ede52bafef04"
+    },
+    "thinking-toolkit": {
+      "source": "ponomr/thinking-toolkit",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "f4a78580fa36fcc15ef18ecb9b1d9a644e3403642a2dada93f069e4c41965c6b"
+    }
+  }
+}

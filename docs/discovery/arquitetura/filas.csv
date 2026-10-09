@@ -1,0 +1,10 @@
+fila,publicadores,consumidores
+awx.pedidos-b2c.pedido-criado,wms.awx.monorepo,(sem consumidor no workspace)
+awx.pedidos-b2c.status-alterado,wms.awx.monorepo,wms.awx.monorepo
+awx.picking.pedido-b2c-criado,(sem publicador no workspace),wms.awx.monorepo
+awx_checkout_solicitacao,wms.picking.backend,wms.awx.monorepo
+awx_checkout_volume_expedicao,(sem publicador no workspace),wms.awx.monorepo
+faturamento.nota-fiscal.faturar.requested.v1,wms.awx.monorepo,wms.awx.monorepo
+movimentacao.fisica.realizada,wms.servidor.backend,wms.trakta.backend
+wms-atividade_realizada,wms.servidor.backend,wms.hubprodutividade.backend
+wms-sessao_operador_cluster,wms.servidor.backend,wms.hubprodutividade.backend

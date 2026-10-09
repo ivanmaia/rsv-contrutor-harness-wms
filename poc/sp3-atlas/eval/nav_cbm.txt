@@ -1,0 +1,139 @@
+== nav/q1.txt 1004 bytes
+function: AtualizaCaixaStatus
+direction: inbound
+callers_total: 7
+callers_total_relation: eq
+callers: 7  (rows: name hop; qn = group prefix empty ? name : prefix + "." + name; "" marks empty prefix)
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.ConferenciaNotaFiscal.RecontarNotaFiscalServico.RecontarNotaFiscalServico:
+  ExecutarAsync 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.EnderecamentoServico.EnderecamentoServico:
+  SalvarOperadores 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.NotaFiscalServico.NotaFiscalServico:
+  AtualizaStatusCaixasNotaFiscal 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.Operacoes.OperacaoContagemServico.OperacaoContagemServico:
+  BipaCaixaVazia 1
+  BipaEnderecoRecebimento 1
+  FechaContagemCaixa 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.Operacoes.OperacaoPickingServico.OperacaoPickingServico:
+  BipaEnderecoDestino 1
+
+
+== nav/q10.txt 179 bytes
+rows: 1  (cols: "type(r)" a.name a.file_path)
+  DEFINES onda.service.ts src/app/services/onda.service.ts
+returned: 1
+total: 1
+total_relation: eq
+has_more: false
+truncated: false
+
+
+== nav/q2.txt 675 bytes
+{"status":"ambiguous","message":"2 matches for \"MovimentaCaixa\". Pick a qualified_name from suggestions below, or use search_graph(name_pattern=\"...\") to narrow results.","suggestions":[{"qualified_name":"industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Interfaces.ICaixaServico.ICaixaServico.MovimentaCaixa","name":"MovimentaCaixa","label":"Method","file_path":"Reserva.WMS3.Aplicacao/Interfaces/ICaixaServico.cs"},{"qualified_name":"industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.CaixaServico.CaixaServico.MovimentaCaixa","name":"MovimentaCaixa","label":"Method","file_path":"Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs"}]}
+
+== nav/q3.txt 963 bytes
+function: TransferirPecaTotalAsync
+direction: outbound
+callees_total: 5
+callees_total_relation: eq
+callees: 5  (cols: qn hop)
+  industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.ValidarMovimentacaoServico.ValidarMovimentacaoServico.ValidarTransferenciaPecaTotalAsync 1
+  industria-logistica.wms.servidor.backend.Reserva.WMS3.Infraestrutura.Respositorios.ItemProdutoRepositorio.ItemProdutoRepositorio.AtualizarCaixaAsync 1
+  industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Servicos.MovimentacaoServico.MovimentacaoServico.ProcessarEPersistirMovimentacoesAsync 1
+  industria-logistica.wms.servidor.backend.Reserva.WMS3.Dominio.Modelo.DTO.Movimentacao.ConsultaMovimentacaoOpcoes.ConsultaMovimentacaoOpcoes.ParaTransferenciaTotal 1
+  industria-logistica.wms.servidor.backend.Reserva.WMS3.Dominio.Interfaces.Servicos.Movimentacao.IConsultaDadosMovimentacaoServicoDominio.IConsultaDadosMovimentacaoServicoDominio.ExecutarAsync 1
+
+
+== nav/q4.txt 179 bytes
+rows: 1  (cols: c.name c.file_path)
+  EnderecoServico Reserva.WMS3.Aplicacao/Servicos/EnderecoServico.cs
+returned: 1
+total: 1
+total_relation: eq
+has_more: false
+truncated: false
+
+
+== nav/q5.txt 1349 bytes
+function: ProcessaCrossdocking
+direction: outbound
+callees_total: 14
+callees_total_relation: eq
+callees: 14  (rows: name hop; qn = group prefix empty ? name : prefix + "." + name; "" marks empty prefix)
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Interfaces.Operacoes.IOperacaoContagemServico.IOperacaoContagemServico:
+  BipaCaixaVazia 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Interfaces.Operacoes.IOperacaoCrossdockingServico.IOperacaoCrossdockingServico:
+  BipaCaixaTriagem 1
+  BipaEnderecoAguardo 1
+  BipaEnderecoTriagem 1
+  BipaPeca 1
+  CrossdockingFinalizado 1
+  DesfazReservado 1
+  TrocaCaixaCliente 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Interfaces.Operacoes.IOperacaoMontarPainelServico.IOperacaoMontarPainelServico:
+  BipaEnderecoCliente 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Interfaces.Operacoes.IOperacaoPickingServico.IOperacaoPickingServico:
+  BipaCaixaCliente 1
+  BipaCaixaTransporte 1
+  BipaEnderecoTransporte 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Aplicacao.Interfaces.Operacoes.IOperacaoTransferenciaComValidadeServico.IOperacaoTransferenciaComValidadeServico:
+  IniciaOperacao 1
+industria-logistica.wms.servidor.backend.Reserva.WMS3.Dominio.Modelo.DTO.PerformanceOperadorDTO.PerformanceOperadorDTO:
+  Resultado 1
+
+
+== nav/q6.txt 250 bytes
+rows: 1  (cols: c.name c.file_path)
+  WmsPedidosRepository src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Infra.Data/Repositories/WmsPedidosRepository.cs
+returned: 1
+total: 1
+total_relation: eq
+has_more: false
+truncated: false
+
+
+== nav/q7.txt 309 bytes
+function: ObterIdTipoPedidoAsync
+direction: inbound
+callers_total: 1
+callers_total_relation: eq
+callers: 1  (cols: qn hop)
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.src.Awx.IntegracaoLegadoWms.Application.Pedidos.CriarPedidoWmsService.CriarPedidoWmsService.CriarAsync 1
+
+
+== nav/q8.txt 2729 bytes
+results: 7  (cols: qn label file lines matches matches_omitted in out)
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.src.Awx.IntegracaoLegadoWms.Infra.Data.Configuration.DependencyInjectionExtensions.DependencyInjectionExtensions.AddInfraData Method src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Infra.Data/Configuration/DependencyInjectionExtensions.cs 16-61 "53" 0 1 2
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.src.Awx.IntegracaoLegadoWms.Application.Abstractions.IWmsPedidosRepository.IWmsPedidosRepository Interface src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Abstractions/IWmsPedidosRepository.cs 5-11 "5" 0 0 0
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.src.Awx.IntegracaoLegadoWms.Application.Pedidos.AtualizarStatusPedidoWmsService.AtualizarStatusPedidoWmsService.repository Field src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Pedidos/AtualizarStatusPedidoWmsService.cs 9-9 "9" 0 0 0
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.src.Awx.IntegracaoLegadoWms.Application.Pedidos.CriarPedidoWmsService.CriarPedidoWmsService.repository Field src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Application/Pedidos/CriarPedidoWmsService.cs 10-10 "10" 0 0 0
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.src.Awx.IntegracaoLegadoWms.Infra.Data.Repositories.WmsPedidosRepository.WmsPedidosRepository Class src/Integrations/AWX.IntegracaoLegadoWMS/src/Awx.IntegracaoLegadoWms.Infra.Data/Repositories/WmsPedidosRepository.cs 11-130 "14" 0 0 0
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.tests.AWX.IntegracaoLegadoWMS.Tests.Pedidos.AtualizarStatusPedidoWmsServiceTests.AtualizarStatusPedidoWmsServiceTests._repository Field src/Integrations/AWX.IntegracaoLegadoWMS/tests/AWX.IntegracaoLegadoWMS.Tests/Pedidos/AtualizarStatusPedidoWmsServiceTests.cs 9-9 "9" 0 0 0
+  industria-logistica.wms.awx.monorepo.src.Integrations.AWX.IntegracaoLegadoWMS.tests.AWX.IntegracaoLegadoWMS.Tests.Pedidos.CriarPedidoWmsServiceTests.CriarPedidoWmsServiceTests._repository Field src/Integrations/AWX.IntegracaoLegadoWMS/tests/AWX.IntegracaoLegadoWMS.Tests/Pedidos/CriarPedidoWmsServiceTests.cs 10-10 "10" 0 0 0
+directories: 1  (cols: dir hits)
+  src/ 7
+total_grep_matches: 7
+total_results: 7
+raw_match_count: 0
+total_relation: eq
+result_offset: 0
+results_returned: 7
+has_more: false
+raw_returned: 0
+raw_has_more: false
+directories_total: 1
+directories_returned: 1
+directories_has_more: false
+truncated: false
+elapsed_ms: 342
+
+
+== nav/q9.txt 216 bytes
+function: postGerarOnda
+direction: inbound
+callers_total: 1
+callers_total_relation: eq
+callers: 1  (cols: qn hop)
+  industria-logistica.wms.picking.frontend.src.app.services.onda.service.OndaService.postGerarOnda 1
+
+

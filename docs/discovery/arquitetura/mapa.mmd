@@ -1,0 +1,100 @@
+flowchart LR
+  n0[(Postgres privado)]
+  n1[(Reserva)]
+  n2[(ReservaNet)]
+  n3[(WMS)]
+  n4[(WMS_Produtividade)]
+  n5[fly.backoffice.frontend]
+  n6[print-zebra.utilitario.backend]
+  n7[reserva-net.api-gateway.backend]
+  n8[reserva-net.autenticacao.monolito]
+  n9[reserva-net.b2b.backend]
+  n10[sqlagent (jobs do banco)]
+  n11[wms.app.frontend]
+  n12[wms.awx.monorepo]
+  n13[wms.conector.backend]
+  n14[wms.ecommerce.backend]
+  n15[wms.ecommerce.frontend]
+  n16[wms.hubprodutividade.backend]
+  n17[wms.picking.backend]
+  n18[wms.picking.frontend]
+  n19[wms.servidor.backend]
+  n20[wms.tms-finished.backend]
+  n21[wms.tms.backend]
+  n22[wms.trakta.backend]
+  n5 -->|http 1| n6
+  n5 -->|http 27| n12
+  n5 -->|http 3| n22
+  n6 -->|db-R 5| n2
+  n6 ==>|db-W 7| n2
+  n7 -->|http 1| n9
+  n7 -->|http 1| n13
+  n7 -->|http 1| n14
+  n7 -->|http 1| n19
+  n8 -->|db-R 31| n2
+  n8 ==>|db-W 10| n2
+  n9 -->|db-R 15| n1
+  n9 ==>|db-W 2| n1
+  n9 -->|db-R 11| n2
+  n9 ==>|db-W 13| n2
+  n10 -->|db-R 598| n1
+  n10 ==>|db-W 278| n1
+  n10 -->|db-R 5| n2
+  n10 -->|db-R 171| n3
+  n10 ==>|db-W 63| n3
+  n11 -->|http 1| n6
+  n11 -->|http 7| n14
+  n11 -->|http 3| n17
+  n11 -->|http 79| n19
+  n12 -->|db-R 19| n0
+  n12 ==>|db-W 44| n0
+  n12 -->|db-R 2| n1
+  n12 -->|db-R 7| n3
+  n12 ==>|db-W 22| n3
+  n12 -->|http 1| n6
+  n12 -->|http 2| n19
+  n13 -->|db-R 9| n1
+  n13 ==>|db-W 10| n1
+  n14 -->|db-R 80| n1
+  n14 ==>|db-W 44| n1
+  n14 -->|db-R 48| n2
+  n14 ==>|db-W 44| n2
+  n14 -->|db-R 69| n3
+  n14 ==>|db-W 12| n3
+  n14 -->|http 4| n6
+  n14 -->|http 1| n8
+  n14 -->|http 34| n19
+  n15 -->|http 5| n8
+  n15 -->|http 92| n14
+  n15 -->|http 2| n16
+  n15 -->|http 73| n19
+  n16 -->|db-R 11| n4
+  n16 ==>|db-W 7| n4
+  n17 -->|db-R 4| n1
+  n17 ==>|db-W 1| n1
+  n17 -->|db-R 41| n3
+  n17 ==>|db-W 21| n3
+  n17 -.->|fila 1| n12
+  n17 -->|http 10| n19
+  n18 -->|http 47| n17
+  n18 -->|http 1| n19
+  n19 -->|db-R 60| n1
+  n19 ==>|db-W 54| n1
+  n19 -->|db-R 3| n2
+  n19 -->|db-R 247| n3
+  n19 ==>|db-W 177| n3
+  n19 -->|http 6| n6
+  n19 -->|http 1| n8
+  n19 -->|http 1| n13
+  n19 -->|http 12| n14
+  n19 -.->|fila 2| n16
+  n19 -->|http 5| n16
+  n19 -->|http 1| n17
+  n19 -->|http 1| n18
+  n19 -.->|fila 1| n22
+  n20 -->|db-R 8| n1
+  n20 ==>|db-W 11| n1
+  n21 -->|db-R 3| n1
+  n21 ==>|db-W 4| n1
+  n22 -->|db-R 4| n0
+  n22 ==>|db-W 3| n0

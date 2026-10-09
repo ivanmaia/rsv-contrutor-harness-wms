@@ -1,0 +1,6 @@
+Ambiguous: 'TransferirPecaTotalAsync' matches 2 nodes in different files.
+  industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/IMovimentacaoServico.cs
+    id: reserva_wms3_aplicacao_interfaces_imovimentacaoservico_reserva_wms3_aplicacao_interfaces_imovimentacaoservico_transferirpecatotalasync
+  industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/MovimentacaoServico.cs
+    id: reserva_wms3_aplicacao_servicos_movimentacaoservico_reserva_wms3_aplicacao_servicos_movimentacaoservico_transferirpecatotalasync
+Retry with path::symbol using one of the paths above (e.g. <path>::.TransferirPecaTotalAsync()) or the full node id.

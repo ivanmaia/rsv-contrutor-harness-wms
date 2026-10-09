@@ -1,0 +1,13 @@
+docs/credentials/
+repos/
+extract/
+
+# poc/sp3-atlas: cópias de código dos repos e binários baixados
+poc/sp3-atlas/repos/
+poc/sp3-atlas/runs/
+poc/sp3-atlas/bin/
+poc/sp3-atlas/bin-linux/
+poc/sp3-atlas/dl/
+poc/sp3-atlas/home/
+poc/sp3-atlas/cbm-cache/
+.superpowers/

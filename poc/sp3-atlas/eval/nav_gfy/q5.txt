@@ -1,0 +1,10 @@
+Ambiguous: 'CrossdockingFinalizado' matches 4 nodes in different files.
+  industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/Operacoes/IOperacaoCrossdockingServico.cs
+    id: reserva_wms3_aplicacao_interfaces_operacoes_ioperacaocrossdockingservico_reserva_wms3_aplicacao_interfaces_operacoes_ioperacaocrossdockingservico_crossdockingfinalizado
+  industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoCrossdockingServico.cs
+    id: reserva_wms3_aplicacao_servicos_operacoes_operacaocrossdockingservico_reserva_wms3_aplicacao_servicos_operacoes_operacaocrossdockingservico_crossdockingfinalizado
+  industria-logistica.wms.servidor.backend/Reserva.WMS3.Dominio/Modelo/Enumeradores/enmStatusCrossdocking.cs
+    id: reserva_wms3_dominio_modelo_enumeradores_enmstatuscrossdocking_reserva_wms3_dominio_modelo_enumeradores_enmstatuscrossdocking_crossdockingfinalizado
+  industria-logistica.wms.servidor.backend/Reserva.WMS3.Dominio/Modelo/Enumeradores/enmOperacaoCrossdocking.cs
+    id: reserva_wms3_dominio_modelo_enumeradores_enmoperacaocrossdocking_reserva_wms3_dominio_modelo_enumeradores_enmoperacaocrossdocking_crossdockingfinalizado
+Retry with path::symbol using one of the paths above (e.g. <path>::.CrossdockingFinalizado()) or the full node id.

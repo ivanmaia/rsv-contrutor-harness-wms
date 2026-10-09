@@ -1,0 +1,18 @@
+Node: .AtualizaCaixaStatus()
+  ID:        reserva_wms3_aplicacao_interfaces_icaixaservico_reserva_wms3_aplicacao_interfaces_icaixaservico_atualizacaixastatus
+  Source:    industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/ICaixaServico.cs L18
+  Type:      code
+  Community: OperacaoContagem
+  Degree:    10
+
+Connections (10):
+  --> enmStatus [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/ICaixaServico.cs:L18
+  <-- ICaixaServico [method] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Interfaces/ICaixaServico.cs:L18
+  <-- .BipaCaixaVazia() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoContagemServico.cs:L168
+  <-- .BipaEnderecoDestino() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoPickingServico.cs:L998
+  <-- .ExecutarAsync() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/ConferenciaNotaFiscal/RecontarNotaFiscalServico.cs:L56
+  <-- .BipaEnderecoRecebimento() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoContagemServico.cs:L330
+  <-- .SalvarOperadores() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/EnderecamentoServico.cs:L174
+  <-- .AtualizaStatusCaixasNotaFiscal() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/NotaFiscalServico.cs:L295
+  <-- .FechaContagemCaixa() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/Operacoes/OperacaoContagemServico.cs:L299
+  --> .AtualizaCaixaStatus() [dispatches_to] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L23

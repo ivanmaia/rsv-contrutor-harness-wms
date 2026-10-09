@@ -1,0 +1,22 @@
+Node: .MovimentaCaixa()
+  ID:        reserva_wms3_aplicacao_servicos_caixaservico_reserva_wms3_aplicacao_servicos_caixaservico_movimentacaixa
+  Source:    industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs L161
+  Type:      code
+  Community: CaixaDTO
+  Degree:    14
+
+Connections (14):
+  --> CaixaDTO [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L161
+  --> ItemProduto [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L192
+  --> .ObterPor() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L170
+  --> .Insere() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L224
+  <-- CaixaServico [method] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L161
+  --> .Executar() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L204
+  --> ItemReenderecamento [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L206
+  --> .MovimentaItem() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L198
+  --> .ExecutarAsync() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L205
+  --> .Deleta() [calls] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L171
+  <-- .MovimentaCaixa() [dispatches_to] [INFERRED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L23
+  --> .CriarLogLimpezaEndereco() [calls] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L175
+  --> Obsolete [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L161
+  --> List [references] [EXTRACTED] industria-logistica.wms.servidor.backend/Reserva.WMS3.Aplicacao/Servicos/CaixaServico.cs:L161

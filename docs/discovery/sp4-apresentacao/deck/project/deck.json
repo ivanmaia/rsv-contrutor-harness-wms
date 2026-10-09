@@ -1,0 +1,69 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-08T17:56:37Z"
+ },
+ "lists": "css",
+ "title": "Harness WMS",
+ "order": [
+  "capa",
+  "hoje",
+  "antes-depois",
+  "pecas",
+  "exemplo",
+  "passo-1",
+  "passo-2",
+  "passo-3",
+  "passo-4",
+  "passo-5",
+  "passo-6",
+  "passo-7",
+  "passo-8-9",
+  "resumo",
+  "ja-conhece",
+  "regras",
+  "erros",
+  "atlas",
+  "impacto",
+  "cmd-atlas",
+  "cmd-ws",
+  "cmd-skills",
+  "onde",
+  "proximos"
+ ],
+ "sections": {
+  "s1": {
+   "description": "Por que o harness existe e o que ele é",
+   "start": "capa"
+  },
+  "s2": {
+   "description": "Uma feature fictícia passando pelos 9 passos do fluxo básico",
+   "start": "exemplo"
+  },
+  "s3": {
+   "description": "Quando dá errado e o Atlas",
+   "start": "erros"
+  },
+  "s4": {
+   "description": "Onde está cada coisa e próximos passos",
+   "start": "onde"
+  },
+  "s3b": {
+   "description": "Os comandos do harness: Atlas, ws e outras skills",
+   "start": "cmd-atlas"
+  }
+ },
+ "cover": "capa",
+ "faces": {
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-mono": {
+   "family": "IBM Plex Mono",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap"
+  }
+ },
+ "designSystems": []
+}
