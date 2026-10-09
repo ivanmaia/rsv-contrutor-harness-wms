@@ -11,3 +11,4 @@ poc/sp3-atlas/dl/
 poc/sp3-atlas/home/
 poc/sp3-atlas/cbm-cache/
 .superpowers/
+__pycache__/
