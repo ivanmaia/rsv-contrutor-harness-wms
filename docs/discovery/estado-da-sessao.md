@@ -194,13 +194,14 @@ Atualizado em 2026-10-05.
    - (Resolvido) Pergunta pendente, a retomar depois da avaliação: o conjunto de referência para validar o nível 1. Proposta: as arestas do SP0 como gabarito de recall, mais 5 features reais e cerca de 10 objetos críticos.
 5. **SP4: documentação em camadas do harness** (brainstorming em 2026-10-08, caminho arquitetural). Design aprovado em conversa; spec escrita em `docs/superpowers/specs/2026-10-08-sp4-documentacao-harness-design.md`, **aprovada pelo usuário em 2026-10-08**. Plano escrito: `docs/superpowers/plans/2026-10-08-sp4-documentacao-harness.md` (8 tasks; verificador validado numa cópia descartável no scratchpad), executado em 2026-10-08 (modo Native) na branch `harness/docs-camadas` do workspace (9 commits a partir de `868b5f0a5`, último `63cf87818`; suíte 212 ok, 0 falha). Revisão final feita (5 correções com teste, 5 menores adiados); branch enviada ao origin. **Mergeado no `main` pelo PR 16940 (`0cbac04e5`) em 2026-10-08.** Piloto preparado em `docs/discovery/sp4-piloto.md` (roteiro e registro; depende de um dev novo), e o subprojeto da apresentação: spec `docs/superpowers/specs/2026-10-08-sp4-apresentacao-harness-design.md`, plano `docs/superpowers/plans/2026-10-08-sp4-apresentacao-harness.md`, **deck publicado em https://claude.ai/artifact/GJjEDbZtoBLRLthKn4KxxC** (24 slides, 39 min de notas, com 3 slides de comandos; fontes em `docs/discovery/sp4-apresentacao/`, revisão final feita). **Apresentação feita ao time; o dev piloto foi escolhido nela** e vai rodar o fluxo completo numa demanda real e depois dar o feedback. Próximo: acompanhar o piloto e registrar em `docs/discovery/sp4-piloto.md`; cada linha com ação vira PR de acompanhamento no workspace.
 6. **SP5: vertente de bugs e incidentes** (brainstorming de 2026-10-09 a 2026-10-11, caminho arquitetural).
-   - Spec escrita: `docs/superpowers/specs/2026-10-11-sp5-bugs-design.md`, **aguardando a revisão do usuário**; depois vem o writing-plans.
+   - Spec escrita: `docs/superpowers/specs/2026-10-11-sp5-bugs-design.md`, **aprovada em 2026-10-11** e revista no mesmo dia (sem bundle e sem hooks; ver abaixo). Próximo: writing-plans.
    - Decisões:
-     - bundle oficial `bugfix` do Spec Kit;
+     - extensão `bug` e workflow `bugfix` oficiais, instalados separadamente: o bundle falha no 1.0.12 e no 1.0.13 (pin 1.0.1 contra 1.0.0 publicado);
      - preset `bugs` com `prepend` que leva os relatórios para `bugs/<slug>/`;
      - slug `<work item>-<desc>` ou `inc-<AAAAMMDD>-<desc>`;
      - branch `hotfix/<slug>`;
-     - três hooks mecânicos na `ws`;
+     - três comandos mecânicos na `ws` (`bug-start`, `bug-sem-correcao`, `bug-enviar`), chamados pelo preset (`prepend`/`append`), porque a extensão `bug` publicada (1.0.0) não tem hooks;
+     - **LEMBRETE do usuário:** revisar quando o Spec Kit lançar a extensão `bug` 1.0.1 (hooks nativos e bundle). Seção 10 da spec;
      - regra II da constitution valendo para bug (seção Impacto);
      - SELECT opcional só com acesso próprio do dev;
      - validação ponta a ponta descartável.
