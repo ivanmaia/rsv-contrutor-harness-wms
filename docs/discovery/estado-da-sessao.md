@@ -166,7 +166,7 @@ Atualizado em 2026-10-05.
      - **Graphify AST nos 4 frontends**;
      - **Serena não adotado**: edição padrão + ast-grep.
 
-     A spec foi atualizada (seções 1, 2, 3, 6.7, 7, 9.1, 10, 11). Próximo: writing-plans.
+     A spec foi atualizada (seções 1, 2, 3, 6.7, 7, 9.1, 10, 11). Plano escrito: `docs/superpowers/plans/2026-10-11-sp5-bugs.md` (7 tasks), aguardando a revisão do usuário e a escolha do modo de execução.
    - **Plano escrito em 2026-10-05:** `docs/superpowers/plans/2026-10-05-sp3-atlas.md`, com 8 tasks.
      - O código foi validado numa cópia descartável do `tools/` no scratchpad da sessão.
      - A spec ganhou a linha "Refinamentos do plano": `atlas.estado`, `relevancia.ini`, pendência no `project-readme.md` e hook `speckit.ws.converge`.
