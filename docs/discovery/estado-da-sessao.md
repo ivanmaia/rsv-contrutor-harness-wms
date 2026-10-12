@@ -206,13 +206,13 @@ Atualizado em 2026-10-05.
      - SELECT opcional só com acesso próprio do dev;
      - validação ponta a ponta descartável.
    - A tabela B (skills externas de debug) e a rota para o `/speckit-specify` ficaram fora. A documentação das features existentes como specs fica para depois.
-   - Entrega: branch `harness/bugs`, mergeada só depois do piloto do SP4.
+   - Entrega: branch `harness/bugs`. A regra de mergear só depois do piloto do SP4 foi **derrubada pelo usuário em 2026-10-12**, porque o piloto pode demorar.
    - **Executado em 2026-10-11 (modo Native)** pelo plano `docs/superpowers/plans/2026-10-11-sp5-bugs.md` (7 tasks), na branch `harness/bugs` do workspace, saindo do `main` `333500954`. São 9 commits; o último é `5ffb5a630`.
      - Suíte offline com 239 ok e 0 falha; testes de instalação com rede com 9 ok.
      - O executor decidiu pôr no `.gitignore` o cache dos catálogos e a trava da instalação de workflows do Spec Kit.
-     - A revisão final (subagente) achou 2 problemas importantes, e 2 menores subiram de grau. Os 4 foram corrigidos com teste: o slug pela branch no fix e no test, a guarda do registro, a ordem das checagens do `bug-start` e a entrada "sobrescrever" na camada 2. Outros 6 menores ficaram adiados (ledger da execução).
+     - A revisão final (subagente) achou 2 problemas importantes, e 2 menores subiram de grau. Os 4 foram corrigidos com teste: o slug pela branch no fix e no test, a guarda do registro, a ordem das checagens do `bug-start` e a entrada "sobrescrever" na camada 2. Outros 6 menores ficaram adiados e foram **corrigidos em 2026-10-12** (`2b0235287` e a reinstalação `cb64780b7`): mensagem com `git switch` para a branch do bug só local, `bug-sem-correcao` sem origin, comentário da regra do slug, testes de slug com acento e de árvore suja numa feature, espaços no `speckit.sh` e "contando o que ainda não foi commitado" no `bug-enviar`.
      - Validação com LLM em `docs/discovery/sp5-bugs-validacao.md`: os itens 1 a 4 do PoC e os 4 casos de ponta a ponta deram ok, por cerca de US$ 12. A correção do slug pela branch veio depois e não foi revalidada com LLM.
-     - **Push da `harness/bugs` ao origin aguardando o OK do usuário. Sem PR para o `main` até o fim do piloto do SP4.** Ordem do merge: primeiro a branch dos ajustes do piloto, depois esta, rebaseada sobre o `main`.
+     - **Suíte offline com 243 ok em `cb64780b7`. Push da `harness/bugs` feito pelo usuário (a permissão automática negou o push pelo agente); o usuário abre o PR para o `main`.**
      - Ambientes descartáveis para o usuário apagar: `C:\src\wms-workspace-e2e5`, `C:\src\wms-e2e5-origin.git`, `C:\src\wms-e2e5-tms.git`, `C:\src\wms-e2e5-*` (JSON, logs, script) e os projetos de PoC em `%TEMP%` (`sp5-poc`, `sp5-poc13`, `sk-bug`).
 4. **Próximo subprojeto: SP3** (grafo de arquitetura, navegação semântica e, se for o caso, memória). As ferramentas de memória e indexação (Graphify, Serena etc.) ainda não foram avaliadas. Ponto de partida: `docs/sistemas/` no workspace e `tools/arch-map/` aqui.
 
