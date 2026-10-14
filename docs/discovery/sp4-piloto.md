@@ -17,7 +17,7 @@ Documentação no `main` do workspace desde o PR 16940 (`0cbac04e5`, 2026-10-08)
 - Dev (papel, não nome): dev full stack
 - Demanda real (id ou título): mover a emissão da NF de devolução de falta para o processamento de divergências da NF de entrada (work item 72694, board WMS - Desacoplamento/Operacional)
 - Já conhecia o Spec Kit? (s/n): s
-- Feature: `ws-001-devolucao-divergencia-nf`, ciclo parcial (só o passo 1)
+- Feature: `ws-001-devolucao-divergencia-nf`; no primeiro relato, ciclo parcial (só o passo 1); no segundo (2026-10-14), chegou ao envio (`/speckit-ws-commit-push`)
 - Repos tocados: `industria-logistica.wms.servidor.backend`; `integracoes.wms.servicos-linx-wms.monorepo` (fora do workspace)
 - Instalou as ferramentas do Atlas? (s/n): s
 
@@ -33,6 +33,7 @@ Documentação no `main` do workspace desde o PR 16940 (`0cbac04e5`, 2026-10-08)
 | 6 | Passo 1, `ws atlas concluir` | Causa: `LongPathsEnabled = 0` no Windows. O `core.longpaths` da doc só vale para o git. | Não: o ADR 0001 e a camada 1 só citam `core.longpaths` | Feito: camada 1, "Antes de tudo", passo 2, e camada 2, "Erro de caminho longo fora do git". | PR 17070 |
 | 7 | Passo 1, correção do item 6 | O agente não conseguiu ativar: "Acesso ao Registro solicitado não é permitido". | Não | Feito, nas mesmas entradas do item 6. | PR 17070 |
 | 8 | Passo 1, correção do item 6 | Como admin: `Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1 -Type DWord`, e o `concluir` passou. | Não | Feito, nas mesmas entradas do item 6. | PR 17070 |
+| 9 | Passo 8, `/speckit-ws-commit-push` (relato de 2026-10-14, anterior ao PR 17070) | `ws push` falhou no `industria-logistica.wms.servidor.backend` com `error: unable to rewind rpc post data - try increasing http.postBuffer`, `error: RPC failed; curl 65 HTTP/2 stream 9 was reset` e `ws: erro: subtree push de repos/industria-logistica.wms.servidor.backend falhou`. O `git ls-remote` funcionou. Resolveu com `git config http.postBuffer 524288000` e `git config http.version HTTP/1.1` no clone, sugeridos pela IA, e `ws push` de novo. Sugeriu a entrada na camada 2 e as duas configurações no `git clone` da camada 1. | Não: "Falha no envio a um repo" cita só credencial, permissão e rede, e manda testar o `git ls-remote`, que passa | O `ws push` passa a enviar com `-c http.version=HTTP/1.1 -c http.postBuffer=524288000` no `subtree push`, com teste. A camada 2, "Falha no envio a um repo", ganha a causa, a saída do git e as duas configurações no clone, para branches criadas antes da correção. A camada 1 não muda: a correção no `ws push` cobre os clones já feitos, e a configuração no `git clone` só cobriria os novos. | `harness/piloto-sp4-envio` |
 
 **Impedimento:** o dev não conseguiu terminar a feature porque o repo `integracoes.wms.servicos-linx-wms.monorepo` não está no workspace.
 
