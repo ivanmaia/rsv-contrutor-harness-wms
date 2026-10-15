@@ -214,6 +214,10 @@ Atualizado em 2026-10-05.
      - Validação com LLM em `docs/discovery/sp5-bugs-validacao.md`: os itens 1 a 4 do PoC e os 4 casos de ponta a ponta deram ok, por cerca de US$ 12. A correção do slug pela branch veio depois e não foi revalidada com LLM.
      - Suíte offline com 243 ok em `cb64780b7`. Push da `harness/bugs` feito pelo usuário (a permissão automática negou o push pelo agente). **Mergeado no `main` do workspace pelo PR 17012 (`6df2664fe`) em 2026-10-13.** O `main` local do workspace foi atualizado e a branch local `harness/bugs` apagada.
      - Ambientes descartáveis para o usuário apagar: `C:\src\wms-workspace-e2e5`, `C:\src\wms-e2e5-origin.git`, `C:\src\wms-e2e5-tms.git`, `C:\src\wms-e2e5-*` (JSON, logs, script) e os projetos de PoC em `%TEMP%` (`sp5-poc`, `sp5-poc13`, `sk-bug`).
+7. **Sincronização pela branch `ws/sync`** (brainstorming em 2026-10-15, caminho arquitetural; sem número de SP, entra como adendo 6 do ADR 0001).
+   - Origem: um `/speckit-bug-assess` falhou porque o `ws start` faz push direto no `main`, e o `main` ganhou em 2026-10-13 e 2026-10-14 duas políticas de revisão bloqueantes (criadas pelo usuário). A mensagem culpava outro dev e mandava um `git pull` que não resolve.
+   - Decisões: nada chega ao `main` sem PR, nem a sincronização (contra dar bypass aos devs); a sincronização vai para uma branch compartilhada `ws/sync`, enviada sem PR e só com fast-forward, com PR próprio para o `main` (contra levar a sincronização em cada branch de feature, que gera conflitos e linhas paralelas de squash); `WS_BASE=ws/sync` e `WS_DESTINO=main`.
+   - Spec escrita: `docs/superpowers/specs/2026-10-15-ws-sync-design.md`, aguardando revisão do usuário. Próximo: writing-plans.
 4. **Próximo subprojeto: SP3** (grafo de arquitetura, navegação semântica e, se for o caso, memória). As ferramentas de memória e indexação (Graphify, Serena etc.) ainda não foram avaliadas. Ponto de partida: `docs/sistemas/` no workspace e `tools/arch-map/` aqui.
 
 ## Próximo passo (histórico, antes da execução)
