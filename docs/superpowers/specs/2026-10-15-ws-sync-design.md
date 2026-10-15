@@ -52,6 +52,19 @@ O `ws start` volta a funcionar para quem não tem bypass, sem que nada chegue ao
 
 Sem origin (testes, trabalho só local), não há fetch nem push, como hoje.
 
+### 4.1.1 `ws sync` (acrescentado ao escrever o plano)
+
+Os passos 1 a 4 e 6 do `ws start` ficam num comando próprio, `ws sync`, que não cria branch e volta para a branch em que o dev estava. O `ws start` é o `ws sync` mais o passo 5.
+
+**Por quê:** uma branch aberta que precisa do que entrou no `main` depois dela (o caso "parar e pedir a inclusão" da regra 7 do `AGENTS.md`) hoje faz `git merge origin/main`. Com a base em `ws/sync`, o ponto de comparação do `ws push` e do converge passaria a ser anterior ao `main` trazido, e o `ws push` enviaria repos que a feature não mudou (o subtree inteiro de um repo novo, por exemplo). A branch passa a se atualizar com a `ws/sync`, que contém o `main`:
+
+```bash
+tools/ws/ws sync
+git merge --no-edit ws/sync
+```
+
+Assim, o ponto de comparação vira a ponta da `ws/sync`, e o `ws push` e o converge continuam vendo só a feature.
+
 ### 4.2 O que usa cada variável
 
 **`WS_BASE` (`ws/sync`), sem mudar a lógica:**
@@ -116,7 +129,7 @@ Saem as mensagens que mandam rodar `git pull --no-rebase origin main`.
 - **Camada 2:** as entradas "push do main recusado" e "git pull do main falhou" dão lugar às mensagens da seção 5.3 e ao aviso do `main` local à frente; "Falha no sync" e "Conflito no sync" passam a citar a `ws/sync`.
 - **Camada 3:** o passo do `ws start` em "Fora do Spec Kit" e a explicação do PR da `ws/sync`.
 - **Camada 4:** "Adicionar um repo" numa branch do harness, com PR; como revisar e mergear o PR da `ws/sync`.
-- **`AGENTS.md` e camada 1:** só onde citam o `main` como base da branch.
+- **`AGENTS.md` e camada 1:** só onde citam o `main` como base da branch. A regra 7 do `AGENTS.md` e a entrada "A demanda cita um sistema fora do workspace" da camada 2 trocam `git fetch origin main` e `git merge --no-edit origin/main` pelo `ws sync` e `git merge --no-edit ws/sync` (seção 4.1.1).
 
 ## 7. Validação e entrega
 
@@ -133,6 +146,7 @@ A política do Azure DevOps é simulada por um hook `pre-receive` no origin `bar
 7. branch aberta a partir do `main` antes da mudança: o `ws push` envia só o repo que a feature mudou;
 8. PR da `ws/sync` mergeado com squash: a sincronização seguinte acha a última sincronização certa, e o `ws push` não muda;
 9. `ws add` numa branch do harness: o repo novo chega à `ws/sync` pelo `main` no `ws start` seguinte.
+10. `ws sync` numa branch aberta antes da inclusão de um repo no `main`, seguido de `git merge ws/sync`: a branch passa a ter o repo, e o `ws push` envia só o que a feature mudou.
 
 Os testes que hoje conferem o push do `main` passam a conferir o da `ws/sync`. Os do Atlas e do fluxo de bug que citam o `main` como base ganham ajustes pontuais. A suíte inteira roda antes do PR.
 

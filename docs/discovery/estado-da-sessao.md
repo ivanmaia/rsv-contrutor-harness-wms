@@ -217,7 +217,8 @@ Atualizado em 2026-10-05.
 7. **Sincronização pela branch `ws/sync`** (brainstorming em 2026-10-15, caminho arquitetural; sem número de SP, entra como adendo 6 do ADR 0001).
    - Origem: um `/speckit-bug-assess` falhou porque o `ws start` faz push direto no `main`, e o `main` ganhou em 2026-10-13 e 2026-10-14 duas políticas de revisão bloqueantes (criadas pelo usuário). A mensagem culpava outro dev e mandava um `git pull` que não resolve.
    - Decisões: nada chega ao `main` sem PR, nem a sincronização (contra dar bypass aos devs); a sincronização vai para uma branch compartilhada `ws/sync`, enviada sem PR e só com fast-forward, com PR próprio para o `main` (contra levar a sincronização em cada branch de feature, que gera conflitos e linhas paralelas de squash); `WS_BASE=ws/sync` e `WS_DESTINO=main`.
-   - Spec escrita: `docs/superpowers/specs/2026-10-15-ws-sync-design.md`, aguardando revisão do usuário. Próximo: writing-plans.
+   - Spec escrita: `docs/superpowers/specs/2026-10-15-ws-sync-design.md`, **aprovada pelo usuário em 2026-10-15**. Ao escrever o plano, entrou o comando `ws sync` (seção 4.1.1 da spec): uma branch aberta que precisa do que entrou no `main` se atualiza pela `ws/sync`, não pelo `main`, para o `ws push` não enviar repos que a feature não mudou.
+   - Plano: `docs/superpowers/plans/2026-10-15-ws-sync.md` (8 tasks), aguardando revisão e a escolha do modo de execução.
 4. **Próximo subprojeto: SP3** (grafo de arquitetura, navegação semântica e, se for o caso, memória). As ferramentas de memória e indexação (Graphify, Serena etc.) ainda não foram avaliadas. Ponto de partida: `docs/sistemas/` no workspace e `tools/arch-map/` aqui.
 
 ## Próximo passo (histórico, antes da execução)
