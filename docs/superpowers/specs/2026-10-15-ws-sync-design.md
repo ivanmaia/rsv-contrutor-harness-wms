@@ -70,7 +70,7 @@ Assim, o ponto de comparação vira a ponta da `ws/sync`, e o `ws push` e o conv
 **`WS_BASE` (`ws/sync`), sem mudar a lógica:**
 - `ws push`: prefixos alterados por `ws/sync...HEAD`, guarda e split;
 - `ws maintain`: rejoin e deriva;
-- Atlas: `--base` do plano e do converge, `ws_last_squash`, `ws_current_split`, incorporação e publicação. A `atlas/atualizacao` passa a ser montada sobre a `origin/ws/sync`.
+- Atlas: `--base` do plano e do converge, `ws_last_squash`, `ws_current_split`, incorporação e publicação. A `atlas/atualizacao` passa a ser montada sobre a `origin/ws/sync` quando ela já contém o `origin/main`; senão, sobre o `origin/main` (revisão final: a `ws/sync` pode estar atrás do `main` nos gatilhos converge e manual).
 
 **`WS_DESTINO` (`main`):**
 - o link do PR da `atlas/atualizacao` (`targetRef=main`);
@@ -78,11 +78,11 @@ Assim, o ponto de comparação vira a ponta da `ws/sync`, e o `ws push` e o conv
 - `ws-bug-start.sh` e `ws-feature.sh`: a checagem de bug já registrado e de feature existente olha o `origin/main`, onde está o que já foi mergeado;
 - `ws-commit-push.sh`: continua recusando rodar na base.
 
-**`ws add`:** deixa de exigir estar na base. O time do harness roda numa branch criada a partir da `ws/sync`, e o repo novo entra por PR no `main`. No `ws start` seguinte, o passo 2 traz o repo para a `ws/sync`.
+**`ws add`:** roda só na `ws/sync` e é enviado com `git push origin ws/sync`; o repo novo chega ao `main` pelo PR dela. (Revisão final: na primeira versão, o `ws add` rodava numa branch do harness com PR no `main`; um merge com squash desse PR apagaria os trailers `git-subtree-dir`/`git-subtree-split` do commit "Squashed", e o sync de todos quebraria com "was never added".)
 
 ### 4.3 Aviso do PR da `ws/sync`
 
-- Quando a `origin/ws/sync` tem commits que não estão no `origin/main`, o `ws start` mostra o link `pullrequestcreate?sourceRef=ws/sync&targetRef=main`.
+- Quando a `ws/sync` tem commits que não estão no `origin/main` e a árvore dela difere da do `main`, o `ws start` mostra o link `pullrequestcreate?sourceRef=ws/sync&targetRef=main`. A comparação de árvores faz o lembrete sumir também depois de um PR mergeado com squash.
 - Quando a sincronização mais antiga ainda não mergeada passa de `pr_max_dias` (o mesmo limite do `relevancia.ini` que o Atlas usa), mostra também "peça a aprovação do PR de ws/sync".
 - O `ws` não chama a API do Azure DevOps, então não sabe se o PR já está aberto: o aviso é um lembrete.
 
@@ -111,6 +111,7 @@ Por isso não se exige o tipo de merge por política.
 | Conflito no merge do `origin/main` na `ws/sync` | Não deve acontecer, porque os dois lados compartilham a linha de sincronização. Se acontecer: aborta o merge, não envia e mostra os arquivos, para o time do harness. O dev não resolve |
 | Conflito na sincronização de um repo | Como hoje, com "Resolva na ws/sync" no lugar de "Resolva no main" |
 | PR da `ws/sync` mergeado | No `ws start` seguinte, ela volta a coincidir com o `main` (fast-forward ou merge sem conflito), e o aviso do PR some |
+| `ws sync` ou `ws start` falha depois de reposicionar a `ws/sync` | Volta para a branch de onde foi chamado e deixa a `ws/sync` local igual à do origin (ou a apaga, se ela não existe lá), para um `git merge ws/sync` em seguida não trazer sync que não subiu. No conflito de sync de um repo, fica na `ws/sync` para a resolução |
 | Política na `ws/sync` por engano | Push recusado com `TF402455`; mensagem da seção 5.3 |
 
 ### 5.3 Mensagens
