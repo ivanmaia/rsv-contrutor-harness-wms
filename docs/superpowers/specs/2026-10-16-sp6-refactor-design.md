@@ -128,7 +128,7 @@ refactors/desacoplamentos/<nome>.md      documento de cada desacoplamento (fora 
 - **Revisão do SP5:**
   - a `ws` registra `before_bug_assess` → `speckit.ws.bug-start`, `after_bug_assess` → `speckit.ws.bug-sem-correcao` e `after_bug_test` → `speckit.ws.bug-enviar`;
   - o preset `bugs` perde o trecho que chama a `ws` e fica só com o caminho `bugs/` e o slug;
-  - o plano avalia instalar pelo bundle `bugfix`. Se o bundle funcionar na 1.2.0, a instalação passa a ser por ele;
+  - o plano avalia instalar pelo bundle `bugfix`. Se o bundle funcionar na 1.2.0, a instalação passa a ser por ele; **Resultado (2026-10-16):** o bundle instala, mas baixa o manifesto do `main` do Spec Kit e recusa reinstalar com outra versão registrada. A instalação continua separada, com o workflow fixado na tag;
   - a seção 10 da spec do SP5 é marcada como resolvida, e o passo "conferir a extensão `bug` 1.0.1" sai da camada 4.
 
 ### 5.2 Extensão `refactor`
