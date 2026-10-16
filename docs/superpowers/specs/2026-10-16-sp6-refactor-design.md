@@ -5,7 +5,7 @@ Data: 2026-10-16. Processo: `superpowers:brainstorming`, caminho arquitetural. D
 Revista em 2026-10-16, ao escrever o plano (`docs/superpowers/plans/2026-10-16-sp6-refactor.md`):
 - o marco só muda pelo subcomando mecânico `ws refactor marco`, que recusa transição fora de ordem, e a linha da fatia nasce no M1;
 - a `ws` ganha o comando `refactor-registro`, para os registros sem código;
-- a branch da validação vira `-contrair-<k>` quando uma validação anterior falhou;
+- a branch da validação vira `-desacoplar-<k>` quando uma validação anterior falhou;
 - o portão 2 também procura o objeto no código do consumidor;
 - a extensão `ws` vai para a 1.3.0 no PR 1 e para a 1.4.0 no PR 2.
 
@@ -39,9 +39,9 @@ O SP6 também atualiza o Spec Kit do workspace para a 1.2.0 e faz a revisão do 
 |---|---|
 | Escopo | Tipos 3 (desacoplamento) e 1 (interno). Tipos 2 e 4 no SP7 |
 | Unidade do desacoplamento | A **fatia**: um consumidor deixa de acessar um objeto do `Reserva` e passa pelo caminho novo. O conjunto das fatias fica num **documento do desacoplamento**, leve e sem comando próprio (`refactors/desacoplamentos/<nome>.md`) |
-| Entrega da fatia | **Uma entrega de código**, seguida de marcos em produção: M1 entregue, M2 convivência, M3 validado, M4 contraído (seção 4.2) |
+| Entrega da fatia | **Uma entrega de código**, seguida de marcos em produção: M1 entregue, M2 convivência, M3 validado, M4 desacoplado (seção 4.2) |
 | Congelamento da Black Friday | O deploy de código inativo atrás de uma chave **é permitido** durante o congelamento. A convivência em produção só começa depois da Black Friday |
-| Contração | Só depois de o caminho desacoplado estar **validado em produção**, com evidência registrada |
+| Desacoplar | Só depois de o caminho desacoplado estar **validado em produção**, com evidência registrada |
 | Evidência do M3 | O que o dev cola: consultas, logs, prints, contagens. O agente pode rodar só `SELECT` com o acesso que o dev já tem, mostrando a consulta antes, como no SP5. Sem formato padronizado de divergência e sem integração com ferramenta de observabilidade |
 | Teste de caracterização | **Obrigatório, com exceção registrada.** Quando o trecho não é testável sem um refactor anterior, o `assessment.md` registra o motivo e a verificação manual que substitui o teste, e o dev aprova antes do código |
 | Abordagem | **Extensão própria `refactor`**, no molde da extensão oficial `bug`, com hooks próprios. Branch e envio por comandos da extensão `ws` |
@@ -80,7 +80,7 @@ O registro completo está em `docs/discovery/sp6-refactor-pesquisa.md`. Os ponto
 | **M1 entregue** | Caracterização, contrato novo no provedor e caminho novo no consumidor, atrás da **chave** em "antigo". Em produção, nada muda | A qualquer momento, inclusive no congelamento | `apply` e `verify`, envio e PRs |
 | **M2 convivência** | O time vira a chave para o modo escolhido | Depois da data "convivência a partir de" | Configuração; sem comando |
 | **M3 validado** | Os critérios do `assessment.md` foram atingidos, com evidência registrada | Depois do M2 | `/speckit-refactor-validar` |
-| **M4 contraído** | O caminho acoplado e a chave saem do consumidor | Depois do M3 | `/speckit-refactor-contrair`, com dois portões |
+| **M4 desacoplado** | O caminho acoplado e a chave saem do consumidor | Depois do M3 | `/speckit-refactor-desacoplar`, com dois portões |
 
 ### 4.3 Chave e modos de convivência
 - **Chave:** o mecanismo que escolhe entre o caminho antigo e o novo. Ele varia por repo (configuração no AWX, `appSettings` ou tabela de parâmetros no legado), e o `assess` o escolhe por fatia. O harness exige três coisas: que a chave exista, que comece em "antigo" e que o modo de virar esteja escrito na seção "Para retomar".
@@ -142,18 +142,18 @@ refactors/desacoplamentos/<nome>.md      documento de cada desacoplamento (fora 
 | `speckit.refactor.apply` | 1 e 3 | Commit `test(<slug>): caracterização` só com os testes de caracterização, que passam no código atual; ou registra que a exceção aprovada vale. Depois aplica o refactor. No tipo 3, primeiro o provedor e depois o consumidor, atrás da chave em "antigo". Uma subseção por repo, com build e testes de cada um | `apply.md`, com o hash do commit de caracterização e a lista dos arquivos de teste |
 | `speckit.refactor.verify` | 1 e 3 | Build e testes de cada repo tocado. Confere, com o script `ws-refactor-confere.sh` da `ws`, que os testes de caracterização não mudaram nem foram apagados desde o commit deles. Se tudo passar, marca o **M1**, completa a seção "Para retomar" e, no tipo 3, atualiza a linha da fatia | `verify.md` |
 | `speckit.refactor.validar` | 3 | Recebe a evidência colada e, se for o caso, roda o `SELECT` opcional. Confere contra os critérios do `assessment.md`. Marca **M3** ou **M3-falhou** | `validacao.md` e a linha da fatia |
-| `speckit.refactor.contrair` | 3 | **Portões:** o M3 registrado (`ws refactor estado`), e o índice de impacto do Atlas e uma busca no código do consumidor sem acesso ao objeto fora do caminho que sai. Se um portão falhar, para e diz qual. Se passar, remove o caminho acoplado e a chave do consumidor, roda build e testes e marca o **M4** | `contracao.md` e a linha da fatia |
+| `speckit.refactor.desacoplar` | 3 | **Portões:** o M3 registrado (`ws refactor estado`), e o índice de impacto do Atlas e uma busca no código do consumidor sem acesso ao objeto fora do caminho que sai. Se um portão falhar, para e diz qual. Se passar, remove o caminho acoplado e a chave do consumidor, roda build e testes e marca o **M4** | `desacoplar.md` e a linha da fatia |
 
 ### 5.3 Extensão `ws` 1.3.0 e `tools/ws`
 
 | Hook | Comando | Faz |
 |---|---|---|
 | `before_refactor_assess` | `speckit.ws.refactor-start` | `ws start refactor/<slug>`. Numa nova rodada da mesma fatia (seção 6.3), usa `refactor/<slug>-r<k>`. Se falhar, mostra o erro e **para** o comando |
-| `before_refactor_validar` | `speckit.ws.refactor-start` | `ws start refactor/<slug>-contrair`, ou `-contrair-<k>` quando uma validação anterior falhou e deixou a `-contrair` no origin |
+| `before_refactor_validar` | `speckit.ws.refactor-start` | `ws start refactor/<slug>-desacoplar`, ou `-desacoplar-<k>` quando uma validação anterior falhou e deixou a `-desacoplar` no origin |
 | `after_refactor_assess` | `speckit.ws.refactor-registro` | Só quando o `assess` termina sem refactor (reclassificar): commit `docs(<slug>): …` e push só da branch do workspace. Com veredito `refactor`, lembra o próximo passo |
 | `after_refactor_verify` | `speckit.ws.refactor-enviar` | Atlas dos repos tocados **sem o adiamento** de código interno (gatilho `converge` da skill `atlas-atualizar`), commit `refactor(<slug>): …` e `ws push` |
-| `after_refactor_validar` | `speckit.ws.refactor-registro` | Só no M3-falhou: commit `docs(<slug>): validação …` e push só da branch do workspace. No M3 ok, lembra o `/speckit-refactor-contrair` na mesma branch |
-| `after_refactor_contrair` | `speckit.ws.refactor-enviar` | Atlas, commit `refactor(<slug>): contração …` e `ws push` |
+| `after_refactor_validar` | `speckit.ws.refactor-registro` | Só no M3-falhou: commit `docs(<slug>): validação …` e push só da branch do workspace. No M3 ok, lembra o `/speckit-refactor-desacoplar` na mesma branch |
+| `after_refactor_desacoplar` | `speckit.ws.refactor-enviar` | Atlas, commit `refactor(<slug>): desacopla …` e `ws push` |
 
 - O `refactor-enviar` sempre pede confirmação humana antes do commit e usa o `ws-commit-push.sh` existente.
 - O gatilho `converge` da skill `atlas-atualizar` já mapeia todo repo tocado pela branch, sem a política de adiamento, e por isso não há opção nova no `ws atlas`.
@@ -161,7 +161,7 @@ refactors/desacoplamentos/<nome>.md      documento de cada desacoplamento (fora 
 - **`ws refactor pendentes`:** lê `refactors/desacoplamentos/*.md` na branch atual e lista as fatias em `M1` ou `M3`, com a idade e o próximo passo:
   - `M1` antes da data: "aguardando a data de convivência";
   - `M1` depois da data: "virar a chave e rodar `/speckit-refactor-validar`";
-  - `M3`: "rodar `/speckit-refactor-contrair`".
+  - `M3`: "rodar `/speckit-refactor-desacoplar`".
 
   Quando uma linha não segue o formato, o comando avisa qual é e continua.
 - **Aviso no `ws start`:** depois de criar a branch, que já sai atualizada, roda a mesma leitura. Quando há fatia em `M1` com a data de convivência vencida, mostra uma linha, por exemplo: `2 fatias do desacoplamento linx aguardando validação desde 2026-12-01 (ws refactor pendentes)`. O aviso não bloqueia nada.
@@ -188,7 +188,7 @@ refactors/desacoplamentos/<nome>.md      documento de cada desacoplamento (fora 
   - **Caracterização:** obrigatória, com exceção registrada e aprovada.
   - **Desacoplamento:** leia o documento do desacoplamento antes do `assess`, mostre as fatias pendentes no mesmo objeto ou consumidor, siga o padrão do caminho novo registrado nele e nunca mude o objeto do banco de onde o consumidor sai.
   - **Seguir:** o usuário lê o `assessment.md` antes do `apply`; depois vem o `verify`.
-  - **Marcos e portões:** `validar` e `contrair`. O agente nunca contorna um portão nem muda a coluna Marco à mão.
+  - **Marcos e portões:** `validar` e `desacoplar`. O agente nunca contorna um portão nem muda a coluna Marco à mão.
   - **Banco:** o `SELECT` opcional, igual ao dos bugs.
   - **Onde ficam:** `refactors/` **não é harness**: crie e altere durante o trabalho.
   - **PRs:** um por repo e depois o do workspace.
@@ -207,10 +207,10 @@ refactors/desacoplamentos/<nome>.md      documento de cada desacoplamento (fora 
 1. A primeira fatia de um desacoplamento cria o documento dele (seção 4.4). O padrão do caminho novo é preenchido com o time, com ADR.
 2. Passos 1 a 6 do tipo 1, com o `assessment.md` do tipo 3. O `apply` vai do provedor para o consumidor, e o caminho novo fica atrás da chave em "antigo". O `verify` marca a fatia em `M1` no documento. O deploy pode ir durante o congelamento.
 3. **M2:** a partir da data, o time vira a chave por configuração.
-4. **M3:** `/speckit-refactor-validar <evidência>`. O hook cria a branch `refactor/<slug>-contrair`.
+4. **M3:** `/speckit-refactor-validar <evidência>`. O hook cria a branch `refactor/<slug>-desacoplar`.
    - **Se não passou** (`M3-falhou`): o registro vai para o workspace, a chave volta para "antigo" e a fatia segue para uma nova rodada (seção 6.3).
    - **Se passou** (`M3`): segue na mesma branch.
-5. **M4:** `/speckit-refactor-contrair`, que confere os dois portões, remove o caminho acoplado e a chave, e marca `M4`. O hook faz o envio.
+5. **M4:** `/speckit-refactor-desacoplar`, que confere os dois portões, remove o caminho acoplado e a chave, e marca `M4`. O hook faz o envio.
 
 ### 6.3 Nova rodada da mesma fatia
 Rodar `/speckit-refactor-assess` citando o slug de uma fatia em `M3-falhou` abre uma nova rodada:
@@ -233,15 +233,15 @@ Rodar `/speckit-refactor-assess` citando o slug de uma fatia em `M3-falhou` abre
   - modo de convivência;
   - critérios do M3, com as consultas que o dev vai rodar;
   - data "convivência a partir de".
-- **Para retomar**, preenchida pelo `verify`: data do M1, chave e como virá-la por modo, critérios do M3 com as consultas e o que o `contrair` vai remover. Quem retomar a fatia meses depois, humano ou agente, não precisa de mais nada.
+- **Para retomar**, preenchida pelo `verify`: data do M1, chave e como virá-la por modo, critérios do M3 com as consultas e o que o `desacoplar` vai remover. Quem retomar a fatia meses depois, humano ou agente, não precisa de mais nada.
 
 ### 6.5 Saídas
 
 | Onde | O quê |
 |---|---|
-| `refactors/<slug>/` | `assessment.md`, `apply.md`, `verify.md`; no tipo 3, também `validacao.md` e `contracao.md` |
+| `refactors/<slug>/` | `assessment.md`, `apply.md`, `verify.md`; no tipo 3, também `validacao.md` e `desacoplar.md` |
 | `refactors/desacoplamentos/<nome>.md` | a linha da fatia com o marco |
-| Workspace e repos tocados | branches `refactor/<slug>`, `refactor/<slug>-contrair` e `refactor/<slug>-r<k>` |
+| Workspace e repos tocados | branches `refactor/<slug>`, `refactor/<slug>-desacoplar` e `refactor/<slug>-r<k>` |
 | `docs/atlas/` | atualização dos repos tocados no M1 e no M4 |
 
 ### 6.6 Slug e casos de borda
@@ -264,8 +264,8 @@ O work item do Azure DevOps continua sendo o acompanhamento oficial do time. O h
 | Onde | O que muda |
 |---|---|
 | `README.md` | Uma frase na abertura sobre os comandos de refactor. Linha nova na tabela "Quero…": "fazer um refactor ou uma fatia de desacoplamento", apontando para a camada 1 |
-| Camada 1, `1-comecar.md` | "Um refactor, do relato ao PR" e "Uma fatia de desacoplamento, do relato à contração", em formato curto |
-| Camada 2, `2-quando-da-errado.md` | Grupo novo "Comandos de refactor e `refactor/`": o portão do `contrair` recusou; a exceção de caracterização; a branch `refactor/` já existe; o aviso de pendentes no `ws start`; o `pendentes` não leu uma linha; a validação falhou e a fatia vai para nova rodada |
+| Camada 1, `1-comecar.md` | "Um refactor, do relato ao PR" e "Uma fatia de desacoplamento, do relato ao desacoplar", em formato curto |
+| Camada 2, `2-quando-da-errado.md` | Grupo novo "Comandos de refactor e `refactor/`": o portão do `desacoplar` recusou; a exceção de caracterização; a branch `refactor/` já existe; o aviso de pendentes no `ws start`; o `pendentes` não leu uma linha; a validação falhou e a fatia vai para nova rodada |
 | Camada 3, `3-alem-do-basico.md` | Testes de caracterização com o framework do repo; os modos de convivência e a chave; o documento do desacoplamento |
 | Camada 4, `4-manter.md` | A extensão `refactor`, os comandos e hooks novos da `ws`, `refactors/` e o `pendentes` em "Como as peças se ligam" e "Onde fica cada coisa". "Atualizar o Spec Kit" revisto para a 1.2.0, sem o lembrete do SP5 |
 | `AGENTS.md` e constitution | Seção 5.4 |
@@ -289,7 +289,7 @@ O `tools/ws/tests/test_docs_referencias.sh` cobre as entradas novas. O deck do S
 | 1 | A atualização para a 1.2.0 não quebra o que existe | As skills do `multirepo` e do `bugs` são geradas como hoje, e a suíte do `tools/ws/tests` passa |
 | 2 | Uma extensão nossa dispara hooks com nomes próprios | A `refactor` instala; a `ws` registra `before_refactor_assess` no `.specify/extensions.yml`; o agente roda o `refactor-start` antes do `assess` |
 | 3 | Os hooks nativos da `bug` funcionam | O `before_bug_assess` chama o `bug-start` sem o trecho do preset |
-| 4 | O agente respeita os portões | O `contrair` recusa sem o M3 e recusa com o Atlas mostrando o consumidor |
+| 4 | O agente respeita os portões | O `desacoplar` recusa sem o M3 e recusa com o Atlas mostrando o consumidor |
 
 Se algum item falhar, a execução para e volta ao usuário com as saídas. Nenhum contorno é feito sem decisão.
 
@@ -317,8 +317,8 @@ Se algum item falhar, a execução para e volta ao usuário com as saídas. Nenh
 | Tipo 1 com teste de caracterização alterado | O `verify` acusa e não marca o M1 |
 | Tipo 1 com exceção | A exceção fica no `assessment.md`, e o fluxo segue depois da aprovação |
 | Não é refactor | Recomenda reclassificar; commit só do `assessment.md` e push só do workspace |
-| Tipo 3, fatia completa | Documento criado; provedor e consumidor atrás da chave; `M1`; `pendentes` e aviso depois da data; `validar` com falha e nova rodada `-r2`; `validar` ok; `contrair` ok; `M4` |
-| Portões do `contrair` | Recusa sem M3; recusa com o consumidor ainda no Atlas |
+| Tipo 3, fatia completa | Documento criado; provedor e consumidor atrás da chave; `M1`; `pendentes` e aviso depois da data; `validar` com falha e nova rodada `-r2`; `validar` ok; `desacoplar` ok; `M4` |
+| Portões do `desacoplar` | Recusa sem M3; recusa com o consumidor ainda no Atlas |
 | Sessão nova no meio | O `validar` numa sessão limpa retoma pela seção "Para retomar" |
 | Regressão do bug | Bug com correção em 1 repo, com os hooks nativos |
 
@@ -336,7 +336,7 @@ Os ambientes descartáveis do PoC e da validação ficam listados para o usuári
 |---|---|
 | A atualização do Spec Kit quebra o fluxo de feature durante o piloto do SP4 | PR 1 separado; item 1 do PoC; suíte |
 | A 1.2.0 não aceita hooks com nomes próprios de uma extensão nossa | Item 2 do PoC. Saída, com decisão do usuário: o próprio comando chama a `ws` no texto, como no SP5 |
-| O agente pula um portão e contrai sem M3 | Portão no texto do comando e na regra VII; item 4 do PoC; caso de ponta a ponta |
+| O agente pula um portão e desacopla sem M3 | Portão no texto do comando e na regra VII; item 4 do PoC; caso de ponta a ponta |
 | Alguém edita a tabela de fatias à mão e quebra o formato | O `pendentes` aponta a linha; a camada 2 explica |
 | Duas fatias atualizam o mesmo documento em paralelo | Cada fatia muda só a própria linha; um conflito de merge fica restrito à tabela e é resolvido no PR do workspace |
 | Fatia esquecida entre o M1 e o M3 | Seção 7 |

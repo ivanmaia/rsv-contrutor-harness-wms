@@ -226,9 +226,9 @@ Atualizado em 2026-10-05.
    - Escopo (usuário): tipos 3 (desacoplamento, ex.: LINX via AWX ERP Connector e Serviços Integração LINX WMS) e 1 (refactor interno), nessa ordem. Tipos 2 (mover entre projetos/repos) e 4 (migração do legado para o AWX) ficam para um **SP7**.
    - Decisões até 2026-10-16:
      - documento do desacoplamento leve (`refactors/desacoplamentos/<nome>.md`, inventário e ordem, sem comando próprio);
-     - uma entrega de código por fatia, com marcos M1 entregue (pode ir para produção na Black Friday, inativo atrás de chave), M2 convivência (depois da Black Friday), M3 validado (evidência colada pelo dev) e M4 contraído (só com M3 e Atlas sem o consumidor);
+     - uma entrega de código por fatia, com marcos M1 entregue (pode ir para produção na Black Friday, inativo atrás de chave), M2 convivência (depois da Black Friday), M3 validado (evidência colada pelo dev) e M4 desacoplado (só com M3 e Atlas sem o consumidor);
      - caracterização obrigatória com exceção registrada e aprovada;
-     - abordagem A: extensão própria `refactor` com hooks próprios (assess, apply, verify, validar, contrair) e a `ws` com refactor-start e refactor-enviar;
+     - abordagem A: extensão própria `refactor` com hooks próprios (assess, apply, verify, validar, desacoplar) e a `ws` com refactor-start e refactor-enviar;
      - **atualizar o Spec Kit (1.2.0) entra no SP6**;
      - acompanhamento por "Para retomar" no assessment, linha da fatia no documento, `ws refactor pendentes` e aviso no `ws start`;
      - tipo 3 cria contrato novo; o caminho novo do legado já está definido pelo usuário, que vai explicar;

@@ -14,10 +14,10 @@
 
 **Ajustes à spec feitos no plano** (refinamentos de implementação; a spec é atualizada junto com este plano):
 1. A extensão `ws` vai para a 1.3.0 no PR 1 (hooks de bug) e para a 1.4.0 no PR 2 (refactor). A spec citava só a 1.3.0.
-2. A `ws` ganha um terceiro comando, `speckit.ws.refactor-registro`. Ele cuida do registro sem mudança de código: o `assess` que reclassifica e o `validar` que falha. O `refactor-enviar` fica só para os envios com código: `verify` e `contrair`.
-3. A coluna Marco só muda pelo subcomando mecânico `ws refactor marco`, que recusa transição fora de ordem. A recusa do M4 sem M3 é o portão 1 do `contrair`, garantido por código. A linha da fatia nasce no M1 (no `verify`), e não no `assess`. O `ws refactor estado <slug>` devolve o marco.
-4. O portão 2 do `contrair` consulta o índice de impacto do Atlas **e** procura o nome do objeto no código do consumidor, fora do caminho que vai sair.
-5. A branch da validação de uma fatia que já teve uma validação falha é `refactor/<slug>-contrair-<k>`, porque a `-contrair` anterior ficou no origin com o registro da falha.
+2. A `ws` ganha um terceiro comando, `speckit.ws.refactor-registro`. Ele cuida do registro sem mudança de código: o `assess` que reclassifica e o `validar` que falha. O `refactor-enviar` fica só para os envios com código: `verify` e `desacoplar`.
+3. A coluna Marco só muda pelo subcomando mecânico `ws refactor marco`, que recusa transição fora de ordem. A recusa do M4 sem M3 é o portão 1 do `desacoplar`, garantido por código. A linha da fatia nasce no M1 (no `verify`), e não no `assess`. O `ws refactor estado <slug>` devolve o marco.
+4. O portão 2 do `desacoplar` consulta o índice de impacto do Atlas **e** procura o nome do objeto no código do consumidor, fora do caminho que vai sair.
+5. A branch da validação de uma fatia que já teve uma validação falha é `refactor/<slug>-desacoplar-<k>`, porque a `-desacoplar` anterior ficou no origin com o registro da falha.
 6. O Atlas sem o adiamento usa o gatilho `converge` existente da skill `atlas-atualizar`, que mapeia todo repo tocado pela branch, sem a política de adiamento (`tools/atlas/plano.py`, ramo `converge`). Não há opção nova no `ws atlas`.
 
 ## Global Constraints
@@ -33,21 +33,21 @@
 - Pastas: relatórios em `refactors/<slug>/`; documento do desacoplamento em `refactors/desacoplamentos/<nome>.md`. Nada em `.specify/refactors/`.
 - Slug: `^([0-9]+|rf-[0-9]{8})-[a-z0-9]+(-[a-z0-9]+)*$`, ou seja, `<id do work item>-<descrição>` ou `rf-<AAAAMMDD>-<descrição>`.
 - Nome do desacoplamento: `^[a-z0-9]+(-[a-z0-9]+)*$` (por exemplo, `linx`).
-- Branches: `refactor/<slug>`, `refactor/<slug>-r<k>` (k ≥ 2) e `refactor/<slug>-contrair` (ou `-contrair-<k>`, k ≥ 2, quando uma validação anterior falhou e deixou a `-contrair` no origin), no workspace e nos repos.
+- Branches: `refactor/<slug>`, `refactor/<slug>-r<k>` (k ≥ 2) e `refactor/<slug>-desacoplar` (ou `-desacoplar-<k>`, k ≥ 2, quando uma validação anterior falhou e deixou a `-desacoplar` no origin), no workspace e nos repos.
 - Cabeçalho da tabela de fatias, exato: `| Fatia | Consumidor | Objeto | Marco | Data do marco | Convivência a partir de |`. Linha: `| [<slug>](../<slug>/) | <consumidor> | <objeto> | <marco> | <AAAA-MM-DD> | <AAAA-MM-DD> |`. Marcos válidos: `M1`, `M3`, `M3-falhou`, `M4`.
 - Mensagens de commit do fluxo:
   - caracterização: `test(<slug>): caracterização`;
   - M1: `refactor(<slug>): <título>`;
   - reclassificar: `docs(<slug>): diagnóstico, não é refactor`;
   - validação que falhou: `docs(<slug>): validação sem sucesso`;
-  - M4: `refactor(<slug>): contração <título>`.
+  - M4: `refactor(<slug>): desacopla <título>`.
 - Suíte: `bash tools/ws/tests/run.sh` 100% verde ao fim de cada task. Os testes de instalação rodam com `WS_TEST_REDE=1`.
 - Ações externas (push ao origin do workspace, `claude -p`, criação de ambientes em `C:\src\` ou `%TEMP%`, clone do Azure DevOps) só com OK do usuário, marcadas **(OK)**. O push das branches do harness é feito pelo usuário (no SP5, a permissão automática negou o push pelo agente).
 - Fora de escopo: corrigir defeitos achados nos repos do WMS.
 
 ## Review Focus
 
-1. **Dev roda `/speckit-refactor-contrair` numa fatia ainda em M1**, porque achou que a convivência bastava: `ws refactor estado` devolve `M1`, o comando para, e `ws refactor marco <slug> M4` recusa com "a contração exige o M3 registrado". Teste: `test_refactor_marco_m4_sem_m3_recusa` (Task 5).
+1. **Dev roda `/speckit-refactor-desacoplar` numa fatia ainda em M1**, porque achou que a convivência bastava: `ws refactor estado` devolve `M1`, o comando para, e `ws refactor marco <slug> M4` recusa com "desacoplar exige o M3 registrado". Teste: `test_refactor_marco_m4_sem_m3_recusa` (Task 5).
 2. **Tabela de fatias editada à mão**, com a data em `01/12/2026` ou a linha sem o link: o `pendentes` avisa a linha fora do formato e segue listando as outras, e o `ws start` não quebra. Testes: `test_refactor_pendentes_linha_fora_do_formato_avisa_e_segue` e `test_refactor_aviso_do_start_ignora_linha_fora_do_formato` (Task 5).
 3. **`/speckit-refactor-assess` de novo para uma fatia já registrada no `main`**, sem ser nova rodada: o start recusa e diz o caminho (nova rodada ou validar), sem criar branch. Teste: `test_refactor_start_registrado_no_main_falha` (Task 4).
 4. **O agente apaga um teste de caracterização** em vez de alterar: a conferência acusa o arquivo apagado. Teste: `test_refactor_confere_teste_apagado_falha` (Task 4).
@@ -587,7 +587,7 @@ Preencha. Se falhar, pare e volte ao usuário. Commit no repo de discovery: `git
 **Interfaces:**
 - Consumes: `tools/ws/ws start <branch>` (recusa árvore suja, branch local existente e nome inválido; imprime `aviso:` e o link do PR da `ws/sync`).
 - Produces:
-  - `ws-refactor-start.sh <slug> [--rodada|--contrair]` → uma linha JSON `{"BRANCH_NAME":..,"REFACTOR_DIRECTORY":..,"EXISTING":true|false,"ERROR":..,"AVISOS":..}`. Sai 1 com `ERROR` preenchido. Usado por `speckit.ws.refactor-start` (Task 6).
+  - `ws-refactor-start.sh <slug> [--rodada|--desacoplar]` → uma linha JSON `{"BRANCH_NAME":..,"REFACTOR_DIRECTORY":..,"EXISTING":true|false,"ERROR":..,"AVISOS":..}`. Sai 1 com `ERROR` preenchido. Usado por `speckit.ws.refactor-start` (Task 6).
   - `ws-refactor-registro.sh "<mensagem>"` → commit só de `refactors/` e `git push -u origin <branch>`. Usado por `speckit.ws.refactor-registro` (Task 6).
   - `ws-refactor-confere.sh <commit>` → `ws: caracterização intacta: <n> arquivo(s)` (0) ou `ws: erro: testes de caracterização alterados depois do commit <hash>: <arquivos>` (1). Usado por `speckit.refactor.verify` (Task 6).
 
@@ -644,7 +644,7 @@ test_refactor_start_aceita_slug_sem_work_item() {
 test_refactor_start_sem_slug_falha() {
   fx_ready
   assert_fails rf_start
-  assert_contains "$(json_get ERROR "$OUT")" "uso: ws-refactor-start.sh <slug> [--rodada|--contrair]"
+  assert_contains "$(json_get ERROR "$OUT")" "uso: ws-refactor-start.sh <slug> [--rodada|--desacoplar]"
 }
 
 test_refactor_start_modo_desconhecido_falha() {
@@ -684,35 +684,35 @@ test_refactor_start_registrado_no_main_falha() {
   assert_eq "$(git symbolic-ref --short HEAD)" "main"
 }
 
-test_refactor_start_contrair_cria_branch() {
+test_refactor_start_desacoplar_cria_branch() {
   fx_ready
   rf_registrado 90301-movimenta-vendas
-  assert_ok rf_start 90301-movimenta-vendas --contrair
-  assert_eq "$(json_get BRANCH_NAME "$OUT")" "refactor/90301-movimenta-vendas-contrair"
-  assert_eq "$(git symbolic-ref --short HEAD)" "refactor/90301-movimenta-vendas-contrair"
+  assert_ok rf_start 90301-movimenta-vendas --desacoplar
+  assert_eq "$(json_get BRANCH_NAME "$OUT")" "refactor/90301-movimenta-vendas-desacoplar"
+  assert_eq "$(git symbolic-ref --short HEAD)" "refactor/90301-movimenta-vendas-desacoplar"
 }
 
-test_refactor_start_contrair_sem_registro_falha() {
+test_refactor_start_desacoplar_sem_registro_falha() {
   fx_ready
-  assert_fails rf_start 90301-movimenta-vendas --contrair
+  assert_fails rf_start 90301-movimenta-vendas --desacoplar
   assert_contains "$(json_get ERROR "$OUT")" "o refactor 90301-movimenta-vendas não está registrado no main"
 }
 
-test_refactor_start_contrair_ja_na_branch_continua() {
+test_refactor_start_desacoplar_ja_na_branch_continua() {
   fx_ready
   rf_registrado 90301-movimenta-vendas
-  rf_start 90301-movimenta-vendas --contrair >/dev/null
-  assert_ok rf_start 90301-movimenta-vendas --contrair
+  rf_start 90301-movimenta-vendas --desacoplar >/dev/null
+  assert_ok rf_start 90301-movimenta-vendas --desacoplar
   assert_eq "$(json_get EXISTING "$OUT")" "true"
 }
 
-test_refactor_start_contrair_de_novo_usa_o_proximo_numero() {
+test_refactor_start_desacoplar_de_novo_usa_o_proximo_numero() {
   fx_ready
   rf_registrado 90301-movimenta-vendas
-  git push -q origin main:refs/heads/refactor/90301-movimenta-vendas-contrair
-  assert_ok rf_start 90301-movimenta-vendas --contrair
-  assert_eq "$(json_get BRANCH_NAME "$OUT")" "refactor/90301-movimenta-vendas-contrair-2"
-  assert_ok rf_start 90301-movimenta-vendas --contrair
+  git push -q origin main:refs/heads/refactor/90301-movimenta-vendas-desacoplar
+  assert_ok rf_start 90301-movimenta-vendas --desacoplar
+  assert_eq "$(json_get BRANCH_NAME "$OUT")" "refactor/90301-movimenta-vendas-desacoplar-2"
+  assert_ok rf_start 90301-movimenta-vendas --desacoplar
   assert_eq "$(json_get EXISTING "$OUT")" "true"
 }
 
@@ -789,7 +789,7 @@ test_refactor_registro_commita_refactors_e_envia_so_o_workspace() {
 test_refactor_registro_aceita_o_documento_do_desacoplamento() {
   fx_ready
   rf_registrado 90301-movimenta-vendas
-  rf_start 90301-movimenta-vendas --contrair >/dev/null
+  rf_start 90301-movimenta-vendas --desacoplar >/dev/null
   mkdir -p refactors/desacoplamentos
   echo "| linha |" > refactors/desacoplamentos/linx.md
   echo "# validação" > refactors/90301-movimenta-vendas/validacao.md
@@ -917,17 +917,17 @@ Expected: FALHA em todos (os scripts não existem: `No such file or directory`).
 # Comando speckit.ws.refactor-start da extensão ws, chamado pelos hooks before_refactor_assess e
 # before_refactor_validar: cria a branch do refactor com ws start (spec SP6, 5.3).
 # Modos: (padrão) refactor/<slug>; --rodada refactor/<slug>-r<k>, com o próximo k livre a partir de 2;
-# --contrair refactor/<slug>-contrair, ou -contrair-<k> com o próximo k livre a partir de 2 (uma validação
-# que falhou deixa a -contrair anterior no origin).
+# --desacoplar refactor/<slug>-desacoplar, ou -desacoplar-<k> com o próximo k livre a partir de 2 (uma validação
+# que falhou deixa a -desacoplar anterior no origin).
 # - Slug: <id do work item>-<descrição> ou rf-<AAAAMMDD>-<descrição>, em minúsculas e com hífens.
 # - Já na branch do modo (no padrão, também numa -r<k> do mesmo slug): continua nela, sem ws start.
-# - Padrão: refactor já registrado no main é erro. --rodada e --contrair exigem o registro no main.
-# Uso: ws-refactor-start.sh <slug> [--rodada|--contrair]
+# - Padrão: refactor já registrado no main é erro. --rodada e --desacoplar exigem o registro no main.
+# Uso: ws-refactor-start.sh <slug> [--rodada|--desacoplar]
 # Saída: uma linha JSON com BRANCH_NAME, REFACTOR_DIRECTORY, EXISTING, ERROR e AVISOS.
 set -uo pipefail
 
 WS_DESTINO=${WS_DESTINO:-main}
-USO="uso: ws-refactor-start.sh <slug> [--rodada|--contrair]"
+USO="uso: ws-refactor-start.sh <slug> [--rodada|--desacoplar]"
 
 json_str() {
   local s=$1
@@ -955,7 +955,7 @@ fail() { emit "" "" false "$1"; exit 1; }
 slug=${1:-}
 modo=${2:-}
 [ -n "$slug" ] || fail "$USO"
-case "$modo" in ""|--rodada|--contrair) ;; *) fail "$USO" ;; esac
+case "$modo" in ""|--rodada|--desacoplar) ;; *) fail "$USO" ;; esac
 [[ $slug =~ ^([0-9]+|rf-[0-9]{8})-[a-z0-9]+(-[a-z0-9]+)*$ ]] \
   || fail "slug inválido: $slug. Use <id do work item>-<descrição> ou rf-<AAAAMMDD>-<descrição>, em minúsculas e com hífens"
 dir="refactors/$slug"
@@ -969,8 +969,8 @@ case "$modo" in
     if [ "$atual" = "refactor/$slug" ] || [[ $atual =~ ^refactor/$slug-r[0-9]+$ ]]; then emit "$atual" "$dir" true ""; exit 0; fi ;;
   --rodada)
     if [[ $atual =~ ^refactor/$slug-r[0-9]+$ ]]; then emit "$atual" "$dir" true ""; exit 0; fi ;;
-  --contrair)
-    if [[ $atual =~ ^refactor/$slug-contrair(-[0-9]+)?$ ]]; then emit "$atual" "$dir" true ""; exit 0; fi ;;
+  --desacoplar)
+    if [[ $atual =~ ^refactor/$slug-desacoplar(-[0-9]+)?$ ]]; then emit "$atual" "$dir" true ""; exit 0; fi ;;
 esac
 
 # O registro mergeado fica no main do origin; o ws start cria a branch a partir da ws/sync.
@@ -991,12 +991,12 @@ case "$modo" in
     ! $registrado \
       || fail "o refactor $slug já está registrado no $WS_DESTINO ($dir/). Para uma nova rodada de uma fatia que falhou na validação, rode /speckit-refactor-assess citando o slug; para validar uma fatia em M1, rode /speckit-refactor-validar $slug"
     br="refactor/$slug" ;;
-  --contrair)
+  --desacoplar)
     $registrado \
       || fail "o refactor $slug não está registrado no $WS_DESTINO; o PR do workspace com $dir/ precisa estar mergeado antes de validar"
-    br="refactor/$slug-contrair"
+    br="refactor/$slug-desacoplar"
     k=2
-    while local_existe "$br" || no_origin "$br"; do br="refactor/$slug-contrair-$k"; k=$((k + 1)); done ;;
+    while local_existe "$br" || no_origin "$br"; do br="refactor/$slug-desacoplar-$k"; k=$((k + 1)); done ;;
   --rodada)
     $registrado \
       || fail "o refactor $slug não está registrado no $WS_DESTINO; a nova rodada parte do registro mergeado"
@@ -1194,7 +1194,7 @@ test_refactor_pendentes_m3_m3falhou_e_ignora_m4() {
     "$(linha 90303-c c o M4 2026-12-07 2026-12-01)"
   export WS_HOJE=2026-12-10
   assert_ok ws refactor pendentes
-  assert_contains "$OUT" "linx  90301-a  M3 desde 2026-12-05 (5 dia(s)): rodar /speckit-refactor-contrair 90301-a"
+  assert_contains "$OUT" "linx  90301-a  M3 desde 2026-12-05 (5 dia(s)): rodar /speckit-refactor-desacoplar 90301-a"
   assert_contains "$OUT" "linx  90302-b  M3-falhou desde 2026-12-06 (4 dia(s)): nova rodada com /speckit-refactor-assess 90302-b"
   assert_not_contains "$OUT" "90303-c"
 }
@@ -1279,7 +1279,7 @@ test_refactor_marco_m3_sem_m1_recusa() {
 test_refactor_marco_m4_sem_m3_recusa() {
   fx_linx "$(linha 90301-a c o M1 2026-11-10 2026-12-01)"
   assert_fails ws refactor marco 90301-a M4
-  assert_contains "$OUT" "a fatia 90301-a está em M1; a contração exige o M3 registrado (rode /speckit-refactor-validar)"
+  assert_contains "$OUT" "a fatia 90301-a está em M1; desacoplar exige o M3 registrado (rode /speckit-refactor-validar)"
   assert_eq "$(sed -n 7p refactors/desacoplamentos/linx.md)" "$(linha 90301-a c o M1 2026-11-10 2026-12-01)"
 }
 
@@ -1436,7 +1436,7 @@ ws_refactor_pendentes() {
         else
           passo="virar a chave e rodar /speckit-refactor-validar $slug (convivência desde $conv)"
         fi ;;
-      M3) passo="rodar /speckit-refactor-contrair $slug" ;;
+      M3) passo="rodar /speckit-refactor-desacoplar $slug" ;;
       M3-falhou) passo="nova rodada com /speckit-refactor-assess $slug" ;;
       *) continue ;;
     esac
@@ -1489,7 +1489,7 @@ ws_refactor_marco() {
     M3|M3-falhou) [ "$RF_MARCO" = M1 ] \
           || die "a fatia $alvo está em ${RF_MARCO:-nenhuma tabela}; a validação exige o M1" ;;
     M4) [ "$RF_MARCO" = M3 ] \
-          || die "a fatia $alvo está em ${RF_MARCO:-nenhuma tabela}; a contração exige o M3 registrado (rode /speckit-refactor-validar)" ;;
+          || die "a fatia $alvo está em ${RF_MARCO:-nenhuma tabela}; desacoplar exige o M3 registrado (rode /speckit-refactor-validar)" ;;
   esac
   tmp=$(mktemp)
   if [ -n "$RF_MARCO" ]; then
@@ -1581,7 +1581,7 @@ Expected: suíte com `0 falha(s)`. Os testes do `ws start` existentes continuam 
 - Create: `tools/speckit/refactor/commands/speckit.refactor.apply.md`
 - Create: `tools/speckit/refactor/commands/speckit.refactor.verify.md`
 - Create: `tools/speckit/refactor/commands/speckit.refactor.validar.md`
-- Create: `tools/speckit/refactor/commands/speckit.refactor.contrair.md`
+- Create: `tools/speckit/refactor/commands/speckit.refactor.desacoplar.md`
 - Create: `tools/speckit/refactor/templates/assessment-template.md`
 - Create: `tools/speckit/refactor/templates/desacoplamento-template.md`
 - Create: `tools/speckit/ws/commands/speckit.ws.refactor-start.md`
@@ -1594,7 +1594,7 @@ Expected: suíte com `0 falha(s)`. Os testes do `ws start` existentes continuam 
 
 **Interfaces:**
 - Consumes: `ws-refactor-start.sh`, `ws-refactor-registro.sh`, `ws-refactor-confere.sh` (Task 4); `ws refactor estado|marco|pendentes` (Task 5); `ws-commit-push.sh` (existente); skills `atlas-consultar` e `atlas-atualizar` (existentes).
-- Produces: as skills `/speckit-refactor-assess`, `/speckit-refactor-apply`, `/speckit-refactor-verify`, `/speckit-refactor-validar`, `/speckit-refactor-contrair`, `/speckit-ws-refactor-start`, `/speckit-ws-refactor-registro` e `/speckit-ws-refactor-enviar`; os eventos `before_`/`after_refactor_<assess|apply|verify|validar|contrair>`.
+- Produces: as skills `/speckit-refactor-assess`, `/speckit-refactor-apply`, `/speckit-refactor-verify`, `/speckit-refactor-validar`, `/speckit-refactor-desacoplar`, `/speckit-ws-refactor-start`, `/speckit-ws-refactor-registro` e `/speckit-ws-refactor-enviar`; os eventos `before_`/`after_refactor_<assess|apply|verify|validar|desacoplar>`.
 
 - [ ] **Step 1: Escrever os testes offline da fonte**
 
@@ -1606,7 +1606,7 @@ RF_SRC="$WS_DIR/../speckit/refactor"
 test_extensao_refactor_lista_os_cinco_comandos_com_arquivo() {
   local y="$RF_SRC/extension.yml" c f
   assert_contains "$(cat "$y")" "id: refactor"
-  for c in assess apply verify validar contrair; do
+  for c in assess apply verify validar desacoplar; do
     grep -qF "name: speckit.refactor.$c" "$y" || fail "extension.yml sem speckit.refactor.$c"
     f="$RF_SRC/commands/speckit.refactor.$c.md"
     [ -f "$f" ] || fail "falta $f"
@@ -1628,7 +1628,7 @@ test_ws_registra_os_hooks_de_refactor() {
   local y="$WS_DIR/../speckit/ws/extension.yml" ev cmd
   for ev in before_refactor_assess:speckit.ws.refactor-start after_refactor_assess:speckit.ws.refactor-registro \
             after_refactor_verify:speckit.ws.refactor-enviar before_refactor_validar:speckit.ws.refactor-start \
-            after_refactor_validar:speckit.ws.refactor-registro after_refactor_contrair:speckit.ws.refactor-enviar; do
+            after_refactor_validar:speckit.ws.refactor-registro after_refactor_desacoplar:speckit.ws.refactor-enviar; do
     cmd=$(awk -v e="  ${ev%%:*}:" '$0 == e { getline; sub(/^ *command: */, ""); print; exit }' "$y")
     assert_eq "$cmd" "${ev#*:}" "hook ${ev%%:*}"
   done
@@ -1638,11 +1638,11 @@ test_ws_registra_os_hooks_de_refactor() {
   done
 }
 
-test_contrair_confere_os_dois_portoes() {
-  local f="$RF_SRC/commands/speckit.refactor.contrair.md"
-  grep -qF 'tools/ws/ws refactor estado' "$f" || fail "contrair sem o portão do M3"
-  grep -qF 'docs/atlas/impacto/' "$f" || fail "contrair sem o portão do Atlas"
-  grep -qF 'tools/ws/ws refactor marco' "$f" || fail "contrair não grava o M4"
+test_desacoplar_confere_os_dois_portoes() {
+  local f="$RF_SRC/commands/speckit.refactor.desacoplar.md"
+  grep -qF 'tools/ws/ws refactor estado' "$f" || fail "desacoplar sem o portão do M3"
+  grep -qF 'docs/atlas/impacto/' "$f" || fail "desacoplar sem o portão do Atlas"
+  grep -qF 'tools/ws/ws refactor marco' "$f" || fail "desacoplar não grava o M4"
 }
 
 test_verify_confere_a_caracterizacao() {
@@ -1659,7 +1659,7 @@ test_speckit_instala_a_extensao_refactor_e_os_hooks() {
   fx_speckit
   local s ext
   for s in speckit-refactor-assess speckit-refactor-apply speckit-refactor-verify speckit-refactor-validar \
-           speckit-refactor-contrair speckit-ws-refactor-start speckit-ws-refactor-registro speckit-ws-refactor-enviar; do
+           speckit-refactor-desacoplar speckit-ws-refactor-start speckit-ws-refactor-registro speckit-ws-refactor-enviar; do
     [ -f ".claude/skills/$s/SKILL.md" ] || fail "falta a skill $s"
   done
   [ -f .specify/extensions/refactor/hooks.md ] || fail "falta o hooks.md instalado"
@@ -1667,7 +1667,7 @@ test_speckit_instala_a_extensao_refactor_e_os_hooks() {
   ext=$(cat .specify/extensions.yml)
   assert_contains "$ext" "before_refactor_assess:"
   assert_contains "$ext" "command: speckit.ws.refactor-start"
-  assert_contains "$ext" "after_refactor_contrair:"
+  assert_contains "$ext" "after_refactor_desacoplar:"
   assert_contains "$ext" "command: speckit.ws.refactor-enviar"
   assert_contains "$ext" "command: speckit.ws.refactor-registro"
 }
@@ -1689,7 +1689,7 @@ extension:
   id: refactor
   name: "Refactor do workspace WMS"
   version: "1.0.0"
-  description: "Refactor interno e fatia de desacoplamento: diagnóstico, caracterização, refactor, verificação, validação e contração (spec SP6)"
+  description: "Refactor interno e fatia de desacoplamento: diagnóstico, caracterização, refactor, verificação, validação e desacoplar (spec SP6)"
   author: workspace-wms
   repository: https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.workspace
   license: Proprietary
@@ -1711,8 +1711,8 @@ provides:
     - name: speckit.refactor.validar
       file: commands/speckit.refactor.validar.md
       description: "Confere a evidência da convivência contra os critérios; marca M3 ou M3-falhou"
-    - name: speckit.refactor.contrair
-      file: commands/speckit.refactor.contrair.md
+    - name: speckit.refactor.desacoplar
+      file: commands/speckit.refactor.desacoplar.md
       description: "Remove o caminho acoplado e a chave depois do M3; marca o M4"
 
 tags:
@@ -2013,7 +2013,7 @@ Grave `refactors/<slug>/verify.md` com `**Resultado:** ok` ou `**Resultado:** fa
 
 - Preencha a seção "Para retomar" do `assessment.md`, trocando o texto do modelo:
   - **interno:** a data do M1 e "nada a retomar";
-  - **desacoplamento:** a data do M1; a chave e como virá-la em cada modo (paralelo, sombra, troca direta e de volta para "antigo"); os critérios do M3 com as consultas prontas; o que o `/speckit-refactor-contrair` vai remover (arquivos, a chave e o caminho antigo); a data de convivência.
+  - **desacoplamento:** a data do M1; a chave e como virá-la em cada modo (paralelo, sombra, troca direta e de volta para "antigo"); os critérios do M3 com as consultas prontas; o que o `/speckit-refactor-desacoplar` vai remover (arquivos, a chave e o caminho antigo); a data de convivência.
 - **Desacoplamento:** registre o marco na raiz do workspace:
 
   ```bash
@@ -2054,7 +2054,7 @@ O slug da fatia e a evidência que o usuário colou: consultas e resultados, log
 
 ## 2. Antes
 
-Dispare o evento `before_refactor_validar` seguindo `.specify/extensions/refactor/hooks.md`. O `/speckit-ws-refactor-start` cria a branch `refactor/<slug>-contrair` (ou `-contrair-<k>`, se uma validação anterior falhou). Se ele devolver `ERROR`, pare.
+Dispare o evento `before_refactor_validar` seguindo `.specify/extensions/refactor/hooks.md`. O `/speckit-ws-refactor-start` cria a branch `refactor/<slug>-desacoplar` (ou `-desacoplar-<k>`, se uma validação anterior falhou). Se ele devolver `ERROR`, pare.
 
 ## 3. Conferência
 
@@ -2080,14 +2080,14 @@ Dispare o evento `before_refactor_validar` seguindo `.specify/extensions/refacto
 Dispare o evento `after_refactor_validar` seguindo `.specify/extensions/refactor/hooks.md`.
 ```
 
-- [ ] **Step 9: `speckit.refactor.contrair.md`**
+- [ ] **Step 9: `speckit.refactor.desacoplar.md`**
 
 ```markdown
 ---
 description: "Remove o caminho acoplado e a chave do consumidor depois do M3; marca o M4"
 ---
 
-# Fatia de desacoplamento: contração (M4)
+# Fatia de desacoplamento: desacoplar (M4)
 
 **Idioma:** responda ao usuário sempre em português do Brasil, inclusive em erros e perguntas. Não proponha mudanças no harness (`tools/`, `.specify/`, `.claude/`, `AGENTS.md`) como próximo passo: descreva o problema e sugira registrá-lo para o time do harness.
 
@@ -2099,23 +2099,23 @@ $ARGUMENTS
 
 ## 1. Qual fatia
 
-- Sem slug na entrada nem na conversa, use o da branch atual quando ela for `refactor/<slug>-contrair` ou `refactor/<slug>-contrair-<k>`. Diga que o slug veio da branch.
-- Confirme com `git branch --show-current` que você está numa dessas branches, criada pelo `/speckit-refactor-validar`. Se não estiver, pare: a contração roda na branch da validação.
+- Sem slug na entrada nem na conversa, use o da branch atual quando ela for `refactor/<slug>-desacoplar` ou `refactor/<slug>-desacoplar-<k>`. Diga que o slug veio da branch.
+- Confirme com `git branch --show-current` que você está numa dessas branches, criada pelo `/speckit-refactor-validar`. Se não estiver, pare: o desacoplar roda na branch da validação.
 - Leia o `assessment.md`, o `apply.md` e o `validacao.md`.
 
 ## 2. Antes
 
-Dispare o evento `before_refactor_contrair` seguindo `.specify/extensions/refactor/hooks.md`.
+Dispare o evento `before_refactor_desacoplar` seguindo `.specify/extensions/refactor/hooks.md`.
 
 ## 3. Portões (nunca contorne)
 
-1. **M3 registrado:** rode `tools/ws/ws refactor estado <slug>`. Se não for `M3`, **pare** e diga: "a contração exige o M3 registrado; rode `/speckit-refactor-validar <slug>`".
+1. **M3 registrado:** rode `tools/ws/ws refactor estado <slug>`. Se não for `M3`, **pare** e diga: "desacoplar exige o M3 registrado; rode `/speckit-refactor-validar <slug>`".
 2. **O consumidor não acessa o objeto por outro caminho:**
    - consulte a página do objeto no índice de impacto do Atlas (`docs/atlas/impacto/`) e veja os acessos do repo consumidor;
    - procure o nome do objeto no código do consumidor (`repos/<consumidor>/`, por exemplo com `grep -rn "<nome do objeto>"`);
-   - todo acesso achado precisa estar no caminho antigo que esta fatia remove (listado em "Para retomar"). Se houver acesso fora dele, **pare** e liste cada um com arquivo e linha: ele precisa de uma fatia própria antes da contração.
+   - todo acesso achado precisa estar no caminho antigo que esta fatia remove (listado em "Para retomar"). Se houver acesso fora dele, **pare** e liste cada um com arquivo e linha: ele precisa de uma fatia própria antes de desacoplar.
 
-## 4. Contração
+## 4. Desacoplar
 
 - No consumidor, remova o caminho acoplado e a chave, deixando só o caminho novo. Siga as instruções do repo (regra 1 do `AGENTS.md`).
 - **Não** mexa no objeto do banco (regra II) nem no provedor.
@@ -2124,7 +2124,7 @@ Dispare o evento `before_refactor_contrair` seguindo `.specify/extensions/refact
 
 ## 5. Relatório e marco
 
-- Grave `refactors/<slug>/contracao.md` com os portões (a evidência de cada um), o que foi removido, o build e os testes, e `**Resultado:** ok` ou `**Resultado:** falhou`.
+- Grave `refactors/<slug>/desacoplar.md` com os portões (a evidência de cada um), o que foi removido, o build e os testes, e `**Resultado:** ok` ou `**Resultado:** falhou`.
 - Com `ok`, registre o marco:
 
   ```bash
@@ -2135,7 +2135,7 @@ Dispare o evento `before_refactor_contrair` seguindo `.specify/extensions/refact
 
 ## 6. Depois
 
-Dispare o evento `after_refactor_contrair` seguindo `.specify/extensions/refactor/hooks.md`. O `/speckit-ws-refactor-enviar` lê o resultado do `contracao.md`.
+Dispare o evento `after_refactor_desacoplar` seguindo `.specify/extensions/refactor/hooks.md`. O `/speckit-ws-refactor-enviar` lê o resultado do `desacoplar.md`.
 ```
 
 - [ ] **Step 10: Comandos da `ws`**
@@ -2160,13 +2160,13 @@ $ARGUMENTS
 Este comando roda pelos hooks `before_refactor_assess` e `before_refactor_validar`. O slug é o que o comando de refactor desta sessão definiu; se a entrada acima trouxer um slug, use o da entrada.
 
 1. **Modo:**
-   - chamado pelo `/speckit-refactor-validar`: `--contrair`;
+   - chamado pelo `/speckit-refactor-validar`: `--desacoplar`;
    - chamado pelo `/speckit-refactor-assess` numa nova rodada (fatia em `M3-falhou`): `--rodada`;
    - nos outros casos: sem modo.
 2. Rode, na raiz do workspace:
 
    ```bash
-   bash .specify/extensions/ws/scripts/bash/ws-refactor-start.sh "<slug>" [--rodada|--contrair]
+   bash .specify/extensions/ws/scripts/bash/ws-refactor-start.sh "<slug>" [--rodada|--desacoplar]
    ```
 
 3. Leia a única linha JSON da saída:
@@ -2201,7 +2201,7 @@ Este comando roda pelos hooks `after_refactor_assess` e `after_refactor_validar`
    - **`refactor`:** diga "Próximo passo: leia o `assessment.md`, ajuste o que precisar e rode `/speckit-refactor-apply`." e **pare**.
    - **`reclassificar`:** proponha a mensagem `docs(<slug>): diagnóstico, não é refactor` e siga para o passo 3.
 2. **Depois do `/speckit-refactor-validar`:** leia o resultado do `refactors/<slug>/validacao.md`.
-   - **`validado`:** diga "Validado. Próximo passo, nesta mesma branch: `/speckit-refactor-contrair`." e **pare**.
+   - **`validado`:** diga "Validado. Próximo passo, nesta mesma branch: `/speckit-refactor-desacoplar`." e **pare**.
    - **`falhou`:** proponha a mensagem `docs(<slug>): validação sem sucesso` e siga para o passo 3.
 3. Rode `git status --short` e mostre os arquivos. Explique que o commit fica na branch atual e que só a branch do workspace vai para o origin (se o workspace tiver origin); nenhum repo recebe nada. Peça confirmação.
 4. Com a confirmação, rode na raiz do workspace:
@@ -2221,7 +2221,7 @@ Este comando roda pelos hooks `after_refactor_assess` e `after_refactor_validar`
 
 ```markdown
 ---
-description: "Fim do refactor (M1) ou da contração (M4): atualiza o Atlas dos repos tocados e oferece o commit e o envio aos repos"
+description: "Fim do refactor (M1) ou do desacoplar (M4): atualiza o Atlas dos repos tocados e oferece o commit e o envio aos repos"
 ---
 
 # Fim do refactor: Atlas e envio
@@ -2234,15 +2234,15 @@ description: "Fim do refactor (M1) ou da contração (M4): atualiza o Atlas dos 
 $ARGUMENTS
 ```
 
-Este comando roda pelos hooks `after_refactor_verify` e `after_refactor_contrair`. O slug é o do comando de refactor desta sessão.
+Este comando roda pelos hooks `after_refactor_verify` e `after_refactor_desacoplar`. O slug é o do comando de refactor desta sessão.
 
-1. **Resultado:** leia o `refactors/<slug>/verify.md` (depois do `verify`) ou o `refactors/<slug>/contracao.md` (depois do `contrair`).
+1. **Resultado:** leia o `refactors/<slug>/verify.md` (depois do `verify`) ou o `refactors/<slug>/desacoplar.md` (depois do `desacoplar`).
    - **`falhou`:** diga que o envio fica para depois, mostre o motivo e recomende corrigir e rodar o comando de novo. **Pare.**
    - **`ok`:** siga.
 2. **Atlas:** siga a skill `atlas-atualizar` com `--gatilho converge`. Ela mapeia de novo todos os repos que a branch tocou, contando o que ainda não foi commitado, sem o adiamento de mudança interna, e faz um commit só com `docs/atlas/`.
 3. **Envio:** rode `git status --short` e mostre a lista. Proponha a mensagem:
    - depois do `verify`: `refactor(<slug>): <título do assessment.md>`;
-   - depois do `contrair`: `refactor(<slug>): contração <título do assessment.md>`.
+   - depois do `desacoplar`: `refactor(<slug>): desacopla <título do assessment.md>`.
 
    Explique que o commit fica na branch atual e que o push cria a mesma branch em cada repo alterado. Peça confirmação.
 4. Com a confirmação, rode na raiz do workspace:
@@ -2256,7 +2256,7 @@ Este comando roda pelos hooks `after_refactor_verify` e `after_refactor_contrair
    - liste os PRs a abrir no Azure DevOps, um por repo enviado, citando `refactors/<slug>/`;
    - lembre que o PR do workspace (com `refactors/` e o Atlas) vem depois que todos os PRs dos repos forem mergeados;
    - **desacoplamento, depois do `verify`:** o deploy pode ir mesmo no congelamento, porque a chave fica em "antigo". A convivência começa na data registrada, e o `ws start` avisa quando ela vencer;
-   - **depois do `contrair`:** a fatia fica em `M4` no documento do desacoplamento.
+   - **depois do `desacoplar`:** a fatia fica em `M4` no documento do desacoplamento.
 ```
 
 - [ ] **Step 11: Hooks e versão na `extension.yml` da `ws`**
@@ -2275,7 +2275,7 @@ Em `tools/speckit/ws/extension.yml`:
       description: "Registra no workspace um diagnóstico que não é refactor ou uma validação que falhou"
     - name: speckit.ws.refactor-enviar
       file: commands/speckit.ws.refactor-enviar.md
-      description: "Fim do refactor ou da contração: Atlas dos repos tocados e oferta de commit e envio"
+      description: "Fim do refactor ou do desacoplar: Atlas dos repos tocados e oferta de commit e envio"
 ```
 
 - no fim de `hooks:`:
@@ -2296,15 +2296,15 @@ Em `tools/speckit/ws/extension.yml`:
   before_refactor_validar:
     command: speckit.ws.refactor-start
     optional: false
-    description: "Branch refactor/<slug>-contrair com ws start"
+    description: "Branch refactor/<slug>-desacoplar com ws start"
   after_refactor_validar:
     command: speckit.ws.refactor-registro
     optional: false
-    description: "Registra a validação que falhou, ou lembra a contração"
-  after_refactor_contrair:
+    description: "Registra a validação que falhou, ou lembra o desacoplar"
+  after_refactor_desacoplar:
     command: speckit.ws.refactor-enviar
     optional: false
-    description: "Atlas dos repos tocados pela contração e oferta de commit e envio aos repos"
+    description: "Atlas dos repos tocados pelo desacoplar e oferta de commit e envio aos repos"
 ```
 
 - [ ] **Step 12: Instalação no `ws speckit`**
@@ -2381,7 +2381,7 @@ test_doc_cobre_a_vertente_de_refactor() {
   local d="$WS_RAIZ/docs/harness"
   grep -qF 'fazer um refactor ou uma fatia de desacoplamento' "$WS_RAIZ/README.md" || fail "README sem a linha de refactor no Quero…"
   grep -qF '## Um refactor, do relato ao PR' "$d/1-comecar.md" || fail "camada 1 sem o refactor"
-  grep -qF '## Uma fatia de desacoplamento, do relato à contração' "$d/1-comecar.md" || fail "camada 1 sem a fatia"
+  grep -qF '## Uma fatia de desacoplamento, do relato ao desacoplar' "$d/1-comecar.md" || fail "camada 1 sem a fatia"
   grep -qF '## Comandos de refactor e `refactor/`' "$d/2-quando-da-errado.md" || fail "camada 2 sem o grupo de refactor"
   grep -qF '## Testes de caracterização' "$d/3-alem-do-basico.md" || fail "camada 3 sem caracterização"
   grep -qF '## Convivência e a chave' "$d/3-alem-do-basico.md" || fail "camada 3 sem convivência"
@@ -2438,7 +2438,7 @@ Seção nova, depois de "Bugs com o Spec Kit":
 - **Caracterização:** obrigatória. Os testes fixam o comportamento atual e entram num commit `test(<slug>): caracterização` antes do refactor; o refactor nunca os altera. Quando o trecho não é testável, a exceção fica no `assessment.md` e o usuário aprova antes do `apply`.
 - **Desacoplamento:** antes do `assess`, leia `refactors/desacoplamentos/<nome>.md`, mostre as fatias pendentes no mesmo objeto ou consumidor (`tools/ws/ws refactor pendentes`) e siga o padrão do caminho novo registrado nele. Nunca mude o objeto do banco de onde o consumidor sai (regra II da constitution).
 - **Seguir:** o usuário lê o `assessment.md` antes do `/speckit-refactor-apply`; depois vem o `/speckit-refactor-verify`, que marca o M1 e oferece o envio.
-- **Marcos e portões:** a fatia de desacoplamento segue com `/speckit-refactor-validar` (M3) e `/speckit-refactor-contrair` (M4). O marco só muda por `tools/ws/ws refactor marco`; nunca edite a coluna Marco à mão nem contorne um portão.
+- **Marcos e portões:** a fatia de desacoplamento segue com `/speckit-refactor-validar` (M3) e `/speckit-refactor-desacoplar` (M4). O marco só muda por `tools/ws/ws refactor marco`; nunca edite a coluna Marco à mão nem contorne um portão.
 - **Banco (opcional):** como nos bugs, só `SELECT` e só com um acesso que o usuário já tenha.
 - **Onde ficam:** os relatórios em `refactors/<slug>/` e os documentos dos desacoplamentos em `refactors/desacoplamentos/`, só no workspace. `refactors/` **não é harness**: crie e altere durante o trabalho.
 - **PRs:** um por repo enviado, abertos e mergeados à mão. Depois vem o PR do workspace.
@@ -2471,14 +2471,14 @@ Para mudar a estrutura do código sem mudar o que ele faz. Mover código entre r
 4. `/speckit-refactor-verify`: build, testes e a conferência de que os testes de caracterização não mudaram. No fim, o agente atualiza o Atlas e pergunta se você quer fazer o commit e enviar.
 5. Abra um PR por repo e, com **todos** mergeados, o PR do workspace.
 
-## Uma fatia de desacoplamento, do relato à contração
+## Uma fatia de desacoplamento, do relato ao desacoplar
 
 Para tirar o acesso direto de um sistema a um objeto do banco `Reserva` (tabela, view, proc) e passar por um serviço de integração. As fatias de um desacoplamento ficam em `refactors/desacoplamentos/<nome>.md`.
 
 1. Os passos 1 a 5 do refactor. O diagnóstico traz também o consumidor, o provedor, o contrato novo, a chave que escolhe entre o caminho antigo e o novo, o modo de convivência, os critérios de validação e a data em que a convivência pode começar. O código vai para produção com a chave em "antigo": nada muda, e o deploy pode ir mesmo no congelamento.
 2. **Na data:** o time vira a chave em produção. O `ws start` avisa quando há fatia esperando.
 3. `/speckit-refactor-validar <slug> <evidência>`: cole o resultado das consultas e os logs. O agente confere contra os critérios. Se não passar, a chave volta para "antigo" e a fatia ganha uma nova rodada.
-4. `/speckit-refactor-contrair`: só roda com a validação registrada e com o Atlas mostrando que o sistema não acessa o objeto por outro caminho. Remove o caminho antigo e a chave.
+4. `/speckit-refactor-desacoplar`: só roda com a validação registrada e com o Atlas mostrando que o sistema não acessa o objeto por outro caminho. Remove o caminho antigo e a chave.
 5. PRs como no passo 5 do refactor. Para ver o que está pendente: `tools/ws/ws refactor pendentes`.
 ```
 
@@ -2541,17 +2541,17 @@ ws: erro: testes de caracterização alterados depois do commit <hash>: <arquivo
 
 **O que fazer:** desfaça a mudança no teste (`git restore --source <hash> <arquivo>`), ajuste o código e rode `/speckit-refactor-verify` de novo.
 
-### A contração foi recusada
+### O desacoplar foi recusado
 
 **Sintoma:**
 ```
-ws: erro: a fatia <slug> está em <marco>; a contração exige o M3 registrado (rode /speckit-refactor-validar)
+ws: erro: a fatia <slug> está em <marco>; desacoplar exige o M3 registrado (rode /speckit-refactor-validar)
 ```
-ou o `/speckit-refactor-contrair` para listando acessos do sistema ao objeto fora do caminho que sai.
+ou o `/speckit-refactor-desacoplar` para listando acessos do sistema ao objeto fora do caminho que sai.
 
 **Causa:** a validação ainda não foi registrada, ou o sistema acessa o mesmo objeto por outro caminho.
 
-**O que fazer:** no primeiro caso, rode `/speckit-refactor-validar <slug>` com a evidência. No segundo, cada acesso listado precisa de uma fatia própria antes da contração.
+**O que fazer:** no primeiro caso, rode `/speckit-refactor-validar <slug>` com a evidência. No segundo, cada acesso listado precisa de uma fatia própria antes de desacoplar.
 
 ### A validação falhou
 
@@ -2645,7 +2645,7 @@ Em `docs/harness/4-manter.md`:
 
 ```
   P["/speckit-refactor-assess"] --> Q["hook before_refactor_assess<br/>speckit.ws.refactor-start"] --> C
-  R["/speckit-refactor-verify<br/>/speckit-refactor-contrair"] --> S["hook after_refactor_*<br/>speckit.ws.refactor-enviar"] --> J
+  R["/speckit-refactor-verify<br/>/speckit-refactor-desacoplar"] --> S["hook after_refactor_*<br/>speckit.ws.refactor-enviar"] --> J
 ```
 
 - em "**`tools/ws`.**", troque `(`add`, `start`, `push`, `maintain`, `speckit`, `atlas`)` por `(`add`, `start`, `push`, `maintain`, `speckit`, `atlas`, `refactor`)`;
@@ -2833,18 +2833,18 @@ bash tools/ws/ws start e2e-aviso 2>&1 | grep "aguardando validação"; git switc
 
 Expected: a fatia 90301 com "virar a chave e rodar /speckit-refactor-validar", e o aviso do `ws start`.
 
-- [ ] **Step 9 (OK): Portão do `contrair` sem M3**
+- [ ] **Step 9 (OK): Portão do `desacoplar` sem M3**
 
-Crie à mão a branch da validação, sem validar, para o `contrair` chegar ao portão 1:
+Crie à mão a branch da validação, sem validar, para o `desacoplar` chegar ao portão 1:
 
 ```bash
-bash .specify/extensions/ws/scripts/bash/ws-refactor-start.sh "$SLUG" --contrair
-claude -p $O "/speckit-refactor-contrair" > /c/src/wms-e2e6-t3-contrair-sem-m3.json
+bash .specify/extensions/ws/scripts/bash/ws-refactor-start.sh "$SLUG" --desacoplar
+claude -p $O "/speckit-refactor-desacoplar" > /c/src/wms-e2e6-t3-desacoplar-sem-m3.json
 git status --short   # nada em repos/
-git switch -q main && git branch -q -D "refactor/$SLUG-contrair"
+git switch -q main && git branch -q -D "refactor/$SLUG-desacoplar"
 ```
 
-Critérios: o comando para no portão 1 (`M1`, "a contração exige o M3 registrado"), sem mudar nada em `repos/`.
+Critérios: o comando para no portão 1 (`M1`, "desacoplar exige o M3 registrado"), sem mudar nada em `repos/`.
 
 - [ ] **Step 10 (OK): `validar` que falha, numa sessão nova, e a nova rodada**
 
@@ -2857,12 +2857,12 @@ claude -p --resume "$S" $O "Sim, pode registrar." > /c/src/wms-e2e6-t3-validar1-
 
 Critérios:
 - a sessão é nova (sem `--resume` no primeiro comando) e retomou pela seção "Para retomar";
-- branch `refactor/90301-<desc>-contrair`;
+- branch `refactor/90301-<desc>-desacoplar`;
 - `validacao.md` com `falhou`;
 - `estado` = `M3-falhou`;
 - commit `docs(90301-<desc>): validação sem sucesso` e push só do workspace.
 
-Simule o merge com `pr_mergeado "refactor/$SLUG-contrair"` e rode a nova rodada:
+Simule o merge com `pr_mergeado "refactor/$SLUG-desacoplar"` e rode a nova rodada:
 
 ```bash
 claude -p $O "/speckit-refactor-assess 90301 nova rodada: os 3 pedidos divergentes não passaram pelo caminho novo." > /c/src/wms-e2e6-t3-r2-assess.json
@@ -2881,34 +2881,34 @@ claude -p $O "/speckit-refactor-validar 90301 Convivência em modo paralelo por 
 S=$(python -c "import json;print(json.load(open('C:/src/wms-e2e6-t3-validar2.json'))['session_id'])")
 ```
 
-Critérios: a branch é `refactor/$SLUG-contrair-2`, porque a `-contrair` da validação que falhou está no origin; `estado` = `M3`; o `/speckit-ws-refactor-registro` manda rodar o `contrair` na mesma branch, sem commit.
+Critérios: a branch é `refactor/$SLUG-desacoplar-2`, porque a `-desacoplar` da validação que falhou está no origin; `estado` = `M3`; o `/speckit-ws-refactor-registro` manda rodar o `desacoplar` na mesma branch, sem commit.
 
-Plante um segundo acesso no consumidor, na branch `-contrair`:
+Plante um segundo acesso no consumidor, na branch `-desacoplar`:
 
 ```bash
 d=repos/industria-logistica.wms.conector.backend/src/ReservaNet.Linx.Infra.Repositories/Repositories/Reserva
 printf '%s\n' 'namespace ReservaNet.Linx.Infra.Repositories.Repositories.Reserva' '{' '    internal static class RelatorioVendas' '    {' '        internal const string Proc = "LX_MOVIMENTA_VENDAS_PA";' '    }' '}' > "$d/RelatorioVendas.cs"
 git add "$d/RelatorioVendas.cs" && git commit -qm "e2e: segundo acesso plantado"
-claude -p --resume "$S" $O "/speckit-refactor-contrair" > /c/src/wms-e2e6-t3-contrair-plantado.json
+claude -p --resume "$S" $O "/speckit-refactor-desacoplar" > /c/src/wms-e2e6-t3-desacoplar-plantado.json
 ```
 
 Critério: o comando para no portão 2 listando `RelatorioVendas.cs`, sem remover nada.
 
-- [ ] **Step 12 (OK): `contrair` ok**
+- [ ] **Step 12 (OK): `desacoplar` ok**
 
 ```bash
 git reset -q --hard HEAD~1
-claude -p --resume "$S" $O "Removi o acesso plantado. /speckit-refactor-contrair" > /c/src/wms-e2e6-t3-contrair.json
-claude -p --resume "$S" $O "Sim, pode fazer o commit e o envio." > /c/src/wms-e2e6-t3-contrair-envio.json
+claude -p --resume "$S" $O "Removi o acesso plantado. /speckit-refactor-desacoplar" > /c/src/wms-e2e6-t3-desacoplar.json
+claude -p --resume "$S" $O "Sim, pode fazer o commit e o envio." > /c/src/wms-e2e6-t3-desacoplar-envio.json
 ```
 
 Critérios:
-- `contracao.md` com os dois portões e `ok`;
+- `desacoplar.md` com os dois portões e `ok`;
 - o caminho antigo e a chave sumiram do conector;
 - o servicos-linx-wms não mudou nesta branch;
 - `estado` = `M4`;
-- commit `refactor(90301-<desc>): contração …`;
-- branch `refactor/90301-<desc>-contrair-2` no espelho do conector.
+- commit `refactor(90301-<desc>): desacopla …`;
+- branch `refactor/90301-<desc>-desacoplar-2` no espelho do conector.
 
 - [ ] **Step 13: Registrar**
 
@@ -2927,11 +2927,11 @@ Padrão do caminho novo usado: <real, como o usuário explicou | de teste>.
 | Não é refactor (90203) | | |
 | Tipo 3, M1 (90301) | | |
 | Aviso e pendentes | | |
-| Portão 1 do `contrair` (sem M3) | | |
+| Portão 1 do `desacoplar` (sem M3) | | |
 | Sessão nova no `validar` e validação que falha | | |
 | Nova rodada `-r2` | | |
-| Portão 2 do `contrair` (acesso plantado) | | |
-| `contrair` ok e M4 | | |
+| Portão 2 do `desacoplar` (acesso plantado) | | |
+| `desacoplar` ok e M4 | | |
 
 Custo total com LLM: US$ <soma>.
 ```
