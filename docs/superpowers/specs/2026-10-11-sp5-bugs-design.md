@@ -206,6 +206,8 @@ O resultado fica registrado em `docs/discovery/sp5-bugs-validacao.md`, na pasta 
 
 ## 10. Lembrete: revisar quando a extensão `bug` 1.0.1 for lançada
 
+**Resolvido no SP6 (2026-10-16):** o Spec Kit 1.2.0 traz a extensão `bug` 1.0.1 com hooks. A extensão `ws` 1.3.0 registra `before_bug_assess`, `after_bug_assess` e `after_bug_test`, e o preset `bugs` ficou só com o caminho e o slug. O bundle `bugfix` funciona, mas não foi adotado: ele baixa o manifesto do `main` do Spec Kit e recusa reinstalar com outra versão registrada (ver `docs/superpowers/specs/2026-10-16-sp6-refactor-design.md`, seção 5.1, e `docs/discovery/sp6-refactor-validacao.md`).
+
 Decisão do usuário em 2026-10-11: as chamadas pelo preset são provisórias e devem ser revistas no futuro.
 
 - **Gatilho:** uma versão publicada do Spec Kit que traga a extensão `bug` 1.0.1 ou mais nova, com hooks, ou em que o `specify bundle add bugfix` funcione.
