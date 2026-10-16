@@ -235,7 +235,8 @@ Atualizado em 2026-10-05.
      - regra II com o texto do usuário ("o WMS não dependa do banco Reserva para funcionar");
      - **refactors são exceção às Dívidas de Conformidade do AWX**.
    - Também decidido: nenhuma ferramenta externa (tabela B só como registro; code-modernization anotado para o SP7); entrega em dois PRs (`harness/speckit-1.2` com a revisão do SP5, depois `harness/refactor`).
-   - Spec escrita: `docs/superpowers/specs/2026-10-16-sp6-refactor-design.md`, **aguardando revisão do usuário**. Depois: writing-plans.
+   - Spec escrita: `docs/superpowers/specs/2026-10-16-sp6-refactor-design.md`, **aprovada em 2026-10-16** e revista ao escrever o plano.
+   - Plano: `docs/superpowers/plans/2026-10-16-sp6-refactor.md` (9 tasks, PR 1 `harness/speckit-1.2` e PR 2 `harness/refactor`). Os 60 testes offline novos do plano (Tasks 4 e 5) passaram numa cópia descartável no scratchpad. **Aguardando revisão do usuário e escolha do modo de execução.**
 4. **Próximo subprojeto: SP3** (grafo de arquitetura, navegação semântica e, se for o caso, memória). As ferramentas de memória e indexação (Graphify, Serena etc.) ainda não foram avaliadas. Ponto de partida: `docs/sistemas/` no workspace e `tools/arch-map/` aqui.
 
 ## Próximo passo (histórico, antes da execução)

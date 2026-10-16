@@ -2,6 +2,13 @@
 
 Data: 2026-10-16. Processo: `superpowers:brainstorming`, caminho arquitetural. Decisões tomadas com o usuário na conversa de 2026-10-15 e 2026-10-16. O antigo "SP6" (portões de repos da feature) foi descartado pelo usuário em 2026-10-15; este é o SP6.
 
+Revista em 2026-10-16, ao escrever o plano (`docs/superpowers/plans/2026-10-16-sp6-refactor.md`):
+- o marco só muda pelo subcomando mecânico `ws refactor marco`, que recusa transição fora de ordem, e a linha da fatia nasce no M1;
+- a `ws` ganha o comando `refactor-registro`, para os registros sem código;
+- a branch da validação vira `-contrair-<k>` quando uma validação anterior falhou;
+- o portão 2 também procura o objeto no código do consumidor;
+- a extensão `ws` vai para a 1.3.0 no PR 1 e para a 1.4.0 no PR 2.
+
 ## 1. Objetivo e critério de sucesso
 
 O time faz quatro tipos de refactor que não são feature nem bug:
@@ -95,8 +102,9 @@ O registro completo está em `docs/discovery/sp6-refactor-pesquisa.md`. Os ponto
 | [72694-faturamento-servidor](../72694-faturamento-servidor/) | wms.servidor.backend | Reserva.dbo.FATURAMENTO | M1 | 2026-11-10 | 2026-12-01 |
 ```
 
-- **Marco:** `M1`, `M3`, `M4` ou `M3-falhou`. Muda **só pelos comandos**.
-- **Convivência a partir de:** uma data `AAAA-MM-DD`. O `assess` pergunta ao dev e grava. É a única coluna que um humano pode editar à mão.
+- **Marco:** `M1`, `M3`, `M4` ou `M3-falhou`. Muda **só pelos comandos**, que chamam `ws refactor marco <slug> <marco>`. Esse subcomando recusa transição fora de ordem: M3 ou M3-falhou só a partir de M1; M4 só a partir de M3; M1 só para fatia nova ou depois de M3-falhou.
+- **A linha nasce no M1:** o `verify` a acrescenta com consumidor, objeto e convivência.
+- **Convivência a partir de:** uma data `AAAA-MM-DD`. O `assess` pergunta ao dev e registra no `assessment.md`, e o `verify` a leva para a linha. É a única coluna que um humano pode editar à mão.
 - **Dívidas fora do escopo:** as dívidas de repo listadas pelos `assess` das fatias, só como registro.
 
 ## 5. Componentes
@@ -105,11 +113,11 @@ O registro completo está em `docs/discovery/sp6-refactor-pesquisa.md`. Os ponto
 tools/speckit/VERSION                    1.2.0
 tools/speckit/refactor/                  fonte da extensão refactor (instalada pelo ws speckit)
 .specify/extensions/refactor/            extensão refactor, nossa
-.specify/extensions/ws/                  versão 1.3.0: refactor-start, refactor-enviar e hooks de bug e de refactor
+.specify/extensions/ws/                  1.3.0 (PR 1, hooks de bug) e 1.4.0 (PR 2): refactor-start, refactor-registro, refactor-enviar e hooks de refactor
 .specify/presets/bugs/                   só o caminho bugs/ e o slug (sem as chamadas da ws)
 .specify/memory/constitution.md          versão 1.3.0
 AGENTS.md                                regra 5 e seção "Refactor com o Spec Kit"
-tools/ws/                                ws refactor pendentes e aviso no ws start
+tools/ws/                                ws refactor pendentes, estado e marco, e aviso no ws start
 refactors/<slug>/                        relatórios de cada refactor ou fatia (fora do harness)
 refactors/desacoplamentos/<nome>.md      documento de cada desacoplamento (fora do harness)
 ```
@@ -132,23 +140,23 @@ refactors/desacoplamentos/<nome>.md      documento de cada desacoplamento (fora 
 |---|---|---|---|
 | `speckit.refactor.assess` | 1 e 3 | Só leitura. Define o slug e o tipo. Se for tipo 3, lê o documento do desacoplamento (ou oferece criá-lo, com o inventário do Atlas) e mostra as fatias pendentes no mesmo objeto ou consumidor. Grava o relatório (seção 6.4). Se concluir que o comportamento ou um contrato existente muda, recomenda reclassificar e termina | `assessment.md`; no tipo 3, a linha da fatia ou o documento novo |
 | `speckit.refactor.apply` | 1 e 3 | Commit `test(<slug>): caracterização` só com os testes de caracterização, que passam no código atual; ou registra que a exceção aprovada vale. Depois aplica o refactor. No tipo 3, primeiro o provedor e depois o consumidor, atrás da chave em "antigo". Uma subseção por repo, com build e testes de cada um | `apply.md`, com o hash do commit de caracterização e a lista dos arquivos de teste |
-| `speckit.refactor.verify` | 1 e 3 | Build e testes de cada repo tocado. Confere com `git diff <commit de caracterização>..HEAD` que os testes de caracterização não mudaram. Se tudo passar, marca o **M1**, completa a seção "Para retomar" e, no tipo 3, atualiza a linha da fatia | `verify.md` |
+| `speckit.refactor.verify` | 1 e 3 | Build e testes de cada repo tocado. Confere, com o script `ws-refactor-confere.sh` da `ws`, que os testes de caracterização não mudaram nem foram apagados desde o commit deles. Se tudo passar, marca o **M1**, completa a seção "Para retomar" e, no tipo 3, atualiza a linha da fatia | `verify.md` |
 | `speckit.refactor.validar` | 3 | Recebe a evidência colada e, se for o caso, roda o `SELECT` opcional. Confere contra os critérios do `assessment.md`. Marca **M3** ou **M3-falhou** | `validacao.md` e a linha da fatia |
-| `speckit.refactor.contrair` | 3 | **Portões:** o M3 registrado, e o índice de impacto do Atlas sem o consumidor acessando o objeto por outro caminho. Se um portão falhar, para e diz qual. Se passar, remove o caminho acoplado e a chave do consumidor, roda build e testes e marca o **M4** | `contracao.md` e a linha da fatia |
+| `speckit.refactor.contrair` | 3 | **Portões:** o M3 registrado (`ws refactor estado`), e o índice de impacto do Atlas e uma busca no código do consumidor sem acesso ao objeto fora do caminho que sai. Se um portão falhar, para e diz qual. Se passar, remove o caminho acoplado e a chave do consumidor, roda build e testes e marca o **M4** | `contracao.md` e a linha da fatia |
 
 ### 5.3 Extensão `ws` 1.3.0 e `tools/ws`
 
 | Hook | Comando | Faz |
 |---|---|---|
 | `before_refactor_assess` | `speckit.ws.refactor-start` | `ws start refactor/<slug>`. Numa nova rodada da mesma fatia (seção 6.3), usa `refactor/<slug>-r<k>`. Se falhar, mostra o erro e **para** o comando |
-| `before_refactor_validar` | `speckit.ws.refactor-start` | `ws start refactor/<slug>-contrair` |
-| `after_refactor_assess` | `speckit.ws.refactor-enviar` | Só quando o `assess` termina sem refactor (reclassificar): commit `docs(<slug>): …` e push só da branch do workspace |
-| `after_refactor_verify` | `speckit.ws.refactor-enviar` | Atlas dos repos tocados **sem o adiamento** de código interno (`relevancia.ini`), commit `refactor(<slug>): …` e `ws push` |
-| `after_refactor_validar` | `speckit.ws.refactor-enviar` | Só no M3-falhou: commit `docs(<slug>): validação …` e push só da branch do workspace. No M3 ok, lembra o `/speckit-refactor-contrair` na mesma branch |
+| `before_refactor_validar` | `speckit.ws.refactor-start` | `ws start refactor/<slug>-contrair`, ou `-contrair-<k>` quando uma validação anterior falhou e deixou a `-contrair` no origin |
+| `after_refactor_assess` | `speckit.ws.refactor-registro` | Só quando o `assess` termina sem refactor (reclassificar): commit `docs(<slug>): …` e push só da branch do workspace. Com veredito `refactor`, lembra o próximo passo |
+| `after_refactor_verify` | `speckit.ws.refactor-enviar` | Atlas dos repos tocados **sem o adiamento** de código interno (gatilho `converge` da skill `atlas-atualizar`), commit `refactor(<slug>): …` e `ws push` |
+| `after_refactor_validar` | `speckit.ws.refactor-registro` | Só no M3-falhou: commit `docs(<slug>): validação …` e push só da branch do workspace. No M3 ok, lembra o `/speckit-refactor-contrair` na mesma branch |
 | `after_refactor_contrair` | `speckit.ws.refactor-enviar` | Atlas, commit `refactor(<slug>): contração …` e `ws push` |
 
 - O `refactor-enviar` sempre pede confirmação humana antes do commit e usa o `ws-commit-push.sh` existente.
-- Se o `ws atlas` não tiver uma opção para ignorar o adiamento, o plano acrescenta uma.
+- O gatilho `converge` da skill `atlas-atualizar` já mapeia todo repo tocado pela branch, sem a política de adiamento, e por isso não há opção nova no `ws atlas`.
 - Os comandos também viram skills (`/speckit-ws-refactor-start` etc.) e podem ser rodados à mão.
 - **`ws refactor pendentes`:** lê `refactors/desacoplamentos/*.md` na branch atual e lista as fatias em `M1` ou `M3`, com a idade e o próximo passo:
   - `M1` antes da data: "aguardando a data de convivência";
