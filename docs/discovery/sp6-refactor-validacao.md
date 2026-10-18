@@ -28,29 +28,48 @@ Bug plantado no espelho do conector: `ThrowIfLessThan(quantidade, 0)` no `Fatura
 
 | Caso | Resultado | Evidência e custo |
 |---|---|---|
-| Bug com correção em 1 repo, hooks nativos | ok | **Hooks:** o `before_bug_assess` rodou a skill `speckit-ws-bug-start`, que criou a branch `hotfix/90101-caixa-embalada-quantidade-zero`; o `after_bug_assess` rodou a `speckit-ws-bug-sem-correcao` (`EXECUTE_COMMAND` no transcript), que mandou ler o `assessment.md` e rodar o `/speckit-bug-fix`; o `after_bug_test` rodou a `speckit-ws-bug-enviar`. **Relatórios:** `bugs/90101-…/{assessment,fix,test}.md`, sem `.specify/bugs/`. **Diagnóstico:** apontou a linha plantada. **Teste:** `test.md` em `partial` (teste unitário 7/7 e build ok; o ponta a ponta com o Linx ficou `not-run`). **Envio:** commit do Atlas do conector (`65939255`) e `fix(90101-…): caixa de faturamento volta a recusar quantidade zero` (`71409494`); a branch `hotfix/90101-…` chegou ao espelho do conector. **Custo:** US$ 0,75 (assess) + 1,01 (fix) + 4,81 (test com o Atlas do conector) + 4,90 (envio) = US$ 11,47 |
+| Bug com correção em 1 repo, hooks nativos | ok | **Hooks:** o `before_bug_assess` rodou a skill `speckit-ws-bug-start`, que criou a branch `hotfix/90101-caixa-embalada-quantidade-zero`; o `after_bug_assess` rodou a `speckit-ws-bug-sem-correcao` (`EXECUTE_COMMAND` no transcript), que mandou ler o `assessment.md` e rodar o `/speckit-bug-fix`; o `after_bug_test` rodou a `speckit-ws-bug-enviar`. **Relatórios:** `bugs/90101-…/{assessment,fix,test}.md`, sem `.specify/bugs/`. **Diagnóstico:** apontou a linha plantada. **Teste:** `test.md` em `partial` (teste unitário 7/7 e build ok; o ponta a ponta com o Linx ficou `not-run`). **Envio:** commit do Atlas do conector (`65939255`) e `fix(90101-…): caixa de faturamento volta a recusar quantidade zero` (`71409494`); a branch `hotfix/90101-…` chegou ao espelho do conector. **Custo:** cerca de US$ 4,90. O `total_cost_usd` de uma sessão retomada com `--resume` é acumulado, então vale o maior valor da sessão, e não a soma (a soma de antes, US$ 11,47, contava em dobro) |
 
 Achado do agente, registrado como fato: o `test.md` aponta que o único chamador de `FaturamentoCaixa.Criar` nunca passa quantidade zero. A guarda plantada, portanto, não explicaria um sintoma real de produção. Isso é coerente com o bug fictício e não afeta a validação do harness.
 
-## Ponta a ponta da vertente de refactor (spec 10.1, item 4, e 10.3), parcial em 2026-10-17
+## Ponta a ponta da vertente de refactor (spec 10.1, item 4, e 10.3)
 
-Ambiente: o mesmo `C:\src\wms-workspace-e2e6`, agora com o main igual à `harness/refactor`, e espelhos locais também do `servidor.backend` e do `awx.monorepo`. Por decisão do usuário, os comandos pularam o `atlas-atualizar` do início da branch; o Atlas do envio (`converge`) rodou.
+Feito em 2026-10-17 e 2026-10-18. Ambiente:
+- workspace `C:\src\wms-workspace-e2e6`, com o main igual à `harness/refactor`;
+- espelhos locais do conector, do servicos-linx-wms, do servidor.backend e do awx.monorepo; o push para o Azure DevOps está bloqueado;
+- os PRs foram simulados por merge nos espelhos e no main do workspace (`C:\src\wms-e2e6-pr.sh`).
 
 Padrão do caminho novo: o **real**, explicado pelo usuário (`docs/discovery/sources/arquitetura-transicao-linx.md`). A rota é legado → `AWX.IntegracaoLegadoWMS` → `AWX.ERP.Connector` → `servicos-linx-wms`.
 
-| Caso | Resultado | Evidência e custo |
+Por decisão do usuário (2026-10-17), a qualidade vem antes do custo. Os casos que tinham sido pulados para economizar foram feitos.
+
+| Caso | Resultado | Evidência |
 |---|---|---|
-| Tipo 1 com caracterização (90201, conector) | ok | Hooks `before_refactor_assess`, `after_refactor_assess` e `after_refactor_verify` rodaram as skills da `ws`. Houve o commit `test(90201-…): caracterização` antes do refactor e 5 testes xUnit novos. **1º verify:** `falhou`, por 2 testes que já falhavam (o bug plantado na Task 3 ainda estava no espelho); o agente recusou o envio, pela regra III. **Ajuste do ambiente:** merge do PR do hotfix no espelho, `ws sync` e merge da `ws/sync`. **2º verify:** ok. **Envio:** commit do Atlas e `refactor(90201-…): …`, com a branch no espelho do conector. US$ 17,42 |
-| Tipo 1 com exceção (90202) | **não exercitado** | O agente achou caracterização viável (uma `DbConnection` falsa) e não propôs exceção. O caminho da exceção segue sem teste ponta a ponta. US$ 1,80 |
-| Teste de caracterização alterado | pulado | Coberto pelos 6 testes offline do `ws-refactor-confere.sh`; o comportamento do `verify` diante de uma falha apareceu no 1º verify do 90201 |
-| Não é refactor (90203) | ok | Veredito `reclassificar`, commit `docs(90203-…): diagnóstico, não é refactor`, branch no origin do workspace e não no espelho do conector. US$ 1,24 |
-| Tipo 3, M1 (90301, servidor → IntegracaoLegadoWMS → ERP.Connector → servicos-linx-wms) | ok, depois de duas correções no harness | **Assess:** seguiu o padrão real; propôs a chave `LinxCodigoBarraHelveticaOrigem` em modo sombra e 5 critérios de M3. **Apply:** endpoints novos nas três peças e o servidor atrás da chave. Os builds e os testes da fatia passaram nos três repos, inclusive o MSBuild do servidor (.NET Framework, com `nuget restore`). **1º verify:** `falhou`, porque o csproj antigo do projeto de testes, que estava no commit de caracterização, ganhou linhas. **Correções no harness:** o confere passou a aceitar arquivo de projeto que só cresce, e o apply e o verify passaram a usar a linha de base de falhas antigas (623 no servidor, 44 no IntegracaoLegadoWMS, 6 no servicos-linx-wms). **2º verify:** ok, com a linha da fatia em `M1` e a seção "Para retomar" preenchida. **Atlas do envio:** o mapeamento do AWX achou um defeito real no caminho novo, que o envio não cobriu: a `IntegracaoLegadoWMS` chama o ERP Connector sem o `X-API-KEY`, e os testes passaram porque o host de teste usa um Connector falso. O agente parou antes do envio e pediu decisão. US$ 52,90 (assess 1,92, apply 10,98, verify 11,97, verify2 28,02) |
+| Tipo 1 com caracterização (90201, conector) | ok | Hooks `before_`/`after_refactor_assess` e `after_refactor_verify`. O commit `test(…): caracterização` veio antes do refactor, com 5 testes xUnit novos. **1º verify:** `falhou`, por 2 testes que já falhavam (o bug plantado na Task 3); o agente recusou o envio. **Depois de ajustar o ambiente:** verify ok, e o envio fez o commit do Atlas e `refactor(90201-…): …`, com a branch no espelho |
+| Tipo 1, teste de caracterização alterado | ok | Alterei o teste à mão e rodei o `verify` numa sessão nova: `falhou`, com o arquivo apontado. O agente não ajustou o teste nem enviou |
+| Tipo 1 com exceção (90204, `PermissaoAttribute` do servidor) | ok | **Duas tentativas sem exceção:** o agente preferiu caracterização viável, numa delas com uma `DbConnection` falsa (90202, descartado). **No 90204:** o dev recusou referenciar o projeto web nos testes, e o agente registrou a exceção (motivo, roteiro manual antes e depois, aprovação `pendente`). O `apply`, numa sessão nova, pediu a aprovação antes de mexer no código; com o sim, gravou `sim, 2026-10-18`, fez o refactor sem commit de caracterização, e o `verify` deu ok com a verificação manual. Parado antes do envio |
+| Não é refactor (90203) | ok | Veredito `reclassificar`, commit `docs(…): diagnóstico, não é refactor`, push só do workspace |
+| Tipo 3, M1 (90301, servidor → IntegracaoLegadoWMS → ERP.Connector → servicos-linx-wms) | ok | **Assess:** seguiu o padrão real, com a chave `LinxCodigoBarraHelveticaOrigem` em modo sombra e 5 critérios de M3. **Apply:** endpoints novos nas três peças e o servidor atrás da chave; builds e testes nos três repos, inclusive o MSBuild do servidor. **Defeito real achado:** o Atlas do envio pegou que o `IntegracaoLegadoWMS` chamava o Connector sem `X-API-KEY`; o agente parou e o dev escolheu corrigir só a fatia. **Revisão do agente:** trouxe retry, `SECRETS.md` e o SKU na resposta. **Envio:** commit do Atlas dos três repos e `refactor(…)`, com a branch nos três espelhos |
+| Aviso e pendentes | ok | O `pendentes` mandou "virar a chave e rodar /speckit-refactor-validar"; o `ws start` mostrou `1 fatia(s) do desacoplamento linx aguardando validação desde 2026-10-17` |
+| Portão 1 (desacoplar sem M3) | ok | Numa branch `-desacoplar` criada à mão, o comando parou no M1, sem mexer em nada |
+| `validar` que falha, em sessão nova | ok | O agente percebeu o período de sombra no futuro e pediu confirmação. Depois gravou o `validacao.md` com `falhou`, o marco `M3-falhou` e o commit `docs(…): validação sem sucesso`, com push só do workspace |
+| Nova rodada `-r2` | ok | A branch `refactor/…-r2` foi criada pelo hook, e o `assessment.md` ganhou a seção "Rodada 2". O apply acrescentou testes do SKU com zero à esquerda nas três peças, o verify deu ok e o M1 foi marcado de novo, com a convivência atualizada depois da correção do harness. O envio criou a branch `-r2` nos três espelhos |
+| `validar` ok, em sessão nova | ok | Branch `refactor/…-desacoplar-2` (a `-desacoplar` da falha estava no origin), `validado`, `M3` |
+| Portão 2 (acesso plantado) | ok | O `desacoplar` parou apontando `RelatorioHelvetica.cs:5`. Quem achou o acesso foi a busca no código: o Atlas classificou a mudança como irrelevante |
+| `desacoplar` ok | ok | O comando removeu do servidor o caminho antigo, a chave e o decorador. Build ok; os 13 testes da fatia passaram; as 620 falhas restantes já estavam na linha de base. O envio fez o Atlas do servidor e `refactor(…): desacopla …`, e a fatia ficou em `M4`. Depois do merge, o `pendentes` mostrou `nenhuma fatia pendente` |
 
-**Achados de desenho, corrigidos com teste na `harness/refactor`:**
-- a cópia instalada da extensão ficou velha depois de mudar a fonte (`test_extensao_refactor_instalada_igual_a_fonte`);
-- o csproj antigo no commit de caracterização (`test_refactor_confere_aceita_csproj_que_so_cresceu`);
-- os testes que já falhavam antes do refactor (`test_verify_compara_com_a_linha_de_base_de_falhas`).
+### Achados de desenho, corrigidos com teste na `harness/refactor`
+1. A cópia instalada da extensão ficava velha depois de mudar a fonte (`test_extensao_refactor_instalada_igual_a_fonte`).
+2. O csproj antigo entra no commit de caracterização e precisa crescer: o confere aceita arquivo de projeto que só ganhou linhas.
+3. Testes que já falhavam antes do refactor: linha de base no apply e no verify; a regra III foi emendada por decisão do usuário, com o adendo "o teste corrigido tem de passar".
+4. `ws refactor marco` repetido no mesmo marco (verify rodado de novo) não falha mais.
+5. O M1 da nova rodada passou a atualizar a data de convivência.
 
-**Para o usuário decidir:** se a regra III da constitution ganha a mesma ressalva da linha de base.
+### Pendências fora do harness, registradas pelo agente para outros times (só como fato)
+- **AWX:** o `IntegracaoLegadoWMS` não tem `ExceptionHandlingMiddleware`; os clients de Contagem e Auditoria não mandam `X-API-KEY`; `AWX.slnx` e `AWX.ArchitectureTests` já não compilavam.
+- **Servidor:** o ramo OnDemand do `AssociarProdutoRastreadoServicoDominio` não retorna ao achar o produto (A-44 do Atlas); o vstest só carrega o NLog com `/InIsolation`.
 
-**Custo até aqui:** US$ 73,35.
+### Custo
+O `total_cost_usd` de uma sessão retomada é acumulado, e por isso conta o maior valor de cada sessão. O total ficou em cerca de **US$ 116**. As sessões mais caras foram:
+- o envio do tipo 3, com builds e testes de três repos e o Atlas de três repos repetidos três vezes: US$ 40;
+- a validação que falhou, cujo `ws start` mapeou o Atlas de três repos que tinham mudado: US$ 48.
