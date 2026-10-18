@@ -68,7 +68,7 @@ class Conteudo(unittest.TestCase):
 
     def test_fatia_com_os_marcos_e_o_pendentes(self):
         s = slide('desacoplamento')
-        for m in ('M1 · ENTREGUE', 'M3 · VALIDADO', 'M4 · DESACOPLADO', 'refactor pendentes'):
+        for m in ('M1 · ENTREGUE', 'M2 · CONVIVÊNCIA', 'M3 · VALIDADO', 'M4 · DESACOPLADO', 'refactor pendentes'):
             self.assertIn(m, s)
 
     def test_comandos_ws_com_sync_e_refactor(self):
