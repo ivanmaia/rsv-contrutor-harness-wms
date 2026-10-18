@@ -2,23 +2,23 @@
   <h2 style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:72px; font-weight:700; line-height:1.1; color:#1d2433">Uma fatia de desacoplamento</h2>
   <div style="display:grid; gap:24px; grid-template-columns:1fr 1fr">
     <div style="display:flex; flex-direction:column; gap:12px; padding:36px 40px; background:#fbfaf7; border:1px solid #d9d4c8; border-radius:16px">
-      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">M1 · ENTREGUE</p>
+      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">ENTREGUE (M1)</p>
       <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:28px; line-height:1.4; color:#1d2433">O refactor traz o caminho novo atrás de uma chave em "antigo". Pode ir para produção mesmo no congelamento.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px; padding:36px 40px; background:#fbfaf7; border:1px solid #d9d4c8; border-radius:16px">
-      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">M2 · CONVIVÊNCIA</p>
+      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">CONVIVÊNCIA</p>
       <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:28px; line-height:1.4; color:#1d2433">Na data registrada, o time vira a chave em produção, sem comando. O <span style="color:#2f5f7f">ws start</span> avisa quando há fatia esperando.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px; padding:36px 40px; background:#fbfaf7; border:1px solid #d9d4c8; border-radius:16px">
-      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">M3 · VALIDADO</p>
+      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">VALIDADO (M3)</p>
       <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:28px; line-height:1.4; color:#1d2433"><span style="color:#2f5f7f">/speckit-refactor-validar</span> confere a evidência. Se falhar, a chave volta para "antigo" e a fatia ganha uma nova rodada.</p>
     </div>
     <div style="display:flex; flex-direction:column; gap:12px; padding:36px 40px; background:#fbfaf7; border:1px solid #d9d4c8; border-radius:16px">
-      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">M4 · DESACOPLADO</p>
+      <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; font-weight:700; letter-spacing:2px; color:#b5452f">DESACOPLADO (M4)</p>
       <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:28px; line-height:1.4; color:#1d2433"><span style="color:#2f5f7f">/speckit-refactor-desacoplar</span> remove o caminho antigo e a chave.</p>
     </div>
   </div>
   <p style="font-family:'IBM Plex Sans', Arial, sans-serif; font-size:32px; line-height:1.4; color:#1d2433"><span style="color:#2f5f7f">tools/ws/ws refactor pendentes</span> mostra cada fatia e o próximo passo.</p>
-  <p style="position:absolute; bottom:64px; left:128px; width:1664px; font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; color:#5a6170">Harness WMS · 20/28</p>
-  <aside>Uma fatia tira o acesso direto de um sistema a um objeto do banco Reserva, uma tabela, view ou proc, e o passa pelo caminho novo, feito de um ou mais serviços de integração, como o ERP Connector do AWX e os Serviços Integração LINX WMS. O objetivo, nas palavras da regra II da constitution: o WMS não depender do banco Reserva para funcionar. O objeto do banco não muda enquanto outro sistema ainda o acessar. As fatias de um desacoplamento ficam numa tabela em refactors/desacoplamentos, com o marco de cada uma; o marco só muda pelos comandos. O M2 é só configuração: não tem comando e não aparece na tabela, que vai do M1 direto para o M3. O padrão do caminho novo é do time, com ADR: sem ele, nenhuma fatia segue. A chave tem três modos de convivência: paralelo, sombra e troca direta. Para validar, cole o resultado das consultas e os logs. O desacoplar só roda com o M3 registrado e com o Atlas mostrando que o sistema não acessa o objeto por outro caminho. Tempo: 3 min</aside>
+  <p style="position:absolute; bottom:64px; left:128px; width:1664px; font-family:'IBM Plex Sans', Arial, sans-serif; font-size:24px; color:#5a6170">Harness WMS · 21/29</p>
+  <aside>Uma fatia tira o acesso direto de um sistema a um objeto do banco Reserva, uma tabela, view ou proc, e o passa pelo caminho novo, feito de um ou mais serviços de integração, como o ERP Connector do AWX e os Serviços Integração LINX WMS. O objetivo, nas palavras da regra II da constitution: o WMS não depender do banco Reserva para funcionar. O objeto do banco não muda enquanto outro sistema ainda o acessar. As fatias de um desacoplamento ficam numa tabela em refactors/desacoplamentos, com o marco de cada uma; o marco só muda pelos comandos. O M2 é só configuração: não tem comando e não aparece na tabela, que vai do M1 direto para o M3. O padrão do caminho novo é do time, com ADR: sem ele, nenhuma fatia segue. A chave tem três modos de convivência: paralelo, sombra e troca direta. Para validar, cole o resultado das consultas e os logs. O desacoplar só roda com o M3 registrado e com o Atlas mostrando que o sistema não acessa o objeto por outro caminho. Tempo: 2,5 min</aside>
 </section>

@@ -33,13 +33,13 @@ class Conteudo(unittest.TestCase):
         order = json.loads((SLIDES.parent / 'deck.json').read_text(encoding='utf-8'))['order']
         i = order.index('impacto')
         self.assertEqual(order[i + 1:i + 5], ['cmd-atlas', 'cmd-ws', 'cmd-skills', 'onde'])
-        self.assertEqual(len(order), 28)
+        self.assertEqual(len(order), 29)
 
-    def test_rodape_numera_28_slides(self):
+    def test_rodape_numera_29_slides(self):
         import json
         order = json.loads((SLIDES.parent / 'deck.json').read_text(encoding='utf-8'))['order']
         for n, sid in enumerate(order[1:], 2):
-            self.assertIn(f'Harness WMS · {n}/28', slide(sid), sid)
+            self.assertIn(f'Harness WMS · {n}/29', slide(sid), sid)
 
     def test_comandos_ws_de_diagnostico(self):
         # camada 4: os ws atlas são chamados pelas skills e hooks; à mão, só diagnóstico.
@@ -50,7 +50,7 @@ class Conteudo(unittest.TestCase):
         import json
         order = json.loads((SLIDES.parent / 'deck.json').read_text(encoding='utf-8'))['order']
         i = order.index('regras')
-        self.assertEqual(order[i + 1:i + 5], ['bug', 'refactor', 'desacoplamento', 'erros'])
+        self.assertEqual(order[i + 1:i + 6], ['bug', 'refactor', 'marcos', 'desacoplamento', 'erros'])
         self.assertEqual(order[1], 'novidades')
 
     def test_novidades_traz_a_versao_do_spec_kit(self):
@@ -68,13 +68,18 @@ class Conteudo(unittest.TestCase):
 
     def test_fatia_com_os_marcos_e_o_pendentes(self):
         s = slide('desacoplamento')
-        for m in ('M1 · ENTREGUE', 'M2 · CONVIVÊNCIA', 'M3 · VALIDADO', 'M4 · DESACOPLADO', 'refactor pendentes'):
+        for m in ('ENTREGUE (M1)', '>CONVIVÊNCIA<', 'VALIDADO (M3)', 'DESACOPLADO (M4)', 'refactor pendentes'):
             self.assertIn(m, s)
 
     def test_comandos_ws_com_sync_e_refactor(self):
         s = slide('cmd-ws')
         self.assertIn('>ws sync<', s)
         self.assertIn('>ws refactor pendentes<', s)
+
+    def test_marcos_explica_os_codigos_antes_da_fatia(self):
+        s = slide('marcos')
+        for c in ('>M1<', '>M2<', '>M3<', '>M3-falhou<', '>M4<', 'ws refactor pendentes'):
+            self.assertIn(c, s)
 
 
 if __name__ == '__main__':
