@@ -68,7 +68,7 @@ class Conteudo(unittest.TestCase):
 
     def test_fatia_com_os_marcos_e_o_pendentes(self):
         s = slide('desacoplamento')
-        for m in ('ENTREGUE (M1)', '>CONVIVÊNCIA<', 'VALIDADO (M3)', 'DESACOPLADO (M4)', 'refactor pendentes'):
+        for m in ('ENTREGUE (M1)', 'CONVIVÊNCIA (M2)', 'VALIDADO (M3)', 'DESACOPLADO (M4)', 'refactor pendentes'):
             self.assertIn(m, s)
 
     def test_comandos_ws_com_sync_e_refactor(self):
@@ -80,6 +80,13 @@ class Conteudo(unittest.TestCase):
         s = slide('marcos')
         for c in ('>M1<', '>M2<', '>M3<', '>M3-falhou<', '>M4<', 'ws refactor pendentes'):
             self.assertIn(c, s)
+
+    def test_fatia_com_a_tela_e_o_documento_das_chaves(self):
+        # SP6.1, ADR 0002.
+        s = slide('desacoplamento')
+        self.assertIn('tela de chaves do WMS legado', s)
+        self.assertIn('refactors/chaves.md', s + slide('marcos'))
+        self.assertIn('/speckit-refactor-remover', s)
 
 
 if __name__ == '__main__':

@@ -35,3 +35,4 @@ Ruling: 28 slides e 45 min; janela do confere_deck de 35-40 para 40-45 min e tem
 Atualização: test_conteudo_deck (6 testes novos) e test_confere_deck → 32 OK; confere_deck → ok: 28 slide(s), 45 min; publicado v16.
 Ajuste (pedido do usuário): slide desacoplamento mostra o M2 · CONVIVÊNCIA no lugar de NA DATA (spec SP6 4.2: virada da chave, sem comando e fora da tabela); publicado v19.
 Ajuste (pedido do usuário): slide novo marcos (20/29) explica M1, M2, M3, M3-falhou e M4 e onde aparecem; desacoplamento com o nome na frente e o código entre parênteses (CONVIVÊNCIA sem código). Tempos: desacoplamento 3→2,5, novidades e passo-8-9 2→1,5; 29 slides, 45 min; testes 33 OK; publicado v20.
+SP6.1 (2026-10-18): fatia e marcos com a tela de chaves, o refactors/chaves.md e o /speckit-refactor-remover; mantido o 'CONVIVÊNCIA (M2)' editado pelo usuário no deck (test_fatia_com_os_marcos_e_o_pendentes ajustado); publicado v25.
