@@ -235,8 +235,13 @@ Atualizado em 2026-10-05.
      - regra II com o texto do usuário ("o WMS não dependa do banco Reserva para funcionar");
      - **refactors são exceção às Dívidas de Conformidade do AWX**.
    - Também decidido: nenhuma ferramenta externa (tabela B só como registro; code-modernization anotado para o SP7); entrega em dois PRs (`harness/speckit-1.2` com a revisão do SP5, depois `harness/refactor`).
-   - Spec escrita: `docs/superpowers/specs/2026-10-16-sp6-refactor-design.md`, **aprovada em 2026-10-16** e revista ao escrever o plano.
-   - Plano: `docs/superpowers/plans/2026-10-16-sp6-refactor.md` (9 tasks, PR 1 `harness/speckit-1.2` e PR 2 `harness/refactor`). Os 60 testes offline novos do plano (Tasks 4 e 5) passaram numa cópia descartável no scratchpad. **Aguardando revisão do usuário e escolha do modo de execução.**
+   - Spec escrita: `docs/superpowers/specs/2026-10-16-sp6-refactor-design.md`, **aprovada em 2026-10-16** e revista ao escrever o plano e durante a execução ("contrair" virou "desacoplar"; caminho novo em várias peças; linha de base de falhas).
+   - Plano: `docs/superpowers/plans/2026-10-16-sp6-refactor.md` (9 tasks), executado em modo Native de 2026-10-16 a 2026-10-18. Registro da execução em `.superpowers/sdd/2026-10-16-sp6-refactor/progress.md` (git-ignorado).
+   - **PR 1 (`harness/speckit-1.2`):** Spec Kit 1.2.0 e hooks nativos de bug (lembrete do SP5 resolvido). O bundle `bugfix` foi descartado na revisão. **Mergeado no `main` do workspace pelo PR 17131.**
+   - **PR 2 (`harness/refactor`, `ac2597898`, 15 commits a partir de `7609ab857`):** extensão `refactor`, `ws refactor`, aviso no `ws start`, constitution 1.3.0 (regras II, III com linha de base e adendo do teste corrigido, VI e VII), `AGENTS.md` e doc. Suíte offline 363 ok; instalação com rede 11 ok. Revisão final (Opus): 4 Important e 1 Minor regravado, corrigidos com teste; 6 minors adiados. **Aguardando push e PR.**
+   - Validação em `docs/discovery/sp6-refactor-validacao.md`: PoC, regressão do bug e ponta a ponta com 12 casos (tipo 1, exceção, reclassificar, tipo 3 do servidor pelo caminho novo real até o M4, validação que falha, nova rodada, portões). Custo do ponta a ponta: cerca de US$ 116.
+   - Arquitetura de transição explicada pelo usuário: `docs/discovery/sources/arquitetura-transicao-linx.md`.
+   - Ambientes descartáveis para o usuário apagar: `%TEMP%\sp6-poc`, `C:\src\wms-workspace-e2e6`, `C:\src\wms-e2e6-origin.git`, `C:\src\wms-e2e6-{conector,linx,servidor,awx}.git`, `C:\src\wms-e2e6-*.json`, `C:\src\wms-e2e6-*.err` e `C:\src\wms-e2e6-pr.sh`.
 4. **Próximo subprojeto: SP3** (grafo de arquitetura, navegação semântica e, se for o caso, memória). As ferramentas de memória e indexação (Graphify, Serena etc.) ainda não foram avaliadas. Ponto de partida: `docs/sistemas/` no workspace e `tools/arch-map/` aqui.
 
 ## Próximo passo (histórico, antes da execução)
