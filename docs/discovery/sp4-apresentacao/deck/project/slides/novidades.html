@@ -1,0 +1,31 @@
+<section id="novidades" data-transition="fade" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">O que mudou desde 8 de outubro</h2>
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#fbfaf7;padding:36px;border:1px solid #d9d4c8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;color:#b5452f;line-height:1.15">Bugs</h3>
+<p style="font-size:28px;line-height:1.4">Do relato ao PR com <span style="color:#2f5f7f">/speckit-bug-assess</span>, depois fix e test.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#fbfaf7;padding:36px;border:1px solid #d9d4c8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;color:#b5452f;line-height:1.15">Refactor</h3>
+<p style="font-size:28px;line-height:1.4">Refactor interno e fatias para tirar sistemas do banco <span style="color:#2f5f7f">Reserva</span>.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#fbfaf7;padding:36px;border:1px solid #d9d4c8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;color:#b5452f;line-height:1.15">Spec Kit 1.2.0</h3>
+<p style="font-size:28px;line-height:1.4">Atualizado da 1.0.12, com os hooks nativos dos comandos de bug.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#fbfaf7;padding:36px;border:1px solid #d9d4c8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;color:#b5452f;line-height:1.15">Sincronização</h3>
+<p style="font-size:28px;line-height:1.4">O <span style="color:#2f5f7f">ws start</span> sincroniza pela <span style="color:#2f5f7f">ws/sync</span>, sem push no <span style="color:#2f5f7f">main</span>, e os avisos chegam a você.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#fbfaf7;padding:36px;border:1px solid #d9d4c8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;color:#b5452f;line-height:1.15">Envio</h3>
+<p style="font-size:28px;line-height:1.4">O <span style="color:#2f5f7f">ws push</span> usa HTTP/1.1: envios grandes não caem mais no meio.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#fbfaf7;padding:36px;border:1px solid #d9d4c8;border-radius:16px">
+<h3 style="font-size:32px;font-weight:700;color:#b5452f;line-height:1.15">Sistema de fora</h3>
+<p style="font-size:28px;line-height:1.4">Se a demanda cita um sistema fora do workspace, o agente para e oferece duas saídas.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 2/28</p>
+<aside>Para quem viu a primeira versão: o fluxo da feature continua o mesmo, e o harness ganhou duas vertentes novas, bugs e refactor, que vêm logo depois dos 9 passos. O Spec Kit foi atualizado para a 1.2.0. O ws start agora sincroniza os repos numa branch própria, a ws/sync, e não faz mais push no main; os avisos dele, como o link do PR da ws/sync, aparecem na resposta do agente. O envio aos repos ficou mais robusto depois de um erro do piloto com o servidor.backend. Se a demanda cita um sistema que não está no workspace, o agente oferece seguir com ele como externo ou parar e pedir a inclusão. O workspace também ganhou o repo dos Serviços Integração LINX WMS, e a constitution foi para a 1.3.0, com regras de refactor. Tempo: 2 min</aside>
+</section>

@@ -16,7 +16,7 @@ WS = re.compile(r'(?<![\w/-])ws ([a-z]+)')
 CAMINHO = re.compile(r'(?<![\w/.-])((?:docs|tools)/[^\s"\'`),;]+)')
 GENERICO = re.compile(r'<|>|NNN|\*|\.\.\.')
 SEGREDO = re.compile(r'(?i)(senha|password|pwd=|token=|://[^/\s:@]+:[^@\s]+@)')
-JANELA = (35, 40)
+JANELA = (40, 45)
 FICTICIO = 'exemplo'
 
 

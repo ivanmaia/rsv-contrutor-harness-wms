@@ -7,7 +7,7 @@ import unittest
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from confere_deck import confere
 
-ASIDE = '<aside>Fale do tema. Tempo: 36 min</aside>'
+ASIDE = '<aside>Fale do tema. Tempo: 42 min</aside>'
 
 
 def slide(id_, corpo='<h2 style="font-size:72px">Título</h2>', aside=ASIDE):
@@ -55,7 +55,7 @@ class Testes(Base):
                                     '<p style="font-size:24px">Índice: docs/harness/2-quando-da-errado.md e https://chat.google.com/room/X</p>')
         erros, n, t = self.roda()
         self.assertEqual(erros, [])
-        self.assertEqual((n, t), (1, 36.0))
+        self.assertEqual((n, t), (1, 42.0))
 
     def test_sem_nota(self):
         self.slides['capa'] = slide('capa', aside='')
@@ -70,10 +70,10 @@ class Testes(Base):
         self.falha('deck: tempo total 20')
 
     def test_tempo_com_virgula(self):
-        self.slides['capa'] = slide('capa', aside='<aside>x Tempo: 18,5 min</aside>')
-        self.slides['b'] = slide('b', aside='<aside>x Tempo: 18,5 min</aside>')
+        self.slides['capa'] = slide('capa', aside='<aside>x Tempo: 21,5 min</aside>')
+        self.slides['b'] = slide('b', aside='<aside>x Tempo: 20,5 min</aside>')
         erros, n, t = self.roda()
-        self.assertEqual((erros, t), ([], 37.0))
+        self.assertEqual((erros, t), ([], 42.0))
 
     def test_fonte_pequena(self):
         self.slides['capa'] = slide('capa', '<p style="font-size:20px">x</p>')

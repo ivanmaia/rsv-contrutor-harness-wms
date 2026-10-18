@@ -8,6 +8,7 @@
  "title": "Harness WMS",
  "order": [
   "capa",
+  "novidades",
   "hoje",
   "antes-depois",
   "pecas",
@@ -23,6 +24,9 @@
   "resumo",
   "ja-conhece",
   "regras",
+  "bug",
+  "refactor",
+  "desacoplamento",
   "erros",
   "atlas",
   "impacto",
@@ -34,7 +38,7 @@
  ],
  "sections": {
   "s1": {
-   "description": "Por que o harness existe e o que ele é",
+   "description": "Por que o harness existe, o que mudou e o que ele é",
    "start": "capa"
   },
   "s2": {
@@ -52,6 +56,10 @@
   "s3b": {
    "description": "Os comandos do harness: Atlas, ws e outras skills",
    "start": "cmd-atlas"
+  },
+  "s2b": {
+   "description": "Bugs, refactors e fatias de desacoplamento",
+   "start": "bug"
   }
  },
  "cover": "capa",
