@@ -87,7 +87,7 @@ O texto final segue o formato do ADR 0001 (status, data, subprojeto, contexto, d
 - O caminho antigo de um consumidor no AWX passa a depender do `ERP.Connector` (aceito pelo usuário).
 - O `ERP.Connector` ganha banco e uma responsabilidade que não é de tradução com o LINX. Quando o legado sair, a cópia sai junto, e a fonte já está no AWX.
 - Ordem de deploy: como a chave que não existe vale `antigo`, o consumidor pode chegar a produção antes da migração da chave sem travar. A chave só sai depois que o consumidor desacoplado estiver em produção (seção 7.4b): se ela sumisse antes, um consumidor ainda em `novo` voltaria a `antigo` sem aviso.
-- Um nome de chave errado no consumidor também vale `antigo`, em silêncio. Quem pega é a validação (M3), porque a evidência mostra o caminho antigo, e o portão do `remover-chave`, que procura o nome no código.
+- Um nome de chave errado no consumidor também vale `antigo`, em silêncio. Quem pega é a validação (M3), porque a evidência mostra o caminho antigo, e o portão do `remover`, que procura o nome no código.
 
 ## 6. O produto, como feature do workspace
 
@@ -131,10 +131,10 @@ A chave de uma fatia se chama como a fatia: o **slug** (por exemplo, `90301-movi
 - O `desacoplar.md` diz que a chave só sai depois que o consumidor desacoplado estiver em produção.
 
 ### 7.4b Remoção da chave, depois do M4
-- Um comando novo da extensão `refactor`, `/speckit-refactor-remover-chave <slug>`, roda quando o PR do desacoplar já estiver em produção. Ele cria a branch `refactor/<slug>-chave` (pelo `ws-refactor-start.sh`, com um modo novo), a migração que remove a chave do `ERP.Connector` e tira a linha do documento central; o envio segue pelo `speckit.ws.refactor-enviar`, num evento `after_refactor_remover-chave`.
+- Um comando novo da extensão `refactor`, `/speckit-refactor-remover <slug>`, roda quando o PR do desacoplar já estiver em produção. Ele cria a branch `refactor/<slug>-remover` (pelo `ws-refactor-start.sh`, com um modo novo), a migração que remove a chave do `ERP.Connector` e tira a linha do documento central; o envio segue pelo `speckit.ws.refactor-enviar`, num evento `after_refactor_remover`.
 - Portão: o comando pergunta ao dev se o consumidor desacoplado já está em produção e só segue com a confirmação; se a chave ainda tiver leitura no código do consumidor (busca pelo nome), para.
-- O `ws refactor pendentes` lista as chaves "para remover" do documento central, com o passo `/speckit-refactor-remover-chave <slug>`.
-- O sufixo `-chave` entra no fim de slug reservado (como `-r<n>` e `-desacoplar`).
+- O `ws refactor pendentes` lista as chaves "para remover" do documento central, com o passo `/speckit-refactor-remover <slug>`.
+- O sufixo `-remover` entra no fim de slug reservado (como `-r<n>` e `-desacoplar`).
 - A forma exata (comando próprio, nome do evento, modo do start) é decisão minha e pode mudar no plano; a decisão do usuário é a remoção separada e posterior.
 
 ### 7.4a `/speckit-refactor-verify` e `/speckit-refactor-validar`
@@ -144,7 +144,7 @@ A chave de uma fatia se chama como a fatia: o **slug** (por exemplo, `90301-movi
 
 ### 7.5 Documento central: `refactors/chaves.md`
 - Uma tabela com uma linha por chave: **Chave** (o slug), **Fatia** (link para `refactors/<slug>/`), **Desacoplamento** (link para o documento), **Consumidor** (o repo), **Onde é lida** (os arquivos do consumidor) e **Situação** (`em uso` ou `para remover desde <data do M4>`).
-- Mantido pelos comandos: o `apply` acrescenta ou atualiza a linha, o `desacoplar` marca `para remover` e o `remover-chave` tira a linha. Ninguém edita à mão.
+- Mantido pelos comandos: o `apply` acrescenta ou atualiza a linha, o `desacoplar` marca `para remover` e o `remover` tira a linha. Ninguém edita à mão.
 - Sem coluna de marco nem de modo: o marco está na tabela de fatias e o modo em produção está na tela. (Decisão minha; seção 9.)
 - Uma rodada nova (`-r<k>`) atualiza a linha em vez de duplicar.
 
@@ -184,7 +184,7 @@ No padrão do SP6: testes de texto para o template e os comandos (a chave centra
 **Decisões minhas:**
 - O nome da chave é o slug da fatia (7.1).
 - O documento central fica em `refactors/chaves.md` e não tem coluna de marco nem de modo (7.5).
-- A remoção é um comando próprio, `/speckit-refactor-remover-chave`, com branch `refactor/<slug>-chave` e lembrete no `ws refactor pendentes` (7.4b).
+- A remoção é um comando próprio, `/speckit-refactor-remover`, com branch `refactor/<slug>-remover` e lembrete no `ws refactor pendentes` (7.4b).
 - O `servicos-linx-wms` é aceito como consumidor (7.5a).
 - Os comandos apontam para uma seção da camada 3 em vez de copiar o formato do produto (7.7a).
 - A chave não guarda o modo de convivência previsto e aceita os quatro modos (5, item 2). Assim, uma rodada nova (`-r<k>`) que troca o modo reaproveita a chave sem migração.
