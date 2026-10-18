@@ -50,6 +50,7 @@ O usuário quer **um lugar único** onde o líder vê todas as chaves, o modo de
 | Criação da chave | **No PR da fatia:** o INSERT da chave em "antigo" vem junto do código, e o diagnóstico tem de prevê-lo |
 | Documento central | Um arquivo no workspace com todas as chaves e onde são usadas, **mantido pelos comandos** de refactor |
 | Remoção da chave | **Separada e posterior ao desacoplar:** o desacoplar só tira a leitura; a chave sai depois, com o consumidor desacoplado já em produção |
+| Chave que não existe | Vale **`antigo`** |
 | `wms.conector.backend` | **Fora por enquanto:** não pode ser consumidor de fatia com chave central |
 | Como o produto é feito | A tabela, a tela e a leitura nos apps são **uma feature nova do workspace**, feita com o próprio harness: `/speckit-specify` e os 9 passos |
 | Corte deste design | Cobre a decisão (ADR) e as mudanças no harness. O produto é descrito no nível do que o ADR exige, e o time o especifica pela feature |
@@ -78,14 +79,15 @@ O texto final segue o formato do ADR 0001 (status, data, subprojeto, contexto, d
 4. **API no `ERP.Connector`:** listar as chaves, ler uma chave, mudar o modo (com quem e motivo) e ler o histórico. Os contextos do AWX e o `servicos-linx-wms` leem por ela.
 5. **Cópia no legado:** a `IntegracaoLegadoWMS` mantém uma tabela de chaves no banco do WMS legado, só leitura para o legado, com a hora da última sincronização por chave. Ninguém escreve nela fora da sincronização.
 6. **Tela no WMS legado:** no `Reserva.WMS3` Web (`repos/industria-logistica.wms.servidor.backend`). Lista as chaves, o modo de origem, o modo da cópia do legado e a hora da última sincronização, e o histórico. Vira o modo chamando a `IntegracaoLegadoWMS`, que grava no `ERP.Connector`; a tela nunca grava na cópia. Pede o motivo a cada mudança.
-7. **Falha:** quem consulta o `ERP.Connector` e não tem resposta, ou não acha a chave, devolve erro e a operação para, em qualquer modo. O legado lê a cópia e não depende do `ERP.Connector` no momento da leitura.
+7. **Falha:** quem consulta o `ERP.Connector` e não tem resposta devolve erro e a operação para, em qualquer modo. **Chave que não existe** (no `ERP.Connector` ou na cópia do legado) **vale `antigo`** (decisão do usuário). O legado lê a cópia e não depende do `ERP.Connector` no momento da leitura.
 8. **Emergência:** UPDATE direto no banco do `ERP.Connector`, nunca na cópia. A sincronização leva a mudança ao legado.
 9. **Ciclo de vida:** a chave nasce no PR da fatia, por migração do banco do `ERP.Connector`, em `antigo`. Sai num passo próprio, **depois** do desacoplar (M4) estar em produção: o desacoplar só tira a leitura do consumidor, e a remoção da chave vem depois, em PR separado.
 
 **Consequências:**
 - O caminho antigo de um consumidor no AWX passa a depender do `ERP.Connector` (aceito pelo usuário).
 - O `ERP.Connector` ganha banco e uma responsabilidade que não é de tradução com o LINX. Quando o legado sair, a cópia sai junto, e a fonte já está no AWX.
-- Ordem de deploy: a chave tem de existir no `ERP.Connector` antes de o consumidor ir para produção, e só pode sair depois que o consumidor deixar de lê-la (seção 7.4).
+- Ordem de deploy: como a chave que não existe vale `antigo`, o consumidor pode chegar a produção antes da migração da chave sem travar. A chave só sai depois que o consumidor desacoplado estiver em produção (seção 7.4b): se ela sumisse antes, um consumidor ainda em `novo` voltaria a `antigo` sem aviso.
+- Um nome de chave errado no consumidor também vale `antigo`, em silêncio. Quem pega é a validação (M3), porque a evidência mostra o caminho antigo, e o portão do `remover-chave`, que procura o nome no código.
 
 ## 6. O produto, como feature do workspace
 
@@ -158,7 +160,7 @@ A chave de uma fatia se chama como a fatia: o **slug** (por exemplo, `90301-movi
 ### 7.7 Constitution e doc
 - **Regra VII ou regra II:** acrescentar que a chave de uma fatia mora na tabela central do ADR 0002 e nasce e sai pelos PRs da fatia. A redação e a versão (1.3.0 → 1.4.0) ficam com o builder; a emenda pede PR aprovado por humano, como toda mudança da constitution.
 - **Camada 1** ("Uma fatia de desacoplamento"): o passo 2 passa a dizer que o time vira a chave pela tela no WMS legado.
-- **Camada 2:** entradas para a operação que trava porque o `ERP.Connector` não responde ou porque a chave não existe (ordem de deploy errada), apontando para a camada 3.
+- **Camada 2:** entradas para a operação que trava porque o `ERP.Connector` não responde, e para a chave virada na tela que não muda nada (nome errado no consumidor, que vale `antigo`), apontando para a camada 3.
 - **Camada 3** ("Convivência e a chave"): a tela, a emergência por UPDATE, o documento central e o formato das migrações.
 - **Camada 4:** o `refactors/chaves.md` na tabela "Onde fica cada coisa".
 - **Apresentação** (`docs/discovery/sp4-apresentacao/`): o slide da fatia e o dos marcos citam a tela e o documento central.
@@ -188,7 +190,6 @@ No padrão do SP6: testes de texto para o template e os comandos (a chave centra
 - A chave não guarda o modo de convivência previsto e aceita os quatro modos (5, item 2). Assim, uma rodada nova (`-r<k>`) que troca o modo reaproveita a chave sem migração.
 - A tela mostra, além do modo de origem, o modo da cópia do legado e a hora da última sincronização: é o "o que está rodando" do legado (5, item 6).
 - O UPDATE de emergência fica registrado com o usuário do banco (5, item 3).
-- A chave que não existe no `ERP.Connector` é tratada como falha: erro e a operação para (5, item 7).
 - A parte 3 só entra no `main` depois do produto em produção (4).
 
 **Com o builder:**
