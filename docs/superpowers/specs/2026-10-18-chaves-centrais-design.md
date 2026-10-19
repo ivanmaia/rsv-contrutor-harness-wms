@@ -63,7 +63,7 @@ O usuário quer **um lugar único** onde o líder vê todas as chaves, o modo de
 
 **Ordem:**
 - O ADR vem primeiro: as outras duas partes dependem do nome e do formato da chave que ele fixa.
-- A parte 3 pode ser construída em paralelo com a 2, mas só entra no `main` do workspace **depois** de a feature do produto estar mergeada nos repos e em produção. Antes disso, nenhuma fatia teria onde criar a chave. Hoje não há fatia real no `main` do workspace (não existe `refactors/`), então nada fica parado.
+- A parte 3 entra no `main` do workspace **antes** do produto (decisão do usuário em 2026-10-19, que trocou a ordem anterior). Enquanto a seção "Chaves centrais" da camada 3 tiver itens `<a definir pela feature>`, o `/speckit-refactor-assess` e o `/speckit-refactor-apply` de uma fatia de desacoplamento param e dizem que a fatia espera a feature; o refactor interno segue normalmente. Hoje não há fatia real no `main` do workspace (não existe `refactors/`), então nada fica parado. A regra da chave inexistente valendo `antigo` é do produto e não cobre esse intervalo, porque antes do produto não existe código que leia a chave.
 - O ADR também preenche o "Padrão do caminho novo" do desacoplamento do LINX, junto da arquitetura de transição explicada pelo usuário (`docs/discovery/sources/arquitetura-transicao-linx.md`), que ainda não tem ADR. Juntar as duas no mesmo ADR é decisão do builder (seção 9).
 
 ## 5. Rascunho do ADR 0002
@@ -190,7 +190,7 @@ No padrão do SP6: testes de texto para o template e os comandos (a chave centra
 - A chave não guarda o modo de convivência previsto e aceita os quatro modos (5, item 2). Assim, uma rodada nova (`-r<k>`) que troca o modo reaproveita a chave sem migração.
 - A tela mostra, além do modo de origem, o modo da cópia do legado e a hora da última sincronização: é o "o que está rodando" do legado (5, item 6).
 - O UPDATE de emergência fica registrado com o usuário do banco (5, item 3).
-- A parte 3 só entra no `main` depois do produto em produção (4).
+- A parte 3 entra no `main` antes do produto, com a espera da fatia nos comandos (4; decisão do usuário em 2026-10-19).
 
 **Com o builder:**
 - o banco e a tecnologia de persistência do `ERP.Connector`, no padrão dos outros contextos do AWX;
