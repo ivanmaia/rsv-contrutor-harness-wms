@@ -56,6 +56,7 @@ O usuário quer que o harness siga a EAP: a fatia é definida no planejamento (o
 - **Fatia:** um item da EAP. Nome = o código (`1.1.4`) e o título (`Contagem`). Tem um tipo (com ou sem chave), uma etapa e, se tiver chave, a chave `eap-<código com hífens>` (`eap-1-1-4`).
 - **Card:** um item de trabalho do Azure Boards que entrega parte da fatia (ou ela toda). Cada card é um **refactor** do harness, com o slug de hoje (`<id do card>-<descrição>`), a sua branch `refactor/<slug>`, os seus relatórios em `refactors/<slug>/` e os seus PRs por repo.
 - O refactor declara a fatia no diagnóstico (`/speckit-refactor-assess`): o código da EAP é obrigatório num desacoplamento.
+- **O card vem do slug:** o slug do refactor já começa pelo id do work item (`<id do card>-<descrição>`). Num desacoplamento, o slug sem card (`rf-<AAAAMMDD>-…`) é recusado: o card passa a ser obrigatório, junto com o código da EAP. (Decisão minha.)
 
 ### 4.2 Etapas da fatia
 
@@ -65,7 +66,7 @@ O usuário quer que o harness siga a EAP: a fatia é definida no planejamento (o
 |---|---|---|
 | em andamento | o primeiro refactor da fatia cita o código | o `assess` cria a linha da fatia |
 | entregue | todos os cards em produção com a chave em "antigo" | o comando do plano de subida, depois que o time confirma que a lista de cards está completa |
-| convivência | o time vira a chave na tela (é o antigo M2) | não é registrada pelo harness; a tela de chaves mostra o modo |
+| convivência | o time vira a chave na tela (é o antigo M2) | o dev registra com `ws refactor fatia atualiza <código> convivencia [--desde <data>]`; a tela de chaves continua sendo a referência do modo real |
 | validada | a evidência do processo atende os critérios | `/speckit-refactor-validar` da fatia |
 | validação falhou | a evidência não atende | o mesmo comando; a chave volta para "antigo" e a fatia volta para **em andamento** (correção por refactor, ver 4.5) |
 | desacoplada | o caminho antigo e a leitura da chave saem de todos os sistemas | `/speckit-refactor-desacoplar` da fatia |
@@ -88,6 +89,7 @@ O usuário quer que o harness siga a EAP: a fatia é definida no planejamento (o
 
 ### 4.4 Plano de subida
 - Um documento por fatia, `refactors/fatias/<código>/plano-subida.md`, montado pelo agente.
+- **O plano não trava outras fatias:** os estados do plano valem só para a própria fatia. A única coisa que eles seguram é a validação dela: o `validar` da fatia pede o plano `revisado`. (Decisão minha, a partir do pedido do usuário de não travar as demais fatias.)
 - **Estado do plano:** `rascunho` quando o comando monta; `revisado` quando o dev roda o comando de novo e confirma que o time revisou e completou (janela, cenários, plantão, monitoramento); `executado` quando o `validar` da fatia registra que a subida (sem chave) ou a virada (com chave) aconteceu na janela. (Decisão minha.)
 - **Em produção:** o harness não enxerga produção. Ao montar o plano, o comando lista os cards e pede ao dev que confirme, card a card, o estado de cada um (na fatia com chave, que já está em produção com a chave em "antigo"). (Decisão minha.)
 - **O que o agente preenche**, a partir dos relatórios e dos envios dos cards: os cards e os PRs por repo; os sistemas e apps tocados; os scripts de banco (de qual repo, em que banco, em que ordem); a ordem de deploy; a reversão (com chave: virar a chave e o que mais for preciso; sem chave: a versão anterior de cada app e a reversão de cada script); os critérios de validação do processo.
@@ -110,7 +112,7 @@ O usuário quer que o harness siga a EAP: a fatia é definida no planejamento (o
 ## 5. Regras
 
 - **Código da EAP:** `^[0-9]+(\.[0-9]+)*$`. Obrigatório no `assess` de um desacoplamento.
-- **Fatias não se aninham:** se `1.1.4.3` é uma fatia, `1.1.4` não pode ser, e vice-versa. O comando que cria a fatia recusa. (Decisão minha.)
+- **Fatias são independentes, mesmo aninhadas na EAP** (decisão do usuário): `1.1.4` e `1.1.4.3` podem ser fatias ao mesmo tempo, cada uma com a sua chave, as suas etapas e o seu plano. Um card pertence a uma fatia só: a do código que o dev informou.
 - **Padrão com chave:** o `assess` propõe "com chave" sempre que não houver motivo claro para o contrário; "sem chave" só com o motivo registrado (contratos mantidos, risco baixo, reversão fácil) e a aprovação do líder.
 - **Tipo da fatia:** definido pelo primeiro card; um card seguinte que discorda (por exemplo, propõe chave numa fatia sem chave) para e pede a decisão do líder. Mudar o tipo de uma fatia em andamento é possível enquanto nenhum card dela estiver em produção. (Decisão minha.)
 - **Aprovação do "sem chave":** o diagnóstico registra o motivo (contratos mantidos, risco baixo, reversão fácil) e `Aprovada pelo líder: pendente`. O dev troca por `sim, <data>` no `apply`, confirmando que o líder aprovou, como hoje na exceção de caracterização. Sem isso, o `apply` não segue.
@@ -137,7 +139,12 @@ Sem detalhar a implementação (fica para o plano):
   - **envio dos cards:** na fatia com chave, como hoje (o PR de cada repo é mergeado quando o card fica pronto). Na fatia sem chave, o `refactor-enviar` envia a branch e diz que o PR fica aberto até a janela, com a branch integrada na `homolog` do repo para teste (passo do time, fora do harness); o PR do workspace do card vem depois da janela;
   - `validar`, `desacoplar` e `remover`: pelo código da EAP, valendo para a fatia inteira;
   - branches das etapas da fatia (validação, desacoplar, remover) passam a ser por fatia, por exemplo `refactor/eap-1-1-4-validar`.
-- **`ws refactor`:** subcomandos para o documento das fatias (criar fatia, registrar card, mudar etapa, mudar o estado do plano), o `pendentes` e o aviso do `ws start` lendo dele; o `marco` e o `chave` atuais saem ou viram internos.
+- **`ws refactor fatia`** (decisão do usuário, nomes ajustados com ele): o grupo de subcomandos das fatias.
+  - `ws refactor fatia pendentes`: lista as fatias pendentes, com a etapa, há quantos dias e o próximo passo, inclusive as em convivência; avisa a fatia em convivência há mais tempo que o prazo sem validação. Substitui o `ws refactor pendentes`.
+  - `ws refactor fatia atualiza <código> convivencia [--desde <data>]`: registra que o time virou a chave.
+  - `ws refactor fatia atualiza <código> antigo [--motivo <texto>]`: registra que a chave voltou para "antigo" numa emergência, fora de uma validação; a fatia sai da convivência e o motivo fica registrado.
+  - O `atualiza` só registra o que acontece fora do harness. As etapas com portão (entregue, validada, desacoplada, chave removida) só mudam pelos comandos de refactor, por subcomandos internos do `ws refactor fatia` que o `atualiza` não expõe.
+  - O aviso do `ws start` lê o mesmo documento. O `marco` e o `chave` atuais saem ou viram internos.
 - **Doc:** camadas 1 a 4 e `AGENTS.md`; o slide da fatia e o dos marcos na apresentação.
 - **Migração:** não há fatias reais no `main` do workspace (nem `refactors/`), então não há dado para migrar.
 
@@ -152,12 +159,12 @@ Sem detalhar a implementação (fica para o plano):
 
 **Decisões minhas:**
 - O nome da chave é `eap-<código com hífens>` (4.3).
-- Fatias não se aninham (5).
+- Num desacoplamento, o card é obrigatório: o slug `rf-…` é recusado (4.1).
+- O `validar` de uma fatia pede o plano dela `revisado`; nada além disso depende do plano (4.4).
 - O tipo é definido pelo primeiro card e só muda antes de algum card estar em produção (5).
 - Dependências avisam, não bloqueiam (5).
 - O documento das fatias tem duas tabelas (fatias e cards) e substitui o `refactors/chaves.md` e a tabela de fatias dos documentos de desacoplamento (4.6).
 - O plano de subida fica em `refactors/fatias/<código>/plano-subida.md` (4.4).
-- A etapa "convivência" não é registrada pelo harness, como o M2 hoje (4.2).
 - Uma validação que falha volta a fatia para "em andamento", e a correção é por refactor (4.5).
 
 **Com o builder:**
