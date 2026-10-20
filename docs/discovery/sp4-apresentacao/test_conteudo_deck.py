@@ -68,7 +68,7 @@ class Conteudo(unittest.TestCase):
 
     def test_fatia_com_os_marcos_e_o_pendentes(self):
         s = slide('desacoplamento')
-        for m in ('ENTREGUE (M1)', 'CONVIVÊNCIA (M2)', 'VALIDADO (M3)', 'DESACOPLADO (M4)', 'refactor pendentes'):
+        for m in ('ITEM DA EAP', 'COM CHAVE', 'SEM CHAVE', 'PLANO DE SUBIDA', 'ws refactor fatia pendentes'):
             self.assertIn(m, s)
 
     def test_comandos_ws_com_sync_e_refactor(self):
@@ -78,15 +78,23 @@ class Conteudo(unittest.TestCase):
 
     def test_marcos_explica_os_codigos_antes_da_fatia(self):
         s = slide('marcos')
-        for c in ('>M1<', '>M2<', '>M3<', '>M3-falhou<', '>M4<', 'ws refactor pendentes'):
+        for c in ('>em andamento<', '>entregue<', '>convivência<', '>validada<', '>desacoplada<', '>chave removida<', 'ws refactor fatia status'):
             self.assertIn(c, s)
 
     def test_fatia_com_a_tela_e_o_documento_das_chaves(self):
         # SP6.1, ADR 0002.
         s = slide('desacoplamento')
         self.assertIn('tela de chaves do WMS legado', s)
-        self.assertIn('refactors/chaves.md', s + slide('marcos'))
+        self.assertIn('refactors/fatias.md', s + slide('marcos'))
         self.assertIn('/speckit-refactor-remover', s)
+
+    def test_fatia_pela_eap(self):
+        # SP6.2, ADR 0003.
+        s = slide('desacoplamento')
+        for t in ('item da EAP', 'sem chave', '/speckit-refactor-subida'):
+            self.assertIn(t, s)
+        for e in ('em andamento', 'entregue', 'convivência', 'validada', 'desacoplada'):
+            self.assertIn(e, slide('marcos'))
 
 
 if __name__ == '__main__':
