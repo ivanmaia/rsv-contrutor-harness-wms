@@ -39,7 +39,8 @@ O usuário quer que o harness siga a EAP: a fatia é definida no planejamento (o
 | Identificação | O **código do item da EAP** (`1.1.4`, `1.1.4.3`…), de tamanho variável. O dev **deve** informá-lo no refactor |
 | Quem define a fatia | O time, no planejamento: um card com o item da EAP é criado e refinado até estar pronto; um dev o puxa e começa |
 | Cards de uma fatia | Ou um card faz a fatia inteira numa entrega, ou o time quebra o card em **vários cards irmãos** (não subtarefas). Cada card vira **um refactor** (`/speckit-refactor-assess`…), nunca um `/speckit-specify` (que é para feature) |
-| Fatia com chave | Quando a mudança altera o fluxo. Uma chave por fatia, na tabela central do ADR 0002, lida por todos os sistemas da fatia. Voltar atrás é virar a chave |
+| Padrão | **Preferencialmente com chave.** "Sem chave" é a exceção, com motivo e aprovação do líder |
+| Fatia com chave | O padrão; obrigatória quando a mudança altera o fluxo. Uma chave por fatia, na tabela central do ADR 0002, lida por todos os sistemas da fatia. Voltar atrás é virar a chave |
 | Fatia sem chave | Quando o caminho novo **mantém os contratos existentes e o risco para a operação é baixo** (subida fácil de gerenciar e reversão fácil). O diagnóstico ou o plano propõe; o **líder aprova**, e o dev confirma no fluxo que o líder aprovou. O código antigo sai na própria entrega. Vai para produção na janela combinada com a operação e é validada no monitoramento do dia. Voltar atrás é reimplantar a versão anterior |
 | Subida | Na fatia **com chave**, cada card vai para produção sozinho, assim que fica pronto (a chave está em "antigo"); o plano de subida é o da **virada da chave**. Na fatia **sem chave**, todos os cards sobem **juntos**, na mesma janela; o plano de subida é o do **deploy** |
 | Plano de subida | O agente monta a partir das entregas dos cards; o time revisa e completa |
@@ -110,6 +111,7 @@ O usuário quer que o harness siga a EAP: a fatia é definida no planejamento (o
 
 - **Código da EAP:** `^[0-9]+(\.[0-9]+)*$`. Obrigatório no `assess` de um desacoplamento.
 - **Fatias não se aninham:** se `1.1.4.3` é uma fatia, `1.1.4` não pode ser, e vice-versa. O comando que cria a fatia recusa. (Decisão minha.)
+- **Padrão com chave:** o `assess` propõe "com chave" sempre que não houver motivo claro para o contrário; "sem chave" só com o motivo registrado (contratos mantidos, risco baixo, reversão fácil) e a aprovação do líder.
 - **Tipo da fatia:** definido pelo primeiro card; um card seguinte que discorda (por exemplo, propõe chave numa fatia sem chave) para e pede a decisão do líder. Mudar o tipo de uma fatia em andamento é possível enquanto nenhum card dela estiver em produção. (Decisão minha.)
 - **Aprovação do "sem chave":** o diagnóstico registra o motivo (contratos mantidos, risco baixo, reversão fácil) e `Aprovada pelo líder: pendente`. O dev troca por `sim, <data>` no `apply`, confirmando que o líder aprovou, como hoje na exceção de caracterização. Sem isso, o `apply` não segue.
 - **Dependências:** o dev informa os códigos da EAP de que a fatia depende ao criar a fatia. O plano de subida avisa se alguma dependência ainda não está validada; não bloqueia (a ordem é decisão do time). (Decisão minha.)
