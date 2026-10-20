@@ -177,3 +177,16 @@ Sem detalhar a implementação (fica para o plano):
 ## 9. Em aberto
 
 - Nada que mude o que se constrói.
+
+## 10. Adendo da revisão final (2026-10-20)
+
+A revisão da branch `harness/fatias-eap` achou dois caminhos que paravam num portão sem saída. O usuário decidiu:
+
+- **Subida da fatia sem chave:** os PRs do workspace dos cards só entram depois da janela, então o `main` não tem a fatia na hora da subida. A branch da subida nasce do `main` e **junta as branches dos cards** (`refactor/<slug>`, locais ou do origin). O `refactor-enviar` envia a branch do workspace do card ao origin, sem PR. O PR do workspace da subida leva os cards e vai depois da janela, no lugar dos PRs do workspace dos cards.
+- **Registro da virada da chave:** o `ws refactor fatia atualiza <código> convivencia|antigo` confere a etapa no `main`, cria a branch `refactor/eap-<código>-convivencia` (ou `-antigo`) com `ws start`, commita e envia ao origin. O validar começa depois do merge desse PR.
+
+Também da revisão:
+- linhas repetidas pelo `merge=union` são juntadas na leitura: vale a etapa ou o estado do card mais avançado; na mesma etapa, o `Desde` mais antigo e a união das dependências. Só a mesma fatia com e sem chave, ou o mesmo card em duas fatias, é recusada;
+- um card só entra ou muda de estado com a fatia em andamento;
+- a branch da subida é numerada (`-subida-2`) quando a anterior já foi mergeada;
+- o `fatia tipo` confere o conector e não mexe numa fatia que já é do tipo pedido.
