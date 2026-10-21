@@ -82,7 +82,7 @@ Comando novo que o dev roda na branch da entrega quando a homologação aprova. 
 **Título:** o mesmo padrão das mensagens de commit de hoje, por exemplo `feat(ws-NNN): <título>`, `fix(<slug>): <título>` e `refactor(<slug>): <título>`. Leva ` (r<k>)` nas revisões e o prefixo `[homolog]` nos PRs para `homolog`. (Decisão minha.)
 
 **Descrição dos PRs das subtrees:**
-- a origem: `specs/ws-NNN-*`, `bugs/<slug>/` ou `refactors/<slug>/`, com o resumo tirado do `spec.md`, do `assess.md` ou do `assessment.md`;
+- a origem: `specs/ws-NNN-*`, `bugs/<slug>/` ou `refactors/<slug>/`, com o resumo tirado do `spec.md` ou do `assessment.md` (do bug ou do refactor);
 - o link do PR do workspace do mesmo destino. Por isso, os PRs das subtrees são atualizados depois que o do workspace é aberto;
 - a lista dos commits da branch naquele repo.
 
@@ -144,7 +144,7 @@ Um comando de Claude Code, que é uma skill porque precisa do agente. O nome fic
 
 | Ponto | O que procura | Onde se apoia |
 |---|---|---|
-| Conformidade | O código faz o que a spec e as tasks (ou o diagnóstico do bug, ou o do refactor) pedem, nem mais nem menos | `spec.md`, `tasks.md`, `assess.md`, `assessment.md` |
+| Conformidade | O código faz o que a spec e as tasks (ou o diagnóstico do bug, ou o do refactor) pedem, nem mais nem menos | `spec.md`, `tasks.md`, `assessment.md` |
 | Contratos entre repos | Se um endpoint, fila, tabela, proc ou view mudou num repo, quem consome o contrato nos outros repos acompanhou, mesmo que esse repo não esteja na entrega | Atlas (`atlas-consultar`) e as arestas de `docs/sistemas/` |
 | Regras da casa | Constitution, `AGENTS.md` e o `docs/convencoes.md` do repo | os próprios arquivos |
 | Defeitos | Bugs, casos de borda e testes que faltam | o diff e o código em volta |
