@@ -24,7 +24,7 @@
   - subcomandos e opções de scripts internos (`plano.py`, `build-map.py --raiz`, `importa-mapeamento.sh --banco`, os modos `--subida|--validar|--remover|--rodada` do `ws-refactor-start.sh`);
   - chaves de JSON;
   - chaves do `workspace.pr.ini`;
-  - arquivos do Atlas;
+  - o Atlas inteiro: o `ws atlas` e as opções dele, as skills `/atlas-consultar` e `/atlas-atualizar`, os scripts de `tools/atlas/` e os arquivos de `docs/atlas/` (decisão do usuário, 2026-10-22);
   - variáveis de ambiente.
 - **Ficam em português:**
   - a documentação e o texto de mensagens, PRs e Chat;
@@ -60,7 +60,7 @@
   - `tools/` (menos `tools/ws/tests/nomes-antigos.txt` e o próprio teste);
   - `.claude/`, `.specify/`, `AGENTS.md`, `README.md`, `docs/harness/` (menos `docs/harness/historico/`) e `workspace.pr.ini`.
   
-  Ele falha listando `arquivo:linha` de cada ocorrência. As tarefas seguintes acrescentam as regex do seu grupo. Uma seção `# exceções` no fim do arquivo, com uma regex por linha, filtra as linhas permitidas (ex.: `ws-revisao:`, `atlas/atualizacao`, `plano-subida-template`, `desacoplamento-template` e `plano\.py`, porque as linhas que chamam o `plano.py` usam as opções internas dele, como `--gatilho`, `--hoje` e `--do-zero`).
+  Ele falha listando `arquivo:linha` de cada ocorrência. As tarefas seguintes acrescentam as regex do seu grupo. Uma seção `# exceções` no fim do arquivo, com uma regex por linha, filtra as linhas permitidas (ex.: `ws-revisao:`, `atlas/atualizacao`, `plano-subida-template`, `desacoplamento-template`).
 
 - [ ] **Step 1:** Escreva o teste com a lista vazia (só comentários e a seção de exceções). Acrescente `test_lista_de_nomes_tem_padroes_validos`, que roda `grep -E` com cada linha num texto vazio e falha se a regex for inválida.
 - [ ] **Step 2:** Rode `bash tools/ws/tests/run.sh tools/ws/tests/test_nomes_antigos.sh`. Esperado: 2 ok. Para ver o teste falhar, acrescente uma regex temporária `ws pr plano` e confira a falha; depois retire.
@@ -92,22 +92,20 @@
 
 ---
 
-### Task 3: `ws refactor slice`, `ws atlas`, opções, sufixos de branch e pastas novas
+### Task 3: `ws refactor slice`, opções, sufixos de branch e pastas novas
 
 **Files:**
 - Modify:
-  - `tools/ws/lib/refactor.sh`, `tools/ws/lib/fatia.sh`, `tools/ws/lib/atlas.sh` e `tools/ws/ws` (texto de uso);
+  - `tools/ws/lib/refactor.sh`, `tools/ws/lib/fatia.sh` e `tools/ws/ws` (texto de uso);
   - `tools/speckit/ws/scripts/bash/ws-refactor-start.sh` (só os sufixos de branch) e `tools/ws/pr/entrega.py` e `abrir.py` (`_ORIGENS`, a regex `-subida(-\d+)?$`);
   - `.gitattributes` (se cita `refactors/fatias.md`);
-  - os testes `test_fatia.sh`, `test_refactor.sh`, `test_speckit_refactor.sh`, `test_atlas_*.sh`, `test_pr.sh` e `test_harness.sh`;
+  - os testes `test_fatia.sh`, `test_refactor.sh`, `test_speckit_refactor.sh`, `test_pr.sh` e `test_harness.sh`;
   - as fontes dos comandos de refactor e ws que citam esses nomes e caminhos;
-  - as skills `atlas-*`;
-  - `docs/harness/1-4`, `AGENTS.md`, `README.md` e `tools/atlas/instala-cbm.sh` (cita `ws atlas mapas`);
+  - `docs/harness/1-4`, `AGENTS.md` e `README.md`;
   - `nomes-antigos.txt`.
 
 **Interfaces:**
 - **CLI do refactor:** `tools/ws/ws refactor slice <pending|status|create|type|approve|card|stage|plan|update|state|type-of|flag-of>`, com as opções `--title`, `--decoupling`, `--type`, `--depends-on`, `--slice`, `--state`, `--systems`, `--objects`, `--read-at`, `--note`, `--since` e `--reason`. Os valores posicionais em português (etapas, modos e tipos) não mudam.
-- **CLI do Atlas:** `tools/ws/ws atlas <plan|incorporate|finish|maps>`, com `--trigger start|converge|manual`, `--failures`, `--today`, `--from-scratch` e `--all`. O `--repos` e o `--base` ficam como estão.
 - **Branches:**
   - os sufixos novos de `refactor/eap-<código>` são `-rollout[-k]`, `-validate[-k]`, `-remove-flag`, `-coexistence[-k]` (no `update convivencia`) e `-legacy[-k]` (no `update antigo`);
   - os modos internos do `ws-refactor-start.sh` continuam `--subida|--validar|--remover|--rodada`, mas geram os sufixos novos;
@@ -130,32 +128,29 @@
   - **`test_slice_subcomando_antigo_falha`:** `tools/ws/ws refactor fatia pendentes` sai com erro de uso;
   - **`test_refactor_start_rollout_cria_branch_em_ingles`:** o modo `--subida` cria `refactor/eap-1-1-4-rollout`.
 - [ ] **Step 3:** Commit, `tools/ws/ws speckit` e commit das cópias.
-- [ ] **Step 4:** Rode `test_nomes_antigos.sh`, `test_fatia.sh`, `test_refactor.sh`, `test_speckit_refactor.sh`, `test_atlas_plano.sh`, `test_atlas_mapas.sh`, `test_pr.sh` e `test_harness.sh`. Esperado: 0 falha.
-- [ ] **Step 5:** Commit `harness: ws refactor slice, ws atlas e pastas novas em inglês (SP8)`.
+- [ ] **Step 4:** Rode `test_nomes_antigos.sh`, `test_fatia.sh`, `test_refactor.sh`, `test_speckit_refactor.sh`, `test_pr.sh` e `test_harness.sh`. Esperado: 0 falha.
+- [ ] **Step 5:** Commit `harness: ws refactor slice e pastas novas em inglês (SP8)`.
 
 ---
 
-### Task 4: Skills de revisão e do Atlas
+### Task 4: Skill de revisão
 
 **Files:**
-- Move:
-  - `.claude/skills/ws-revisar/` para `.claude/skills/ws-pr-review/`;
-  - `.claude/skills/atlas-consultar/` para `.claude/skills/ws-atlas-query/`;
-  - `.claude/skills/atlas-atualizar/` para `.claude/skills/ws-atlas-update/`.
+- Move: `.claude/skills/ws-revisar/` para `.claude/skills/ws-pr-review/`.
   
-  Mude o `name:` no frontmatter de cada uma. As opções da skill de atualização viram `--trigger` (antes `--gatilho`) e `--from-scratch` (antes `--do-zero`). Ao chamar o `ws atlas`, ela usa as opções novas da Task 3.
-- Modify: `tools/ws/pr/revisao.py` (os caminhos `.ws/review/<id>/context.json`, `findings.json` e `tree/`; as chaves internas dos JSON ficam), as fontes dos comandos que citam essas skills, os testes `test_harness.sh` e `test_pr_revisao.sh`, `docs/harness/1-4`, `AGENTS.md` e `nomes-antigos.txt`.
+  Mude o `name:` no frontmatter.
+- Modify: `tools/ws/pr/revisao.py` (os caminhos `.ws/review/<id>/context.json`, `findings.json` e `tree/`; as chaves internas dos JSON ficam), as fontes dos comandos que citam a skill, os testes `test_harness.sh` e `test_pr_revisao.sh`, `docs/harness/1-4`, `AGENTS.md` e `nomes-antigos.txt`.
 
 **Interfaces:**
-- Produces: as skills `/ws-pr-review <link>`, `/ws-atlas-query` e `/ws-atlas-update [--trigger start|converge|manual] [--from-scratch]`.
+- Produces: a skill `/ws-pr-review <link>`.
 
 - [ ] **Step 1:** Acrescente à lista as linhas `\bws-revisar\b`, `\batlas-(consultar|atualizar)\b` e `\.ws/revisao\b`. Rode o teste. Esperado: FALHA.
 - [ ] **Step 2:** Faça as mudanças. Mais estes testes:
   - **`test_marcador_da_revisao_nao_muda`:** `revisao.py` contém `ws-revisao:`;
   - **`test_review_grava_em_ws_review`:** o `context.json` em `.ws/review/<id>/`.
 - [ ] **Step 3:** Commit, `tools/ws/ws speckit` e commit das cópias.
-- [ ] **Step 4:** Rode `test_nomes_antigos.sh`, `test_pr_revisao.sh`, `test_harness.sh` e `test_atlas_*.sh`. Esperado: 0 falha.
-- [ ] **Step 5:** Commit `harness: skills ws-pr-review e ws-atlas-* (SP8)`.
+- [ ] **Step 4:** Rode `test_nomes_antigos.sh`, `test_pr_revisao.sh` e `test_harness.sh`. Esperado: 0 falha.
+- [ ] **Step 5:** Commit `harness: skill ws-pr-review (SP8)`.
 
 ---
 
@@ -200,7 +195,7 @@
 **Interfaces:**
 - **Os hooks de fim** (`feature-end`, `bug-end` e `refactor-end`):
   1. conferem o resultado do jeito de hoje;
-  2. rodam a skill `atlas` (agora `ws-atlas-update --trigger converge`);
+  2. seguem a skill `atlas-atualizar --gatilho converge`, como hoje;
   3. terminam com "siga a skill `ws-commit-push`".
 - **A `ws-commit-push`:**
   1. propõe a mensagem pela tabela;
@@ -246,7 +241,7 @@
 
 **Files:**
 - Modify, no repo de discovery, `docs/discovery/apresentacao-v2/deck/project/slides/*.html`:
-  - passos 8 a 10 da feature, `resumo`, `bug`, `refactor`, `desacoplamento`, `marcos`, `revisar*`, `cmd-ws`, `cmd-skills`, `erros-prs`, `setup-atlas`, `onde`, `amanha`, `regras`, `novidades` e qualquer slide que cite um nome antigo;
+  - passos 8 a 10 da feature, `resumo`, `bug`, `refactor`, `desacoplamento`, `marcos`, `revisar*`, `cmd-ws`, `cmd-skills`, `erros-prs`, `onde`, `amanha`, `regras`, `novidades` e qualquer slide que cite um nome antigo;
   - o `roteiro.md`, a seção 11 do `conteudo.md` e uma linha "SP8" em `novidades`.
 
 - [ ] **Step 1:** Rode `grep -nE -f <workspace>/tools/ws/tests/nomes-antigos.txt deck/project/slides/*.html` (sem a seção de exceções). Liste as ocorrências.
