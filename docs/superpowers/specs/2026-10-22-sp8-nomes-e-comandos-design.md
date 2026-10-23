@@ -28,7 +28,7 @@ O usuário quer:
 **Não objetivos:**
 - mudar o comportamento de qualquer comando, exceto a detecção do tipo pela branch no commit-push e a extração da oferta dos PRs para um comando próprio;
 - renomear comandos do Spec Kit oficial (`specify`, `clarify`, `plan`, `tasks`, `analyze`, `implement`, `converge`, `checklist`, `constitution`, `taskstoissues`, `agent-context-update`) e da extensão oficial de bug (`bug-assess`, `bug-fix`, `bug-test`);
-- renomear funções e variáveis internas de scripts, nomes de arquivo de scripts e módulos, chaves de JSON internas, chaves do `workspace.pr.ini`, arquivos do Atlas e variáveis de ambiente (subcomandos e opções internos entram: seção 8, item 6);
+- renomear funções e variáveis internas de scripts, nomes de arquivo de scripts e módulos, subcomandos e opções de scripts internos (seção 8, item 6), chaves de JSON internas, chaves do `workspace.pr.ini`, arquivos do Atlas e variáveis de ambiente;
 - traduzir documentação, mensagens do `ws`, textos de PR ou do Chat.
 
 **Antiobjetivos:**
@@ -100,7 +100,6 @@ Os hooks de fim (`feature-end`, `bug-end` e `refactor-end`) fazem só o que é d
   - `ws pr plano|abrir|revisao|comentar` vira `ws pr plan|open|review|comment`;
   - `ws atlas plano|incorpora|concluir|mapas` vira `ws atlas plan|incorporate|finish|maps`;
   - opções: `--title`, `--decoupling`, `--type`, `--depends-on`, `--slice`, `--state`, `--systems`, `--objects`, `--read-at`, `--note`, `--since`, `--reason`, `--trigger`, `--failures`, `--today`, `--from-scratch` e `--all`;
-  - os modos do `ws-refactor-start.sh` viram `--rollout`, `--validate`, `--remove-flag` e `--round` (este no lugar de `--rodada`).
 - **Valores em português:** os valores que vão para os documentos não mudam, como `entregue`, `convivencia`, `validada`, `desacoplada`, `chave-removida`, `antigo`, `paralelo`, `sombra`, `novo`, `com-chave`, `sem-chave`, `rascunho`, `revisado`, `diagnóstico`, `aplicado` e os demais (seção 3).
 - **Módulos Python:** os módulos de `tools/ws/pr/` e os scripts de `tools/` podem manter os nomes, porque o dev não os digita. Se o builder renomear, que evite `open.py`, que colide com o builtin do Python.
 
@@ -141,7 +140,7 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
 
 - **Extensões:** as fontes em `tools/speckit/ws/` e `tools/speckit/refactor/`, com os comandos, o `extension.yml` (versões: `ws` 1.8.0 e `refactor` com bump de minor) e o `hooks.md`, mais as cópias regeneradas por `tools/ws/ws speckit`.
 - **Skills:** as novas `ws-commit-push`, `ws-pr-homolog`, `ws-pr-main` e `ws-pr-review`, e as `ws-atlas-query` e `ws-atlas-update`, renomeadas a partir das `atlas-*`. Saem as antigas, incluindo `speckit-ws-promover` e `ws-revisar`.
-- **CLI e scripts:** `tools/ws/ws`, `tools/ws/lib/*.sh`, `tools/ws/pr/*`, `tools/speckit/*/scripts/bash/*` e `tools/atlas/plano.py` (subcomandos e opções).
+- **CLI e scripts:** `tools/ws/ws`, `tools/ws/lib/*.sh`, `tools/ws/pr/*` e os scripts de `tools/speckit/*/scripts/bash/*` que montam os nomes de branch.
 - **Testes:** os 28 arquivos de `tools/ws/tests/`, mais um teste novo que procura os nomes antigos de comando, subcomando e opção em `tools/`, `.claude/`, `.specify/`, `AGENTS.md` e `docs/harness/` (fora de `historico/`) e falha se achar algum. A lista de nomes proibidos vem das seções 4.1 a 4.4.
 - **Documentação:**
   - o conteúdo continua em português;
@@ -192,11 +191,14 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
    - A base é o `origin/main`, num worktree novo, na branch `harness/sp8-nomes`, com PR no Azure DevOps para o `main`. O clone do usuário em `C:/src/wms-workspace` não é tocado.
    - A validação real é uma etapa do plano, feita com o usuário, como no SP7.
 5. **Teste de nomes proibidos.** Casa só em contexto de comando: `/speckit-<nome antigo>`, `/ws-revisar`, `/atlas-consultar`, `/atlas-atualizar`, `ws refactor fatia`, `ws pr plano|abrir|revisao|comentar`, `ws atlas plano|incorpora|concluir|mapas`, as opções antigas (`--titulo`, `--gatilho` …) e os nomes de evento antigos. Prosa e valores em português não entram no teste. Uma lista de exceções no próprio teste cobre os nomes que ficam por decisão (`ws-revisao`, `atlas/atualizacao`, os templates). (Decisão minha.)
-6. **Subcomandos e opções internos (decisão do usuário, 2026-10-22): também vão para o inglês.** Valem os nomes do inventário, seção 2.4:
-   - **`plano.py`:** os subcomandos viram `generate`, `list` e `write-state`;
-   - **opções:** `--actions`, `--changed`, `--exclude` (no lugar de `--sem`), `--root` (no `build-map.py` e no `build-viz.py`) e `--database` (no `importa-mapeamento.sh`);
-   - **valores de ação do plano:** `update`, `from-scratch`, `advance`, `defer`, `pending` e `none`, junto com os motivos que o script grava. O `.git/atlas-plano.json` é local e é gerado a cada execução, então não há o que migrar. A skill `ws-atlas-update` e os testes mudam junto;
-   - **o que fica:** os nomes de arquivo dos scripts e módulos, as funções e as chaves de JSON (seção 2).
+6. **Subcomandos e opções internos ficam (decisão do usuário, 2026-10-22, depois da recomendação "experiência do dev").** Ficam em português, porque o dev não os vê:
+   - os subcomandos e opções do `plano.py` (`gerar`, `lista`, `grava-estado`, `--acoes`, `--mudou`, `--sem`);
+   - o `--raiz` do `build-map.py` e do `build-viz.py`, e o `--banco` do `importa-mapeamento.sh`;
+   - os valores de `acao` e `motivo` do `.git/atlas-plano.json`;
+   - os modos internos do `ws-refactor-start.sh` (`--subida`, `--validar`, `--remover`, `--rodada`). Mesmo com esses modos em português, as branches que eles criam ganham os sufixos novos (4.5);
+   - os nomes de arquivo de scripts e módulos e as funções e variáveis.
+   
+   Entra só o que o dev digita ou vê: comandos, skills, hooks e eventos, os subcomandos e opções do `tools/ws/ws` (4.4), as branches e as pastas e arquivos novos.
 7. **Sem apelidos.** Os nomes antigos somem de uma vez. Uma branch aberta não quebra, porque o CLI, as skills e as cópias do Spec Kit são versionados na própria branch: ela continua com os nomes velhos e consistentes até trazer a `ws/sync`. A entrada da camada 2 cobre o "não achei o comando" de quem misturar.
 8. **Detalhes que o builder decide:** o adendo da ADR 0001 é o próximo número livre (conferir), e o destino `homolog` continua como argumento de `ws pr plan|open`.
 
