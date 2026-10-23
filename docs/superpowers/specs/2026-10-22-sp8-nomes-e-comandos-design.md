@@ -21,7 +21,7 @@ O usuário quer:
 
 **Objetivos:**
 - feature, bug e refactor terminam com os mesmos comandos: `/ws-commit-push`, `/ws-pr-homolog`, `/ws-pr-main` e completar os PRs;
-- todo comando, skill, hook, evento de hook, subcomando e opção do CLI do harness fica em inglês;
+- todo comando e skill do harness que o dev vê na lista do `/` fica em inglês (o CLI `tools/ws/ws` não muda);
 - pastas e arquivos que ainda não existem no origin nascem em inglês;
 - a documentação e o conteúdo dos artefatos continuam em português.
 
@@ -41,12 +41,12 @@ O usuário quer:
 | Decisão | Valor |
 |---|---|
 | Comandos do fim | Os mesmos três em todos os fluxos: commit e envio (mensagem `feat`, `fix` ou `refactor` conforme a branch), PRs para o ramo de teste e PRs para o `main` |
-| Idioma | Comandos e skills em inglês, incluindo as extensões nossas. Os documentos ficam em português. Os subcomandos do CLI também vão para o inglês |
+| Idioma | Comandos e skills em inglês, incluindo as extensões nossas. Os documentos ficam em português. O CLI não muda (decisão posterior, seção 4.4) |
 | Spec Kit oficial | Os nomes não mudam |
 | Prefixo | O usuário sugeriu `ws` para as extensões. O Spec Kit 1.2.0 obriga comando de extensão a se chamar `speckit.<ext>.<nome>` (`EXTENSION_COMMAND_NAME_PATTERN = ^speckit\.([a-z0-9-]+)\.([a-z0-9-]+)$`), então `ws-` puro só vale para skills comuns. Resultado: os comandos que o dev digita no fim do fluxo viram skills `ws-*`, e os comandos que precisam disparar evento continuam na extensão (seção 4) |
 | `desacoplar` | Não vira `decouple`. O passo remove o caminho antigo e a leitura da chave depois da validação; o desacoplamento é a fatia inteira. Vira `retire-legacy` (padrão strangler fig). O `remover` vira `remove-flag`, porque o que sai é a chave (feature flag) |
 | Pastas e arquivos | O que já está no origin e tem conteúdo fica em português. O que ainda não existe nasce em inglês |
-| Valores gravados nos documentos | Etapas da fatia, modos da chave, tipo da fatia, estado do plano e estado do card continuam em português, inclusive quando o dev os digita no CLI. Isso é a "opção (a)" da conversa: é vocabulário do documento, sem tabela de tradução. O usuário não se opôs |
+| Valores gravados nos documentos | Etapas da fatia, modos da chave, tipo da fatia, estado do plano e estado do card continuam em português. Isso é a "opção (a)" da conversa: é vocabulário do documento, sem tabela de tradução. O usuário não se opôs |
 
 ## 4. Os nomes novos
 
@@ -55,7 +55,7 @@ O usuário quer:
 | Hoje | Novo | O que faz |
 |---|---|---|
 | `/speckit-ws-commit-push` (só feature) | `/ws-commit-push` | Commit e `ws push`. O tipo vem da branch: `ws-NNN-*` vira `feat(ws-NNN): <título> [specs/…]` (` (r<k>)` na revisão); `hotfix/<slug>` vira `fix(<slug>): <título do bug>`; `refactor/<slug>` vira `refactor(<slug>): <título>`; nas branches da fatia, ficam as mensagens de hoje (`refactor(eap-<código>): desacopla …` e `remove a chave`). O aviso de tarefas pendentes do converge continua só na feature. No fim, oferece o `/ws-pr-homolog` |
-| oferta copiada no commit-push, no bug-enviar e no refactor-enviar | `/ws-pr-homolog` | `ws pr plan homolog`, pergunta o card (no refactor, propõe o número do slug), `ws pr open homolog --card`. Sem repo na entrega, oferece o PR do workspace direto para o `main`. Serve também para refazer (oferta recusada, PR manual, repo novo) |
+| oferta copiada no commit-push, no bug-enviar e no refactor-enviar | `/ws-pr-homolog` | `ws pr plano homolog`, pergunta o card (no refactor, propõe o número do slug), `ws pr abrir homolog --card`. Sem repo na entrega, oferece o PR do workspace direto para o `main`. Serve também para refazer (oferta recusada, PR manual, repo novo) |
 | `/speckit-ws-promover` | `/ws-pr-main` | Igual ao promover de hoje, com os subcomandos novos |
 | `/ws-revisar` | `/ws-pr-review` | Igual ao de hoje, com os caminhos novos (4.5) |
 
@@ -91,14 +91,15 @@ Só os quatro hooks com nome em português mudam (decisão do usuário, 2026-10-
 
 Os hooks de fim (`converge`, `bug-submit` e `refactor-submit`) fazem só o que é do fluxo: conferem o resultado (converge sem tarefa nova; teste `verified` ou `partial` confirmado; verify `ok`) e atualizam o Atlas. Depois seguem a skill `ws-commit-push`, que por sua vez oferece a `ws-pr-homolog`. O `bug-no-fix` continua oferecendo o PR do workspace direto para o `main` (pela `ws-pr-homolog`, que já trata a entrega sem repo).
 
-### 4.4 CLI `tools/ws/ws`
+### 4.4 CLI `tools/ws/ws`: não muda
 
-- **Subcomandos e opções em inglês:** a lista completa está nas seções 2.2 a 2.5 do inventário, com os ajustes abaixo, que prevalecem sobre as sugestões de lá:
-  - `ws refactor fatia` vira `ws refactor slice`, com os subcomandos `pending`, `status`, `create`, `type`, `approve`, `card`, `stage`, `plan`, `update`, `state`, `type-of` e `flag-of` (no lugar de `chave-de`);
-  - `ws pr plano|abrir|revisao|comentar` vira `ws pr plan|open|review|comment`;
-  - opções: `--title`, `--decoupling`, `--type`, `--depends-on`, `--slice`, `--state`, `--systems`, `--objects`, `--read-at`, `--note`, `--since` e `--reason`. O `ws atlas` e as opções dele (`plano`, `incorpora`, `concluir`, `mapas`, `--gatilho`, `--do-zero`, `--todos`…) ficam como estão: o Atlas está fora do SP8;
-- **Valores em português:** os valores que vão para os documentos não mudam, como `entregue`, `convivencia`, `validada`, `desacoplada`, `chave-removida`, `antigo`, `paralelo`, `sombra`, `novo`, `com-chave`, `sem-chave`, `rascunho`, `revisado`, `diagnóstico`, `aplicado` e os demais (seção 3).
-- **Módulos Python:** os módulos de `tools/ws/pr/` e os scripts de `tools/` podem manter os nomes, porque o dev não os digita. Se o builder renomear, que evite `open.py`, que colide com o builtin do Python.
+Decisão do usuário (2026-10-22): o CLI fica como está. Isso inclui:
+- os subcomandos (`ws pr plano|abrir|revisao|comentar`, `ws refactor fatia …`, `ws atlas …`);
+- as opções (`--titulo`, `--card`…);
+- os valores (etapas, modos, tipos);
+- a pasta local `.ws/revisao/`.
+
+Quem chama o CLI quase sempre são os comandos e as skills, e não o dev.
 
 ### 4.5 Branches, pastas e arquivos
 
@@ -120,7 +121,6 @@ Os hooks de fim (`converge`, `bug-submit` e `refactor-submit`) fazem só o que �
 - `refactors/slices.md`;
 - `refactors/slices/<código>/` com `rollout-plan.md`, `validation.md`, `retire-legacy.md` e `remove-flag.md`;
 - `refactors/decouplings/<nome>.md`;
-- `.ws/review/<id>/` com `context.json`, `findings.json` e `tree/`.
 
 As chaves dentro do `context.json` e do `findings.json` não mudam. Elas são contrato interno entre o `ws pr review` e a skill.
 
@@ -137,7 +137,7 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
 
 - **Extensões:** as fontes em `tools/speckit/ws/` e `tools/speckit/refactor/`, com os comandos, o `extension.yml` (versões: `ws` 1.8.0 e `refactor` com bump de minor) e o `hooks.md`, mais as cópias regeneradas por `tools/ws/ws speckit`.
 - **Skills:** as novas `ws-commit-push`, `ws-pr-homolog`, `ws-pr-main` e `ws-pr-review`. As `atlas-*` ficam. Saem as antigas, incluindo `speckit-ws-promover` e `ws-revisar`.
-- **CLI e scripts:** `tools/ws/ws`, `tools/ws/lib/*.sh`, `tools/ws/pr/*` e os scripts de `tools/speckit/*/scripts/bash/*` que montam os nomes de branch.
+- **Scripts:** só os que montam nomes de branch e caminhos de artefato: `tools/ws/lib/fatia.sh`, `tools/ws/pr/entrega.py` e `abrir.py`, e `tools/speckit/ws/scripts/bash/ws-refactor-start.sh`.
 - **Testes:** os 28 arquivos de `tools/ws/tests/`, mais um teste novo que procura os nomes antigos de comando, subcomando e opção em `tools/`, `.claude/`, `.specify/`, `AGENTS.md` e `docs/harness/` (fora de `historico/`) e falha se achar algum. A lista de nomes proibidos vem das seções 4.1 a 4.4.
 - **Documentação:**
   - o conteúdo continua em português;
@@ -180,14 +180,14 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
    | `refactor/<slug>[-r<k>]` | `refactor(<slug>): <título do assessment.md>` (+ ` (r<k>)`) |
    | `refactor/eap-<código>-validate[-k]` com `refactors/slices/<código>/retire-legacy.md` alterado na branch | `refactor(eap-<código>): desacopla <título da fatia>` |
    | `refactor/eap-<código>-remove-flag` | `refactor(eap-<código>): remove a chave` |
-   | `-rollout`, `-validate` sem retire-legacy, `-coexistence` e `-legacy` | o commit é feito pelo próprio comando (`refactor-record` ou `ws refactor slice update`). A skill diz isso, mostra o que está pendente e, se ainda houver mudança, propõe `docs(eap-<código>): <resumo>` para o dev confirmar ou corrigir |
+   | `-rollout`, `-validate` sem retire-legacy, `-coexistence` e `-legacy` | o commit é feito pelo próprio comando (`refactor-record` ou `ws refactor fatia atualiza`). A skill diz isso, mostra o que está pendente e, se ainda houver mudança, propõe `docs(eap-<código>): <resumo>` para o dev confirmar ou corrigir |
 
 3. **Deck v3.** Faz parte da construção, como tarefa final: a fonte é copiada de `docs/discovery/apresentacao-v2/` para `docs/discovery/apresentacao-v3/` no repo de discovery e publicada como um deck novo. O v2 não muda. É outro repo e outro jeito de entregar (commit no discovery e publicação), separado do PR do workspace.
 4. **Base e entrega.**
    - O SP7 já está no `origin/main` (PR 17261, mergeado em 2026-10-22). A memória que dizia "pausado" está desatualizada.
    - A base é o `origin/main`, num worktree novo, na branch `harness/sp8-nomes`, com PR no Azure DevOps para o `main`. O clone do usuário em `C:/src/wms-workspace` não é tocado.
    - A validação real é uma etapa do plano, feita com o usuário, como no SP7.
-5. **Teste de nomes proibidos.** Casa só em contexto de comando: `/speckit-<nome antigo>`, `/ws-revisar`, `ws refactor fatia`, `ws pr plano|abrir|revisao|comentar`, as opções antigas do `ws refactor` (`--titulo` …) e os nomes de evento antigos. Prosa e valores em português não entram no teste. Uma lista de exceções no próprio teste cobre os nomes que ficam por decisão (`ws-revisao`, `atlas/atualizacao`, os templates). (Decisão minha.)
+5. **Teste de nomes proibidos.** Casa só em contexto de comando: `/speckit-<nome antigo>`, `/ws-revisar`, os nomes de evento antigos, os sufixos de branch antigos e as pastas e arquivos antigos de artefato. Prosa e valores em português não entram no teste. Uma lista de exceções no próprio teste cobre os nomes que ficam por decisão (`ws-revisao`, `atlas/atualizacao`, os templates). (Decisão minha.)
 6. **Subcomandos e opções internos ficam (decisão do usuário, 2026-10-22, depois da recomendação "experiência do dev").** Ficam em português, porque o dev não os vê:
    - os subcomandos e opções do `plano.py` (`gerar`, `lista`, `grava-estado`, `--acoes`, `--mudou`, `--sem`);
    - o `--raiz` do `build-map.py` e do `build-viz.py`, e o `--banco` do `importa-mapeamento.sh`;
@@ -195,9 +195,9 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
    - os modos internos do `ws-refactor-start.sh` (`--subida`, `--validar`, `--remover`, `--rodada`). Mesmo com esses modos em português, as branches que eles criam ganham os sufixos novos (4.5);
    - os nomes de arquivo de scripts e módulos e as funções e variáveis.
    
-   Entra só o que o dev digita ou vê: comandos, skills, hooks e eventos, os subcomandos e opções do `tools/ws/ws` (4.4), as branches e as pastas e arquivos novos.
-7. **Sem apelidos.** Os nomes antigos somem de uma vez. Uma branch aberta não quebra, porque o CLI, as skills e as cópias do Spec Kit são versionados na própria branch: ela continua com os nomes velhos e consistentes até trazer a `ws/sync`. A entrada da camada 2 cobre o "não achei o comando" de quem misturar.
-8. **Detalhes que o builder decide:** o adendo da ADR 0001 é o próximo número livre (conferir), e o destino `homolog` continua como argumento de `ws pr plan|open`.
+   Entra só o que o dev digita ou vê: comandos, skills, hooks e eventos, as branches e as pastas e arquivos novos.
+7. **Sem apelidos.** Os nomes antigos somem de uma vez. Uma branch aberta não quebra, porque as skills e as cópias do Spec Kit são versionadas na própria branch: ela continua com os nomes velhos e consistentes até trazer a `ws/sync`. A entrada da camada 2 cobre o "não achei o comando" de quem misturar.
+8. **Detalhes que o builder decide:** o adendo da ADR 0001 é o próximo número livre (conferir), e o destino `homolog` continua como argumento de `ws pr plano|abrir`.
 
 ## 9. O que fica com o builder
 
