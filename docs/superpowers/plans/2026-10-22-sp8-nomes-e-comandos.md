@@ -57,7 +57,7 @@
 
 **Interfaces:**
 - Produces: o arquivo `nomes-antigos.txt`, com uma regex estendida por linha (`#` = comentário), e o teste `test_sem_nomes_antigos`. O teste roda `git grep -nE -f <arquivo>` na raiz do workspace, sobre:
-  - `tools/` (menos `tools/ws/tests/nomes-antigos.txt` e o próprio teste);
+  - `tools/` (menos `tools/ws/tests/nomes-antigos.txt`, o próprio teste e `tools/atlas/`, que está fora do escopo);
   - `.claude/`, `.specify/`, `AGENTS.md`, `README.md`, `docs/harness/` (menos `docs/harness/historico/`) e `workspace.pr.ini`.
   
   Ele falha listando `arquivo:linha` de cada ocorrência. As tarefas seguintes acrescentam as regex do seu grupo. Uma seção `# exceções` no fim do arquivo, com uma regex por linha, filtra as linhas permitidas (ex.: `ws-revisao:`, `atlas/atualizacao`, `plano-subida-template`, `desacoplamento-template`).
@@ -118,7 +118,7 @@
   Os cabeçalhos e o conteúdo do `slices.md` continuam em português.
 
 - [ ] **Step 1:** Acrescente à lista as linhas:
-  - `ws refactor fatia\b` e `ws atlas (plano|incorpora|concluir|mapas)\b`;
+  - `ws refactor fatia\b`;
   - `--(titulo|desacoplamento|tipo|depende|fatia|estado|sistemas|objetos|onde|nota|desde|motivo)\b`;
   - `refactors/(fatias|desacoplamentos)\b`, `plano-subida\.md`, `validacao\.md`, `desacoplar\.md`, `remover\.md`;
   - `eap-[^ ]*-(subida|validar|remover|convivencia|antigo)\b`.
@@ -144,7 +144,7 @@
 **Interfaces:**
 - Produces: a skill `/ws-pr-review <link>`.
 
-- [ ] **Step 1:** Acrescente à lista as linhas `\bws-revisar\b`, `\batlas-(consultar|atualizar)\b` e `\.ws/revisao\b`. Rode o teste. Esperado: FALHA.
+- [ ] **Step 1:** Acrescente à lista as linhas `\bws-revisar\b` e `\.ws/revisao\b`. Rode o teste. Esperado: FALHA.
 - [ ] **Step 2:** Faça as mudanças. Mais estes testes:
   - **`test_marcador_da_revisao_nao_muda`:** `revisao.py` contém `ws-revisao:`;
   - **`test_review_grava_em_ws_review`:** o `context.json` em `.ws/review/<id>/`.
