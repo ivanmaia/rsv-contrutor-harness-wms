@@ -28,7 +28,7 @@ O usuário quer:
 **Não objetivos:**
 - mudar o comportamento de qualquer comando, exceto a detecção do tipo pela branch no commit-push e a extração da oferta dos PRs para um comando próprio;
 - renomear comandos do Spec Kit oficial (`specify`, `clarify`, `plan`, `tasks`, `analyze`, `implement`, `converge`, `checklist`, `constitution`, `taskstoissues`, `agent-context-update`) e da extensão oficial de bug (`bug-assess`, `bug-fix`, `bug-test`);
-- renomear funções e variáveis internas de scripts, chaves de JSON internas, chaves do `workspace.pr.ini`, arquivos do Atlas e variáveis de ambiente;
+- renomear funções e variáveis internas de scripts, nomes de arquivo de scripts e módulos, chaves de JSON internas, chaves do `workspace.pr.ini`, arquivos do Atlas e variáveis de ambiente (subcomandos e opções internos entram: seção 8, item 6);
 - traduzir documentação, mensagens do `ws`, textos de PR ou do Chat.
 
 **Antiobjetivos:**
@@ -192,7 +192,11 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
    - A base é o `origin/main`, num worktree novo, na branch `harness/sp8-nomes`, com PR no Azure DevOps para o `main`. O clone do usuário em `C:/src/wms-workspace` não é tocado.
    - A validação real é uma etapa do plano, feita com o usuário, como no SP7.
 5. **Teste de nomes proibidos.** Casa só em contexto de comando: `/speckit-<nome antigo>`, `/ws-revisar`, `/atlas-consultar`, `/atlas-atualizar`, `ws refactor fatia`, `ws pr plano|abrir|revisao|comentar`, `ws atlas plano|incorpora|concluir|mapas`, as opções antigas (`--titulo`, `--gatilho` …) e os nomes de evento antigos. Prosa e valores em português não entram no teste. Uma lista de exceções no próprio teste cobre os nomes que ficam por decisão (`ws-revisao`, `atlas/atualizacao`, os templates). (Decisão minha.)
-6. **Atlas: `plano.py` e o JSON do plano.** Os subcomandos e opções do `plano.py` (`gerar`, `lista`, `grava-estado`, `--acoes`, `--mudou`, `--sem`, `--raiz`, `--banco`) e os valores de `acao` e `motivo` do `.git/atlas-plano.json` são internos: o dev não digita. Ficam como estão. (Decisão minha, pela regra "o que o dev digita".)
+6. **Subcomandos e opções internos (decisão do usuário, 2026-10-22): também vão para o inglês.** Valem os nomes do inventário, seção 2.4:
+   - **`plano.py`:** os subcomandos viram `generate`, `list` e `write-state`;
+   - **opções:** `--actions`, `--changed`, `--without`, `--root` (no `build-map.py` e no `build-viz.py`) e `--database` (no `importa-mapeamento.sh`);
+   - **valores de ação do plano:** `update`, `from-scratch`, `advance`, `defer`, `pending` e `none`, junto com os motivos que o script grava. O `.git/atlas-plano.json` é local e é gerado a cada execução, então não há o que migrar. A skill `ws-atlas-update` e os testes mudam junto;
+   - **o que fica:** os nomes de arquivo dos scripts e módulos, as funções e as chaves de JSON (seção 2).
 7. **Sem apelidos.** Os nomes antigos somem de uma vez. Uma branch aberta não quebra, porque o CLI, as skills e as cópias do Spec Kit são versionados na própria branch: ela continua com os nomes velhos e consistentes até trazer a `ws/sync`. A entrada da camada 2 cobre o "não achei o comando" de quem misturar.
 8. **Detalhes que o builder decide:** o adendo da ADR 0001 é o próximo número livre (conferir), e o destino `homolog` continua como argumento de `ws pr plan|open`.
 
