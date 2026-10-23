@@ -4,7 +4,7 @@
 
 **Goal:** Feature, bug e refactor terminam com os mesmos comandos (`/ws-commit-push`, `/ws-pr-homolog`, `/ws-pr-main`), e tudo o que o dev digita ou vê como nome de comando, subcomando, opção, branch ou pasta nova passa para o inglês, sem mudar o comportamento.
 
-**Architecture:** É uma renomeação guiada por um teste de nomes proibidos que cresce a cada tarefa. Cada tarefa renomeia um grupo de nomes em todos os lugares do escopo: código, fontes dos comandos, cópias geradas, testes e documentação. Depois acrescenta os nomes antigos à lista proibida. Os comandos que o dev digita no fim do fluxo saem da extensão `ws` e viram skills comuns em `.claude/skills/ws-*`. Os hooks continuam na extensão, com nomes `speckit-ws-<fluxo>-<start|record|end>`, e passam a seguir essas skills.
+**Architecture:** É uma renomeação guiada por um teste de nomes proibidos que cresce a cada tarefa. Cada tarefa renomeia um grupo de nomes em todos os lugares do escopo: código, fontes dos comandos, cópias geradas, testes e documentação. Depois acrescenta os nomes antigos à lista proibida. Os comandos que o dev digita no fim do fluxo saem da extensão `ws` e viram skills comuns em `.claude/skills/ws-*`. Os hooks continuam na extensão; só os quatro com nome em português mudam (`bug-no-fix`, `bug-submit`, `refactor-record`, `refactor-submit`), e os de fim passam a seguir essas skills.
 
 **Tech Stack:** bash (Git for Windows), Python 3 (stdlib), Spec Kit 1.2.0 (extensões `ws` e `refactor`, regeneradas por `tools/ws/ws speckit` com `uvx`), Claude Code skills.
 
