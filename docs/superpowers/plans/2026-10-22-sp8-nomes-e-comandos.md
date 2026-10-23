@@ -119,7 +119,7 @@
 
 - [ ] **Step 1:** Acrescente à lista as linhas:
   - `ws refactor fatia\b` e `ws atlas (plano|incorpora|concluir|mapas)\b`;
-  - `--(titulo|desacoplamento|tipo|depende|fatia|estado|sistemas|objetos|onde|nota|desde|motivo|gatilho|falhas|hoje|do-zero|todos)\b`;
+  - `--(titulo|desacoplamento|tipo|depende|fatia|estado|sistemas|objetos|onde|nota|desde|motivo)\b`;
   - `refactors/(fatias|desacoplamentos)\b`, `plano-subida\.md`, `validacao\.md`, `desacoplar\.md`, `remover\.md`;
   - `eap-[^ ]*-(subida|validar|remover|convivencia|antigo)\b`.
   
