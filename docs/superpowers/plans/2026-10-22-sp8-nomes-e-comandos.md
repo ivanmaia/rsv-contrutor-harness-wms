@@ -185,15 +185,16 @@
   - `.claude/skills/ws-pr-homolog/SKILL.md` (a oferta dos PRs, tirada das três cópias atuais);
   - `.claude/skills/ws-pr-main/SKILL.md` (a partir de `speckit.ws.promover.md`).
 - Rename e modify em `tools/speckit/ws/commands/`:
-  - `feature` para `feature-start` e `converge` para `feature-end`;
-  - `bug-sem-correcao` para `bug-record` e `bug-enviar` para `bug-end`;
-  - `refactor-registro` para `refactor-record` e `refactor-enviar` para `refactor-end`.
+  - `bug-sem-correcao` para `bug-no-fix` e `bug-enviar` para `bug-submit`;
+  - `refactor-registro` para `refactor-record` e `refactor-enviar` para `refactor-submit`.
   
-  O `bug-start` e o `refactor-start` ficam. Saem do `extension.yml` o `commit-push` e o `promover` (apague os dois `.md`). O `extension.yml` vai para a versão `1.8.0`.
+  Os hooks `feature`, `converge`, `bug-start` e `refactor-start` ficam com o nome de hoje.
+  
+  Saem do `extension.yml` o `commit-push` e o `promover` (apague os dois `.md`). O `extension.yml` vai para a versão `1.8.0`.
 - Modify: `tools/speckit/ws/scripts/bash/ws-commit-push.sh` (só a mensagem de erro que cita o comando), os testes `test_speckit_feature.sh`, `test_speckit_bug.sh`, `test_speckit_refactor.sh`, `test_speckit_install.sh` e `test_harness.sh`, e `nomes-antigos.txt`.
 
 **Interfaces:**
-- **Os hooks de fim** (`feature-end`, `bug-end` e `refactor-end`):
+- **Os hooks de fim** (`converge`, `bug-submit` e `refactor-submit`):
   1. conferem o resultado do jeito de hoje;
   2. seguem a skill `atlas-atualizar --gatilho converge`, como hoje;
   3. terminam com "siga a skill `ws-commit-push`".
@@ -202,17 +203,17 @@
   2. faz o commit e o envio por `bash .specify/extensions/ws/scripts/bash/ws-commit-push.sh "<mensagem>"`;
   3. mostra os avisos do tipo;
   4. oferece "siga a skill `ws-pr-homolog`".
-- **O `bug-record`** oferece a `ws-pr-homolog`, que já trata a entrega sem repo.
+- **O `bug-no-fix`** oferece a `ws-pr-homolog`, que já trata a entrega sem repo.
 
-- [ ] **Step 1:** Acrescente à lista as linhas `speckit[-.]ws[-.](commit-push|promover|feature|converge|bug-sem-correcao|bug-enviar|refactor-registro|refactor-enviar)\b`. Rode o teste. Esperado: FALHA.
+- [ ] **Step 1:** Acrescente à lista as linhas `speckit[-.]ws[-.](commit-push|promover|bug-sem-correcao|bug-enviar|refactor-registro|refactor-enviar)\b`. Rode o teste. Esperado: FALHA.
 - [ ] **Step 2: Testes** (grep no texto, no padrão de `test_speckit_refactor.sh`):
   - **`test_ws_commit_push_mensagem_por_branch`:** a skill contém cada linha da tabela do spec, seção 8, item 2, com o padrão de branch e o formato da mensagem;
   - **`test_ws_commit_push_avisos_por_tipo`:** a skill contém `git push -u origin`, `congelamento`, `/speckit-refactor-remove-flag` e `cópia do legado`;
-  - **`test_hooks_de_fim_seguem_ws_commit_push`:** `feature-end`, `bug-end` e `refactor-end` contêm `ws-commit-push` e não contêm `ws pr open`;
+  - **`test_hooks_de_fim_seguem_ws_commit_push`:** `converge`, `bug-submit` e `refactor-submit` contêm `ws-commit-push` e não contêm `ws pr open`;
   - **`test_oferta_dos_prs_so_na_ws_pr_homolog`:** só `ws-pr-homolog/SKILL.md` contém `ws pr open homolog`;
   - **`test_hooks_seguem_skills_que_existem`:** toda referência "skill `X`" nas fontes de `tools/speckit/` e em `.claude/skills/ws-*` aponta para um `.claude/skills/X/` existente;
   - **`test_skills_ws_tem_descricao_com_quando_usar`:** o `description` de cada `ws-*` contém "Use quando" e "Não use";
-  - **`test_extension_ws_hooks_em_ingles`:** o `extension.yml` registra `before_specify` em `speckit.ws.feature-start`, `after_converge` em `speckit.ws.feature-end`, `after_bug_assess` em `speckit.ws.bug-record`, `after_bug_test` em `speckit.ws.bug-end`, os `after_refactor_*` de assess, rollout e validate em `refactor-record`, e os de verify, retire_legacy e remove_flag em `refactor-end`.
+  - **`test_extension_ws_hooks_em_ingles`:** o `extension.yml` registra `before_specify` em `speckit.ws.feature`, `after_converge` em `speckit.ws.converge`, `after_bug_assess` em `speckit.ws.bug-no-fix`, `after_bug_test` em `speckit.ws.bug-submit`, os `after_refactor_*` de assess, rollout e validate em `refactor-record`, e os de verify, retire_legacy e remove_flag em `refactor-submit`; e não tem `commit-push` nem `promover`.
 - [ ] **Step 3:** Faça as mudanças. Commit, `tools/ws/ws speckit` e commit das cópias. As skills `speckit-ws-commit-push` e `speckit-ws-promover` somem.
 - [ ] **Step 4:** Rode `test_nomes_antigos.sh`, `test_speckit_feature.sh`, `test_speckit_bug.sh`, `test_speckit_refactor.sh`, `test_speckit_install.sh` e `test_harness.sh`. Esperado: 0 falha.
 - [ ] **Step 5:** Commit `harness: fim de fluxo único e hooks em inglês (SP8)`.
@@ -237,16 +238,16 @@
 
 ---
 
-### Task 8: Deck v2
+### Task 8: Deck v3
 
 **Files:**
-- Modify, no repo de discovery, `docs/discovery/apresentacao-v2/deck/project/slides/*.html`:
+- Create, no repo de discovery, `docs/discovery/apresentacao-v3/`, copiando `roteiro.md`, `conteudo.md` e `deck/` de `apresentacao-v2/` (o v2 não muda). Depois mude em `apresentacao-v3/deck/project/slides/*.html`:
   - passos 8 a 10 da feature, `resumo`, `bug`, `refactor`, `desacoplamento`, `marcos`, `revisar*`, `cmd-ws`, `cmd-skills`, `erros-prs`, `onde`, `amanha`, `regras`, `novidades` e qualquer slide que cite um nome antigo;
-  - o `roteiro.md`, a seção 11 do `conteudo.md` e uma linha "SP8" em `novidades`.
+  - o `roteiro.md`, a seção 11 do `conteudo.md` e uma linha "SP8" em `novidades`; a capa diz "Versão 3".
 
 - [ ] **Step 1:** Rode `grep -nE -f <workspace>/tools/ws/tests/nomes-antigos.txt deck/project/slides/*.html` (sem a seção de exceções). Liste as ocorrências.
 - [ ] **Step 2:** Troque os nomes e ajuste o texto onde o fluxo mudou: "todos os fluxos terminam igual". Rode o grep de novo. Esperado: nenhuma ocorrência.
-- [ ] **Step 3:** Publique os slides alterados no deck `https://claude.ai/artifact/TMrcFBWrbLJvaMMyXuP4vf` (só os arquivos mudados) e faça o commit no repo de discovery `Apresentação v2: nomes do SP8`.
+- [ ] **Step 3:** No `deck.json`, mude o título para `Harness WMS — versão 3`, mantendo o resto. Crie um deck novo a partir do tipo Slides e publique todos os arquivos do v3 nele, como foi feito no v2. Faça o commit no repo de discovery `Apresentação v3: nomes do SP8`.
 
 ---
 

@@ -75,21 +75,21 @@ Eventos: `before_`/`after_refactor_rollout`, `_validate`, `_retire_legacy` e `_r
 
 ### 4.3 Hooks da extensão `ws` (internos: o dev não digita)
 
-Padrão: `speckit-ws-<feature|bug|refactor>-<start|record|end>`.
+Só os quatro hooks com nome em português mudam (decisão do usuário, 2026-10-22). Os outros quatro já estão em inglês e ficam. Eles aparecem na lista do `/`, porque o Spec Kit gera uma skill por comando de extensão.
 
 | Hoje | Novo | Evento |
 |---|---|---|
-| `speckit.ws.feature` | `speckit.ws.feature-start` | `before_specify` |
-| `speckit.ws.converge` | `speckit.ws.feature-end` | `after_converge` |
-| `speckit.ws.bug-start` | `speckit.ws.bug-start` | `before_bug_assess` |
-| `speckit.ws.bug-sem-correcao` | `speckit.ws.bug-record` | `after_bug_assess` |
-| `speckit.ws.bug-enviar` | `speckit.ws.bug-end` | `after_bug_test` |
-| `speckit.ws.refactor-start` | `speckit.ws.refactor-start` | `before_refactor_assess`, `_rollout`, `_validate`, `_remove_flag` |
+| `speckit.ws.feature` | fica | `before_specify` |
+| `speckit.ws.converge` | fica | `after_converge` |
+| `speckit.ws.bug-start` | fica | `before_bug_assess` |
+| `speckit.ws.bug-sem-correcao` | `speckit.ws.bug-no-fix` | `after_bug_assess` |
+| `speckit.ws.bug-enviar` | `speckit.ws.bug-submit` | `after_bug_test` |
+| `speckit.ws.refactor-start` | fica | `before_refactor_assess`, `_rollout`, `_validate`, `_remove_flag` |
 | `speckit.ws.refactor-registro` | `speckit.ws.refactor-record` | `after_refactor_assess`, `_rollout`, `_validate` |
-| `speckit.ws.refactor-enviar` | `speckit.ws.refactor-end` | `after_refactor_verify`, `_retire_legacy`, `_remove_flag` |
+| `speckit.ws.refactor-enviar` | `speckit.ws.refactor-submit` | `after_refactor_verify`, `_retire_legacy`, `_remove_flag` |
 | `speckit.ws.commit-push`, `speckit.ws.promover` | saem da extensão | viram as skills `ws-commit-push` e `ws-pr-main` |
 
-Os hooks de fim (`feature-end`, `bug-end` e `refactor-end`) fazem só o que é do fluxo: conferem o resultado (converge sem tarefa nova; teste `verified` ou `partial` confirmado; verify `ok`) e atualizam o Atlas. Depois seguem a skill `ws-commit-push`, que por sua vez oferece a `ws-pr-homolog`. O `bug-record` continua oferecendo o PR do workspace direto para o `main` (pela `ws-pr-homolog`, que já trata a entrega sem repo).
+Os hooks de fim (`converge`, `bug-submit` e `refactor-submit`) fazem só o que é do fluxo: conferem o resultado (converge sem tarefa nova; teste `verified` ou `partial` confirmado; verify `ok`) e atualizam o Atlas. Depois seguem a skill `ws-commit-push`, que por sua vez oferece a `ws-pr-homolog`. O `bug-no-fix` continua oferecendo o PR do workspace direto para o `main` (pela `ws-pr-homolog`, que já trata a entrega sem repo).
 
 ### 4.4 CLI `tools/ws/ws`
 
@@ -144,7 +144,7 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
   - mudam os nomes citados em `AGENTS.md`, `README.md`, nas quatro camadas e nos templates do preset `multirepo` e da extensão de refactor;
   - os fluxos da camada 1 passam a terminar todos em commit-push → pr-homolog → pr-main → completar;
   - ADR 0001, adendo 9.
-- **Deck v2:** publicado em `https://claude.ai/artifact/TMrcFBWrbLJvaMMyXuP4vf` (fonte em `docs/discovery/apresentacao-v2/`), com todos os nomes trocados e os passos 8 a 10 da feature, o bug e o refactor terminando nos mesmos comandos. O deck v1 não muda.
+- **Deck v3** (decisão do usuário): um deck novo, a partir do v2 (`https://claude.ai/artifact/TMrcFBWrbLJvaMMyXuP4vf`, fonte em `docs/discovery/apresentacao-v2/`), que fica como está. O v3 sai com todos os nomes trocados e os passos 8 a 10 da feature, o bug e o refactor terminando nos mesmos comandos. O deck v1 não muda.
 
 ## 6. Impactos e riscos
 
@@ -170,7 +170,7 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
    - depois do retire-legacy, o próximo passo `/speckit-refactor-remove-flag`;
    - depois do remove-flag, que a cópia do legado perde a chave.
    
-   Os hooks `*-end` só conferem o resultado, atualizam o Atlas e seguem a skill. (Decisão minha.)
+   Os hooks de fim (`converge`, `bug-submit`, `refactor-submit`) só conferem o resultado, atualizam o Atlas e seguem a skill. (Decisão minha.)
 2. **Mensagem do commit por branch.** O tipo vem da branch. Na branch de validação, o arquivo de relatório decide. (Decisão minha.)
 
    | Branch | Mensagem proposta |
@@ -182,7 +182,7 @@ Adendo novo na ADR 0001 (adendo 9) com a regra de nomes (seção 3) e a tabela "
    | `refactor/eap-<código>-remove-flag` | `refactor(eap-<código>): remove a chave` |
    | `-rollout`, `-validate` sem retire-legacy, `-coexistence` e `-legacy` | o commit é feito pelo próprio comando (`refactor-record` ou `ws refactor slice update`). A skill diz isso, mostra o que está pendente e, se ainda houver mudança, propõe `docs(eap-<código>): <resumo>` para o dev confirmar ou corrigir |
 
-3. **Deck v2.** Faz parte da construção, como tarefa final: a fonte fica no repo de discovery (`docs/discovery/apresentacao-v2/`), e a mudança é publicada no mesmo deck. É outro repo e outro jeito de entregar (commit no discovery e publicação), separado do PR do workspace.
+3. **Deck v3.** Faz parte da construção, como tarefa final: a fonte é copiada de `docs/discovery/apresentacao-v2/` para `docs/discovery/apresentacao-v3/` no repo de discovery e publicada como um deck novo. O v2 não muda. É outro repo e outro jeito de entregar (commit no discovery e publicação), separado do PR do workspace.
 4. **Base e entrega.**
    - O SP7 já está no `origin/main` (PR 17261, mergeado em 2026-10-22). A memória que dizia "pausado" está desatualizada.
    - A base é o `origin/main`, num worktree novo, na branch `harness/sp8-nomes`, com PR no Azure DevOps para o `main`. O clone do usuário em `C:/src/wms-workspace` não é tocado.
