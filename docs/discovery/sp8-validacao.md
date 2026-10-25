@@ -44,7 +44,25 @@ Refactor fabricado: separar os avisos de teste do README para um `NOTAS-DE-TESTE
 
 ## Teste 4 — Revisão (`/ws-pr-review`)
 
-Pendente: rodar `/ws-pr-review` num dos PRs do workspace abertos acima.
+Rodado no PR do workspace do refactor ([!17340](https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.workspace/pullrequest/17340)).
+
+- Os cinco subagentes (conformidade, contratos, regras, defeitos e testes, banco) rodaram em paralelo; o de banco não achou nada (o PR não tem `.sql` nem migração).
+- 13 achados brutos, deduplicados para 10, mostrados numa lista única com gravidade, repo, arquivo e linha.
+- O usuário escolheu publicar só os achados 1 e 2; os outros 8 ficaram só na lista, confirmando que **o harness não publica nada sem a escolha explícita do revisor** ("não aprova, não reprova, não vota").
+- **Status: completo.**
+
+### Achados da revisão (achados 3 a 10, sem publicar, registrados aqui para o time do harness)
+
+- **3 (conformidade, média):** o "antes" do `assessment.md` do refactor é sintético (criado por um commit de base feito só para o teste); contra a base real da branch, o PR só cria o `NOTAS-DE-TESTE.md`, então a verificação do `verify.md` não prova nada sobre a mudança de fato. Efeito do atalho do teste, não do harness em si — mas achado real de como a revisão lê as coisas.
+- **4 (conformidade, média):** se a `ws-001` e o bug forem mergeados depois, as frases que eles escrevem no `README.md` ficam duplicadas no `NOTAS-DE-TESTE.md`. Também efeito dos três testes serem paralelos e não sequenciais.
+- **5 (conformidade, baixa):** o `ws atlas concluir` do refactor regenerou um derivado do Atlas do `servidor.backend`, sem relação com a mudança do refactor, sem isso ser citado na descrição do PR.
+- **6 (regras, baixa):** sobras de nomes antigos nas regras já renomeadas: a constitution ainda diz "No desacoplar", o `AGENTS.md:96` ainda diz "antes do validar", e a linha 95 do `AGENTS.md` ainda diz que o verify "oferece o envio" (as outras já dizem "segue a skill `/ws-commit-push`").
+- **7 (contratos, baixa):** o ADR 0003 ainda cita `refactors/fatias.md`, que virou `refactors/slices.md` no SP8.
+- **8 (contratos, baixa):** o Adendo 9 do ADR 0001 diz que "o CLI não muda", mas `abrir.py` só reconhece o sufixo novo `-rollout`; uma branch `-subida` criada antes do merge do SP8 deixaria de ser reconhecida.
+- **9 (defeitos, baixa):** em `test_nomes_antigos.sh`, o `|| true` depois do `git grep` esconde uma falha de verdade (código 128, erro de regex ou de repo) como se fosse "sem achados".
+- **10 (defeitos, baixa):** falta um teste que fixe o nome da branch nova `refactor/eap-1-1-4-remove-flag`.
+
+**O achado 1** (publicado no PR) é o mais importante: o PR de refactor carrega ~107 arquivos do harness vindos do merge da `harness/sp8-nomes`, que ainda não está no main. Se esse PR for completado antes do PR do SP8, a reescrita do harness entra "de carona", sem a revisão própria dele — e contraria a regra de não mexer no harness durante o trabalho. **Isso vale para os PRs dos três testes**, não só o do refactor: nenhum deles deve ser completado antes do PR do `harness/sp8-nomes` ir para o main.
 
 ## Teste 5 — Limpeza
 
