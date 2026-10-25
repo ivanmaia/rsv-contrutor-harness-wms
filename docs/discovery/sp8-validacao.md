@@ -66,7 +66,15 @@ Rodado no PR do workspace do refactor ([!17340](https://dev.azure.com/ARECO/AReC
 
 ## Teste 5 — Limpeza
 
-Pendente, como no SP7: abandonar os PRs e branches de teste dos três fluxos ao final.
+- Os 8 PRs de teste (!17333 a !17340) foram abandonados no Azure DevOps.
+- As 6 branches de teste (`ws-001-harness-teste-sp8`, `hotfix/inc-20261025-teste-harness-sp8`, `refactor/rf-20261025-teste-harness-sp8`) foram apagadas no origin dos dois repos (`industria-logistica.wms.workspace` e `industria-logistica.wms.harness-test-dummy`) e localmente no worktree `wms-workspace-sp8`.
+- As worktrees extras (`wms-workspace-sp8-bug`, `wms-workspace-sp8-refactor`), criadas para não colidir com o trabalho do usuário na worktree principal, foram removidas do controle do git; as pastas em disco ficaram presas por um processo (provavelmente o VS Code) e precisam ser apagadas à mão depois de fechá-lo.
+- O repo fixture `industria-logistica.wms.harness-test-dummy` **ficou**, como decidido: é permanente, para validações futuras do harness.
+- **Status: completo** (exceto a sobra de disco das duas pastas, sem efeito no harness).
+
+## Resumo
+
+Os cinco passos da Task 8 foram cumpridos: feature, bug e refactor validados ponta a ponta (até a promoção para o main na feature; até os PRs de homologação no bug e no refactor), a revisão de PR validada com achados reais publicados seletivamente, e a limpeza feita. O achado mais importante — o `ws start`/`ws sync` bloqueado pelo histórico reescrito do AWX — segue em aberto e bloqueia qualquer entrega real até ser reparado; não é um problema do SP8, mas impede validar o `ws start` de verdade nesta rodada.
 
 ## Achados para o time do harness
 
