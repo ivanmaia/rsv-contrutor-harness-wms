@@ -1,0 +1,124 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-22T17:05:12Z"
+ },
+ "lists": "css",
+ "title": "Harness WMS — versão 3",
+ "order": [
+  "capa",
+  "metas",
+  "hoje",
+  "antes-depois",
+  "pecas",
+  "novidades",
+  "parte-1",
+  "setup-base",
+  "setup-az",
+  "setup-atlas",
+  "primeira-vez",
+  "exemplo",
+  "passo-1",
+  "passo-2",
+  "passo-3",
+  "passo-4",
+  "passo-5",
+  "passo-6",
+  "passo-7",
+  "passo-8",
+  "passo-9",
+  "mensagem-chat",
+  "passo-10",
+  "passo-11",
+  "resumo",
+  "ja-conhece",
+  "branch-parada",
+  "voce-revisa",
+  "qualidade-spec",
+  "qualidade-plan",
+  "qualidade-tarefas",
+  "qualidade-envio",
+  "bug",
+  "refactor",
+  "marcos",
+  "desacoplamento",
+  "fatia-bloqueio",
+  "revisar",
+  "revisar-pontos",
+  "revisar-escolha",
+  "regras",
+  "parte-2",
+  "conv-por-que",
+  "conv-arquivos",
+  "conv-hoje",
+  "conv-tabela",
+  "conv-onde",
+  "conv-conteudo-1",
+  "conv-conteudo-2",
+  "conv-banco",
+  "conv-exemplos",
+  "conv-acoes",
+  "harness-feedback",
+  "harness-ciclo",
+  "harness-quem",
+  "erros",
+  "erros-prs",
+  "atlas",
+  "impacto",
+  "cmd-ws",
+  "cmd-skills",
+  "onde",
+  "amanha"
+ ],
+ "sections": {
+  "s1": {
+   "description": "Abertura: as duas metas, o que mudou e as peças do harness",
+   "start": "capa"
+  },
+  "s2": {
+   "description": "Parte 1: preparar a máquina para usar o harness",
+   "start": "parte-1"
+  },
+  "s3": {
+   "description": "A feature ponta a ponta, em 11 passos, até os PRs",
+   "start": "exemplo"
+  },
+  "s4": {
+   "description": "Qualidade: o que o dev revisa e decide em cada etapa",
+   "start": "voce-revisa"
+  },
+  "s5": {
+   "description": "Bug, refactor e fatias de desacoplamento",
+   "start": "bug"
+  },
+  "s6": {
+   "description": "Revisão de código com o harness e as regras",
+   "start": "revisar"
+  },
+  "s7": {
+   "description": "Parte 2: convenções e definições de cada repo e como melhorar o harness",
+   "start": "parte-2"
+  },
+  "s8": {
+   "description": "Referência: erros, Atlas e comandos",
+   "start": "erros"
+  },
+  "s9": {
+   "description": "Onde está cada coisa e o que fazer a partir de amanhã",
+   "start": "onde"
+  }
+ },
+ "cover": "capa",
+ "faces": {
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-mono": {
+   "family": "IBM Plex Mono",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap"
+  }
+ },
+ "designSystems": []
+}

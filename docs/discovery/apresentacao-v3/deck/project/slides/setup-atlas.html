@@ -1,0 +1,14 @@
+<section id="setup-atlas" data-transition="fade" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Recomendado: mapas de código</h2>
+<div style="background:#ebe7de;border-radius:16px;padding:32px 40px;display:flex;flex-direction:column;gap:12px;font-family:'IBM Plex Mono', Consolas, monospace;font-size:28px;line-height:1.45;color:#2f5f7f">
+<p>wsl --install -d Ubuntu</p>
+<p>bash tools/atlas/instala-cbm.sh</p>
+<p>winget install astral-sh.uv</p>
+<p>uv tool install &quot;graphifyy[sql,mcp]==0.9.77&quot;</p>
+<p>npm i -g @ast-grep/cli@0.45.3</p>
+<p>tools/ws/ws atlas mapas --todos</p>
+</div>
+<p style="font-size:32px;line-height:1.4">Depois, confira em <span style="color:#2f5f7f">/mcp</span> que <span style="color:#2f5f7f">codebase-memory</span> e <span style="color:#2f5f7f">graphify-frontends</span> aparecem conectados. Sem as ferramentas funciona, mas o agente navega pior.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 10/63</p>
+<aside>Recomendado, não obrigatório. Sem as ferramentas do Atlas o fluxo funciona, mas o agente navega com grep e ast-grep. Ordem: WSL com Ubuntu (como administrador); o codebase-memory-mcp, que roda no WSL, instalado no Git Bash na raiz com bash tools/atlas/instala-cbm.sh (versão 0.11.0); uv e Graphify para os frontends; ast-grep via npm, que precisa do Node.js; e por fim gerar os mapas com tools/ws/ws atlas mapas --todos. O Graphify cobre os quatro frontends (app.frontend, ecommerce.frontend, picking.frontend e o Fly) e o codebase-memory cobre os outros 14. Confira em /mcp que codebase-memory e graphify-frontends aparecem conectados. Ponto em aberto do piloto: o Claude Code pede aprovação dos servidores MCP na primeira abertura, e a doc ainda não menciona isso. Tempo: 1 min</aside>
+</section>

@@ -1,0 +1,23 @@
+<section id="passo-1" data-transition="push" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:row;gap:80px;align-items:flex-start">
+<div style="width:320px;display:flex;flex-direction:column;gap:8px">
+<p style="font-size:24px;color:#5a6170;font-weight:600;letter-spacing:4px">PASSO</p>
+<p style="font-size:200px;font-weight:700;color:#b5452f;line-height:1">1</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-family:'IBM Plex Mono', Consolas, monospace;font-size:56px;font-weight:600;line-height:1.15">/speckit-specify &lt;descrição&gt;</h2>
+<div style="display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:24px;color:#5a6170;font-weight:600;letter-spacing:2px">O QUE ACONTECE</h3>
+<ul style="font-size:32px;line-height:1.5">
+<li>O hook cria a branch com <span style="color:#2f5f7f">ws start</span>, a partir da <span style="color:#2f5f7f">ws/sync</span>, sincronizada com o <span style="color:#2f5f7f">main</span> de cada repo.</li>
+<li>O Atlas é atualizado nos repos que mudaram. Pode levar mais de 20 minutos.</li>
+<li>A spec nasce em <span style="color:#2f5f7f">specs/ws-NNN-&lt;nome&gt;/</span>.</li>
+</ul>
+</div>
+<div style="background:#ebe7de;border-radius:16px;padding:32px 40px;display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:24px;color:#2f5f7f;font-weight:600;letter-spacing:2px">VOCÊ CONFERE</h3>
+<p style="font-size:32px;line-height:1.4">A spec em linguagem de negócio. A seção <span style="color:#2f5f7f">Repos afetados</span> lista os repos certos?</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 13/63</p>
+<aside>Você descreve a feature como pediria a um colega. O hook do Spec Kit deriva um nome curto, acha até cinco repos prováveis pelo Atlas, roda o ws start (sincroniza a ws/sync com o main de cada repo, envia a ws/sync e cria a branch ws-NNN-nome a partir dela), atualiza o Atlas dos repos que mudaram e cria a spec. Não crie a branch nem a pasta da spec à mão. O que você confere: a spec em linguagem de negócio e a seção Repos afetados, que é obrigatória. Se a spec cita um sistema fora do workspace, o agente oferece seguir com ele como externo ou parar e pedir a inclusão; escolha uma das duas e não indique a pasta ao agente. O hook pode avisar na resposta o link do PR da ws/sync ou que o main local está à frente. Se o hook parar, nenhuma spec é criada: a camada 2 da documentação explica cada erro. No primeiro uso o specify pode passar de 20 minutos por causa do Atlas. Tempo: 2 min</aside>
+</section>

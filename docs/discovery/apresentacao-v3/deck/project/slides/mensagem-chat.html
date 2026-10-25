@@ -1,0 +1,21 @@
+<section id="mensagem-chat" data-transition="push" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">O aviso no Google Chat</h2>
+<div style="background:#ebe7de;border-radius:16px;padding:32px 48px;width:1100px;font-family:'IBM Plex Mono', Consolas, monospace;font-size:32px;line-height:1.5;color:#1d2433">
+<p>Pull Request &lt;id&gt;: &lt;card&gt;: &lt;título do card&gt;</p>
+<p>&lt;título do PR&gt;</p>
+<p>Autor: &lt;autor&gt;</p>
+<p>Workspace: &lt;link|!id&gt;</p>
+<p>Subtrees:</p>
+<p>• &lt;repo&gt;: &lt;link|!id&gt;</p>
+<p>Complete o PR do workspace por último.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:24px;color:#5a6170;font-weight:600;letter-spacing:2px">VARIAÇÕES</h3>
+<ul style="font-size:32px;line-height:1.5">
+<li>Sem card: a primeira linha é só <span style="color:#2f5f7f">Pull Request &lt;id&gt;</span>.</li>
+<li>Título do card não lido: <span style="color:#2f5f7f">Pull Request &lt;id&gt;: &lt;card&gt;</span>.</li>
+</ul>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 22/63</p>
+<aside>Uma mensagem por destino e por entrega, no espaço de homologação (e no de produção quando você promove). Serve para o time saber quais PRs revisar e em que ordem completar: o do workspace por último. Se o card não tiver título lido, o ws avisa e a mensagem sai só com o número; confira o número e o PAT com Work Items (Read). Rodar de novo não posta outra mensagem. Se o ws não conseguir postar, ele mostra o texto para você colar no espaço. Hoje a URL do espaço de produção está vazia em workspace.pr.ini, então a mensagem de produção aparece para colar. Tempo: 1 min</aside>
+</section>

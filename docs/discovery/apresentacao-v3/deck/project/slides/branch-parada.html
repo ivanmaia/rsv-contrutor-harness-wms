@@ -1,0 +1,24 @@
+<section id="branch-parada" data-transition="push" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Feature que muda ou branch parada</h2>
+<div style="display:flex;flex-direction:row;gap:40px;align-items:stretch">
+<div style="flex:1;background:#fbfaf7;border:1px solid #d9d4c8;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-size:40px;font-weight:700">Feature que muda</h3>
+<ul style="font-size:32px;line-height:1.5">
+<li>Rode <span style="color:#2f5f7f">/speckit-specify</span> citando o número da feature (a 004, ws-004) ou o nome da pasta.</li>
+<li>O hook cria a branch <span style="color:#2f5f7f">ws-NNN-&lt;nome&gt;-r&lt;k&gt;</span> e edita a spec existente.</li>
+<li>É a living spec: a revisão fica na mesma spec.</li>
+<li>Feature ainda não mergeada: fique na branch dela.</li>
+</ul>
+</div>
+<div style="flex:1;background:#fbfaf7;border:1px solid #d9d4c8;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-size:40px;font-weight:700">Branch parada</h3>
+<ul style="font-size:32px;line-height:1.5">
+<li>Árvore limpa, então <span style="color:#2f5f7f">tools/ws/ws sync</span> e depois <span style="color:#2f5f7f">git merge --no-edit ws/sync</span>.</li>
+<li>Nunca use rebase nem merge do origin/main.</li>
+<li>Se o sync falhar, ele volta para a sua branch, sem trazer nada.</li>
+</ul>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 27/63</p>
+<aside>Duas situações comuns depois da primeira entrega. Mudar uma feature que já existe: rode o /speckit-specify citando o número ou o nome da pasta; o hook cria a branch com o sufixo r e o número da revisão e edita a spec existente, que registra a revisão. Se a feature ainda não foi mergeada, fique na branch dela. Branch parada que precisa do que entrou no main: com a árvore limpa, rode tools/ws/ws sync e depois git merge --no-edit ws/sync. Nunca faça rebase nem git merge origin/main. Se o ws sync falhar, por exemplo por rede, ele volta para a sua branch sem trazer nada; rode de novo. Se aparecer conflito no sync de um repo, peça ajuda ao time do harness. Tempo: 1 min</aside>
+</section>

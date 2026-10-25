@@ -1,0 +1,16 @@
+<section id="marcos" data-transition="fade" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">As etapas de uma fatia</h2>
+<p style="font-size:32px;line-height:1.4">Uma fatia não termina no PR: ela sobe, é validada e, com chave, o caminho antigo só sai depois.</p>
+<table style="width:1664px;font-size:28px;line-height:1.35;color:#1d2433">
+<tr><th style="width:22%;padding:14px 24px;font-size:24px;color:#5a6170;border-bottom:2px solid #1d2433;text-align:left">Etapa</th><th style="width:78%;padding:14px 24px;font-size:24px;color:#5a6170;border-bottom:2px solid #1d2433;text-align:left">Quer dizer</th></tr>
+<tr><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8;font-weight:600;color:#b5452f">em andamento</td><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8">Os cards da fatia estão sendo feitos.</td></tr>
+<tr><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8;font-weight:600;color:#b5452f">entregue</td><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8">Cards prontos e plano de subida montado. Com chave, já em produção em "antigo".</td></tr>
+<tr><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8;font-weight:600;color:#b5452f">convivência</td><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8">Só com chave: o time virou a chave na tela e registrou.</td></tr>
+<tr><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8;font-weight:600;color:#b5452f">validada</td><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8">Evidência aceita. Sem chave, a fatia terminou. Se falhar, volta para em andamento.</td></tr>
+<tr><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8;font-weight:600;color:#b5452f">desacoplada</td><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8">Só com chave: o caminho antigo saiu de todos os sistemas.</td></tr>
+<tr><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8;font-weight:600;color:#b5452f">chave removida</td><td style="padding:14px 24px;border-bottom:1px solid #d9d4c8">Só com chave: a chave saiu do ERP Connector. A fatia terminou.</td></tr>
+</table>
+<p style="font-size:32px;line-height:1.4">As etapas ficam em <span style="color:#2f5f7f">refactors/slices.md</span> e aparecem no <span style="color:#2f5f7f">ws refactor fatia status</span>.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 35/63</p>
+<aside>Antes do fluxo da fatia, o vocabulário. Num refactor comum o trabalho termina no PR. Numa fatia de desacoplamento, não: ela precisa provar em produção que o caminho novo grava e devolve o mesmo que o antigo. A fatia com chave passa por todas as etapas; a sem chave vai de entregue direto para validada, porque o código antigo já saiu na entrega. As etapas só mudam pelos comandos de refactor. A única que o time registra à mão é a convivência, com ws refactor fatia atualiza, porque a virada acontece na tela de chaves, fora do harness; o atualiza cria uma branch com o registro e a envia, e a validação começa depois do merge do PR do workspace dela. Tempo: 1,5 min</aside>
+</section>

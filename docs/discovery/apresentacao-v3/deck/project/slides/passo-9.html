@@ -1,0 +1,24 @@
+<section id="passo-9" data-transition="push" style="background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:row;gap:80px;align-items:flex-start">
+<div style="width:320px;display:flex;flex-direction:column;gap:8px">
+<p style="font-size:24px;color:#5a6170;font-weight:600;letter-spacing:4px">PASSO</p>
+<p style="font-size:200px;font-weight:700;color:#b5452f;line-height:1">9</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:40px">
+<h2 style="font-family:'IBM Plex Mono', Consolas, monospace;font-size:56px;font-weight:600;line-height:1.15">/ws-pr-homolog</h2>
+<div style="display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:24px;color:#5a6170;font-weight:600;letter-spacing:2px">O QUE ACONTECE</h3>
+<ul style="font-size:32px;line-height:1.5">
+<li>No fim do envio, o agente roda <span style="color:#2f5f7f">ws pr plano homolog</span> e mostra os PRs: um por repo e o do workspace.</li>
+<li>Ele pede o número do card, ou "sem card". Não inventa. Com o sim, roda <span style="color:#2f5f7f">ws pr abrir</span> e posta no Chat.</li>
+<li>O destino é <span style="color:#2f5f7f">homolog</span> (<span style="color:#2f5f7f">develop</span> no Fly). O PR do workspace leva a tabela das subtrees.</li>
+<li>Recusou? Você recebe os links <span style="color:#2f5f7f">pullrequestcreate</span>.</li>
+</ul>
+</div>
+<div style="background:#ebe7de;border-radius:16px;padding:32px 40px;display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:24px;color:#2f5f7f;font-weight:600;letter-spacing:2px">VOCÊ CONFERE</h3>
+<p style="font-size:32px;line-height:1.4">Aceite ou recuse. Informe o card.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 21/63</p>
+<aside>É a novidade do SP7: os PRs saem pelo harness. A oferta vem sozinha no fim do /ws-commit-push. O agente mostra o plano com ws pr plano homolog: um PR por repo enviado mais o do workspace. Pergunta se abre e pede o número do card do Azure Boards (ou sem card); nunca inventa. Com o sim, roda ws pr abrir homolog --card n: envia a branch do workspace ao origin, abre os PRs das subtrees e depois o do workspace, com a tabela dos PRs das subtrees, atualiza as descrições, posta no espaço de homologação do Google Chat e mostra os links. Com o não, mostra os links pullrequestcreate para abrir à mão. Rodar de novo não duplica PR: só atualiza a descrição. Se a entrega não muda nenhum repo, o harness oferece só o PR do workspace direto para o main. Atenção: enquanto um repo tocado não tiver o ramo homolog no origin, o ws pr não abre nenhum PR da entrega. Sete repos estavam sem homolog em 21/10: print-zebra.utilitario.backend, wms.app.frontend, wms.hubprodutividade.backend, wms.servidor.backend, wms.tms-finished.backend, wms.tms.backend e wms.trakta.backend (não conferi hoje). No PR de subtree para o ramo de teste há o aviso para não apagar a branch de origem. Ainda não foi validado no real o ws pr abrir main e a recriação de branch apagada. Tempo: 2 min</aside>
+</section>

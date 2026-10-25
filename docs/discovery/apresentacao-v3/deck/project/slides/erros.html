@@ -1,0 +1,20 @@
+<section id="erros" data-transition="fade" style="display:flex;flex-direction:column;gap:40px;padding:128px 128px 160px;background:#f6f4ef;color:#1d2433;font-family:'IBM Plex Sans', Arial, sans-serif">
+<h2 style="font-size:72px;font-weight:700;line-height:1.1">Quando dá errado</h2>
+<p style="font-size:32px;line-height:1.4">Procure pela mensagem: <span style="color:#2f5f7f">ws: erro:</span> o comando parou; <span style="color:#2f5f7f">ws: aviso:</span> ele seguiu, mas avisa.</p>
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-direction:column;gap:8px;padding:24px 32px;background:#fbfaf7;border:1px solid #d9d4c8;border-radius:16px">
+<p style="font-family:'IBM Plex Mono', Consolas, monospace;font-size:24px;color:#b5452f">ws: erro: há mudanças não commitadas; faça commit ou stash antes</p>
+<p style="font-size:28px;line-height:1.4">Faça commit, guarde (git stash) ou descarte, e rode o mesmo comando de novo.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;padding:24px 32px;background:#fbfaf7;border:1px solid #d9d4c8;border-radius:16px">
+<p style="font-family:'IBM Plex Mono', Consolas, monospace;font-size:24px;color:#b5452f">ws: erro: ws-commit-push não roda no &lt;main&gt;; use a branch da feature</p>
+<p style="font-size:28px;line-height:1.4">Volte para a branch da feature (git switch &lt;branch&gt;) e rode de novo.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px;padding:24px 32px;background:#fbfaf7;border:1px solid #d9d4c8;border-radius:16px">
+<p style="font-family:'IBM Plex Mono', Consolas, monospace;font-size:24px;color:#b5452f">ws: aviso: o mapeamento falhou em &lt;repos&gt;; esses repos continuam pendentes</p>
+<p style="font-size:28px;line-height:1.4">Siga com a feature: o mapeamento é tentado de novo no próximo /speckit-specify.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5a6170">Harness WMS · 56/63</p>
+<aside>Três exemplos reais, copiados da camada 2 da documentação (Quando dá errado), que é organizada por etapa. Cada entrada de lá traz sintoma, causa e o que fazer, e bug e refactor têm grupos próprios. Quando o erro vem por um hook do Spec Kit, o agente mostra a mesma mensagem dentro da resposta dele. Os erros dos PRs ficam no próximo slide. Se nada resolver, a última seção da camada 2 diz o que mandar na thread do espaço Equipe WMS. Tempo: 1,5 min</aside>
+</section>
