@@ -95,3 +95,14 @@ Os cinco passos da Task 8 foram cumpridos: feature, bug e refactor validados pon
 - `ws start`/`ws sync` de verdade (bloqueados pelo achado 1).
 - `/atlas-atualizar` e o mapeamento real de um repo pelo Atlas.
 - A promoção para o main do bug e do refactor (ficou nos PRs de homologação).
+
+## Atualização (2026-10-26): AWX restaurado, achado 1 resolvido
+
+O time de DevOps restaurou o backup de `industria-logistica.wms.awx.monorepo`. Conferido:
+
+- Tamanho do repo voltou de 455 KB (scaffold) para 64,8 MB; clone completo tem 211 commits reais.
+- O commit `da7a8b7e...` (ponto de apoio que faltava) existe de novo e é exatamente o `HEAD` atual do `main` restaurado — e é também o ponto exato em que o `ws/sync` do workspace tinha parado de sincronizar antes do incidente. Local e remoto ficaram alinhados, sem divergência a resolver.
+- Reproduzido o fetch raso exato do `ws_fetch_shallow` (`git fetch --depth=1 <url> main da7a8b7e...`) contra o repo restaurado: funcionou sem erro. O `bad pack header`/`TF401035` não ocorre mais.
+- Conferido que o PR do harness (`harness/sp8-nomes` → `main`, PR 17341) nunca teve relação com esse achado: a branch nasceu direto do `main` (não do `ws/sync`) e seu diff não toca nenhum arquivo em `repos/`.
+
+Achado 1 da lista acima: **resolvido**. Achado 3 (`workspace.pr.ini` sem a URL de produção): também resolvido — o usuário commitou a URL (`c5b40f2f9`) diretamente na `harness/sp8-nomes`, já presente no PR 17341.
