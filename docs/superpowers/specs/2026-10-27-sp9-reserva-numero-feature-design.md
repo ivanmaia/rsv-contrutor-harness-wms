@@ -51,7 +51,8 @@ Antes de implementar, o mecanismo foi testado no origin real (`industria-logisti
 
 ## 4. Comportamento
 
-- **Com origin:** depois de calcular o slug, a estação tenta reservar `next_num()`; se a reserva for rejeitada por colisão (uma das três formas da seção 3.1), tenta o número seguinte, e assim por diante, até conseguir. Só então monta `ws-<NNN>-<slug>` e segue o fluxo de hoje (`ws start`).
+- **Com origin:** depois de calcular o slug, a estação tenta reservar `next_num()`; se a reserva for rejeitada por colisão (uma das três formas da seção 3.1), tenta o número seguinte, e assim por diante, até conseguir ou chegar ao teto de 20 tentativas. Só então monta `ws-<NNN>-<slug>` e segue o fluxo de hoje (`ws start`).
+- **Teto de 20 tentativas:** se 20 números seguidos derem colisão, o fluxo para com `fail` e mostra o último número tentado. Na prática só acontece se o origin responder colisão a tudo (um hook, um proxy, ou um comportamento do Azure diferente do medido na seção 3.1); sem o teto, o laço rodaria para sempre e nunca devolveria o JSON de erro. Decidido com o usuário em 2026-10-28, depois da revisão da implementação.
 - **Push falhou por outro motivo** (rede, credencial, permissão, política): o fluxo para e mostra a mensagem do git, sem avançar o número.
 - **Sem origin** (workspace local, sem rede): pula a reserva inteira, comportamento idêntico ao de hoje.
 - `branch_taken()` continua existindo como segunda linha de defesa (não deve mais disparar na prática).

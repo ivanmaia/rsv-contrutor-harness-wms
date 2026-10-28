@@ -176,19 +176,27 @@ por:
   [ -n "$slug" ] || fail "não consegui gerar um nome curto a partir de: ${short:-$desc}"
   n=$(next_num)
   if git remote get-url origin >/dev/null 2>&1; then
-    while ! reserve_num "$n"; do n=$(printf '%03d' $((10#$n + 1))); done
+    # Teto de tentativas: um origin que responde colisão a tudo não pode prender o laço para sempre.
+    tries=1
+    while ! reserve_num "$n"; do
+      [ "$tries" -lt 20 ] || fail "não consegui reservar um número livre depois de 20 tentativas (último: $P$n)"
+      tries=$((tries + 1))
+      n=$(printf '%03d' $((10#$n + 1)))
+    done
   fi
   name="$P$n-$slug"
   branch=$name
   ! branch_taken "$branch" || fail "a branch $branch já existe"
 ```
 
+**Adendo de 2026-10-28 (teto de tentativas):** a versão original deste bloco não tinha teto (`while ! reserve_num "$n"; do n=...; done`). A revisão da implementação mostrou que um origin que responde colisão a tudo prende o laço para sempre, e que a regressão `*rejected*` no `case` só era pega porque o teste travava, não por uma FALHA. O teto de 20 entrou junto com o teste `test_colisao_sem_fim_para_no_teto_de_tentativas` (hook `pre-receive` que rejeita toda reserva com `TF401028`; espera `fail` com "depois de 20 tentativas" e o número `ws-020`). Spec, seção 4.
+
 As mensagens do `case` foram capturadas no Azure real com Git 2.54.0 para Windows (`docs/discovery/sp9-teste-azure.md`): `(non-fast-forward)` e `(fetch first)` vêm do cliente; `TF401028` vem do servidor, como `[remote rejected]`. Não troque nenhuma delas por um padrão mais genérico.
 
 - [ ] **Step 4: Rodar os testes de novo e ver que passam**
 
 Run: `bash tools/ws/tests/run.sh tools/ws/tests/test_speckit_feature.sh`
-Expected: os sete testes novos `ok` e nenhuma regressão nos testes já existentes do arquivo.
+Expected: os oito testes novos (os sete acima e o do teto, ver adendo) `ok` e nenhuma regressão nos testes já existentes do arquivo.
 
 - [ ] **Step 5: Rodar a suíte inteira do `ws` para checar que nada mais quebrou**
 
