@@ -41,3 +41,16 @@ Cada execução partia do maior número *visível* (specs e branches) e tentava 
 - As 14 reservas (`004` a `017`) foram apagadas cada uma com `--force-with-lease` pelo SHA registrado, depois de conferir que o origin estava igual ao registro. O `ls-remote` final voltou vazio, então nenhum número ficou queimado.
 - Clones e stub apagados; a branch `ws-017` só existia no clone `e1`.
 - O push na `ws/sync` da rodada 7 ficou: é sincronização normal.
+
+## Revalidação depois da mudança no `next_num()` (2026-10-29)
+
+Com o OK do usuário, duas rodadas curtas com duas estações (clones novos a partir do commit `24766e1bd`, `ws start` trocado pelo stub). Antes: nenhuma reserva no origin.
+
+| Rodada | Números | Tentativas |
+|---|---|---|
+| 1 | e2 = 004, e1 = 005 | e1: `004` TF401028, `005` ok |
+| 2 | e1 = 006, e2 = 007 | e2: `006` TF401028, `007` ok |
+
+- Na rodada 2 as duas estações partiram direto do `006`, sem tentar o `004` e o `005` já reservados: o `next_num()` passou a enxergar as reservas. O laço só andou na corrida de verdade.
+- Nenhum `ERROR`, nenhuma colisão, nada em `--heads`.
+- Limpeza: as 4 reservas (`004` a `007`) apagadas com `--force-with-lease` pelo SHA; `ls-remote` final vazio. Clones e stub apagados.
