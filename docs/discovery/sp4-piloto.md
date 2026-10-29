@@ -56,4 +56,4 @@ Documentação no `main` do workspace desde o PR 16940 (`0cbac04e5`, 2026-10-08)
 
 ## Resultado
 
-(preencher ao fim: travadas por camada, correções feitas, se a camada 1 bastou sozinha, e o feedback do dev depois da entrega)
+**Piloto concluído em 2026-10-29, por decisão do usuário.** As travadas e as correções estão no registro acima; os relatos do dev viraram os PRs 17070, 17072 e 17073 do workspace. As pendências adiadas da revisão final, acima, não foram tratadas dentro do piloto.
