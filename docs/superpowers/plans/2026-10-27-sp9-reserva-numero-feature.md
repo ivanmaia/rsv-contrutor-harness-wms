@@ -311,3 +311,12 @@ Em `docs/discovery/sp9-validacao.md`: a tabela das rodadas (números, caminho de
 ### Task 4: PR para o main
 
 Só com os Steps 1, 2 e 4 da Task 3 ok, e com o OK do usuário: push da `harness/sp9-reserva-numero` e PR direto para o `main` do workspace, como o PR 17341 (SP8).
+
+---
+
+### Adendo de 2026-10-29: as reservas contam no `next_num()`
+
+A Task 3 mostrou que `next_num()` não olhava as reservas: cada `/specify` partia do maior número visível e tentava uma a uma as reservas das features em andamento (a rodada 7 fez 14 tentativas). Com 20 features em andamento, o teto bloquearia todo `/specify`. Decidido com o usuário: `next_num()` passa a ler também `git ls-remote origin 'refs/ws-reserved/*'` (spec, seção 4).
+
+- Teste novo `test_reservas_contam_no_proximo_numero`: outro dev reserva de 001 a 025 e a feature tem que sair `ws-026` (antes da mudança: `fail` no teto, em `ws-020`).
+- Efeito colateral nos testes: `test_duas_estacoes_nao_colidem_no_numero`, `test_varias_reservas_em_sequencia_avancam_o_numero` e `test_reserva_do_outro_dev_com_o_commit_da_base_tambem_bloqueia` passam a chegar ao número certo pelo `next_num()`, sem passar pelo laço. O laço continua coberto pelos testes com hook (`TF401028`, rejeição que não é colisão, teto). Os caminhos `(fetch first)` e `(non-fast-forward)` só acontecem quando a reserva chega entre o `ls-remote` e o push, e a prova deles é a Task 3 contra o Azure (`docs/discovery/sp9-validacao.md`).
