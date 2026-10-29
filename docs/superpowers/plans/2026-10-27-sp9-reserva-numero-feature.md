@@ -212,7 +212,7 @@ git commit -m "ws-feature: reserva atomica do numero da feature via refs/ws-rese
 
 ---
 
-### Task 2: Propagar para a extensão instalada e fechar o PR
+### Task 2: Propagar para a extensão instalada
 
 **Files:**
 - Modify (gerado): `.specify/extensions/ws/scripts/bash/ws-feature.sh` (via `tools/ws/ws speckit`)
@@ -243,42 +243,71 @@ git add .specify .claude/skills
 git commit -m "ws speckit: regenera a extensao ws com a reserva de numero"
 ```
 
-- [ ] **Step 5: Abrir o PR de homologação**
+- [ ] **Step 5: (movido) PR para o main**
 
-Seguir o fluxo padrão do harness (`/ws-commit-push`, `/ws-pr-homolog`) a partir da branch `harness/sp9-reserva-numero`, como no SP8 (PR 17341). A promoção para o main (`/ws-pr-main`) só depois da Task 3.
+Não há PR de homologação para a branch do harness. A `homolog` do workspace está parada (em 2026-10-28: 0 commits à frente e 160 atrás do `main`; a última mudança de harness que passou por ela foi o PR 17222). Desde o SP8, as mudanças de harness vão direto para o `main`, como o PR 17341 (SP8) e o PR 17411 (Atlas). O `/ws-pr-homolog` é o fluxo das features dos repos do WMS, não o da branch do harness. O PR `harness/sp9-reserva-numero` → `main` é a Task 4, depois da Task 3.
 
 ---
 
 ### Task 3: Validação de ponta a ponta contra o Azure
 
-O caminho `TF401028` (as duas estações enviando ao mesmo tempo) só existe contra o Azure; os testes da Task 1 apenas o simulam. Esta task prova o `ws-feature.sh` real, não só o mecanismo, que já foi provado em `docs/discovery/sp9-teste-azure.md`.
+O caminho `TF401028` (as duas estações enviando ao mesmo tempo) só existe contra o Azure; os testes da Task 1 apenas o simulam. Esta task prova o `ws-feature.sh` real, não só o mecanismo, que já foi provado em `docs/discovery/sp9-teste-azure.md`. Ela roda a partir da branch **local** `harness/sp9-reserva-numero`: não precisa de push da branch nem de PR.
 
 **Files:**
 - Create: `docs/discovery/sp9-validacao.md` (repo de discovery), no formato do `sp8-validacao.md`.
 
+**O que vai ao Azure, e o que não vai:**
+- Vão: só as refs `refs/ws-reserved/<NNN>` criadas pelas corridas (Steps 1 e 2) e, no Step 3, o que um `ws start` real envia (a `ws/sync`, ver abaixo).
+- Não vão: a branch `harness/sp9-reserva-numero`, as branches `ws-NNN-*` das features de teste (ficam só locais e são apagadas no fim) e nenhum PR.
+
+**Decisões já tomadas:**
+- **Estações = clones separados, não worktrees.** Worktrees do mesmo repo compartilham o banco de objetos, então uma estação já teria o commit de reserva da outra e o caso `(fetch first)` nunca apareceria. Os clones são locais (`git clone C:\src\wms-workspace-sp9 -b harness/sp9-reserva-numero`), com o `origin` trocado para o Azure. Não use clone parcial (`--filter`): ele busca sob demanda o objeto que falta e mascara o caso real (`sp9-teste-azure.md`, seção Setup).
+- **`ws start` substituído por um stub nos Steps 1 e 2.** O `ws-feature.sh` aceita `WS_BIN` (é como os testes o isolam). O stub só sai com código 0 e não cria branch, para a estação continuar na `harness/sp9-reserva-numero` e a rodada seguinte não "continuar" na feature anterior. Sem o stub, cada corrida rodaria um `ws start` de verdade, que sincroniza a `ws/sync` e dá push nela (`ws_sync_base` → `ws_sync_envia`, `tools/ws/lib/start.sh`). A `ws/sync` é compartilhada com o time. O que o SP9 mudou é só a reserva, que acontece antes do `ws start`.
+- **Qual caminho de rejeição apareceu:** cada execução roda com `GIT_TRACE_PACKET` apontando para um arquivo próprio. A linha `ng refs/ws-reserved/<NNN> <motivo>` da resposta do servidor mostra o `TF401028`. A ausência de `ng` com push recusado indica rejeição pelo cliente: `(fetch first)` ou `(non-fast-forward)`.
+- **Números de teste não ficam queimados.** Em 2026-10-28 o origin tinha `ws-001` a `ws-003`, então as corridas vão reservar a partir do `ws-004`. No fim, cada reserva criada pela validação é apagada **pelo SHA que ela tinha** (`git push --force-with-lease=refs/ws-reserved/<NNN>:<sha> origin :refs/ws-reserved/<NNN>`). Assim uma reserva de outra pessoa feita no meio do teste nunca é apagada. O spec continua dizendo que o *harness* nunca apaga reservas: esta é uma limpeza manual de teste, não comportamento do harness.
+
 **Regras:**
-- Push no origin real é ação externa: pedir OK ao usuário antes de começar.
-- Usar o repo fixture do SP8 (`industria-logistica.wms.harness-test-dummy`) nas features de teste, nenhum repo de produção.
-- Uma worktree separada por "estação", todas com a branch `harness/sp9-reserva-numero`. Nunca compartilhar worktree entre os lados (erro de processo do SP8).
+- Push no origin real é ação externa: pedir OK ao usuário antes do Step 1 e antes do Step 3.
+- Nada de `/ws-commit-push`, `/ws-pr-*` ou push de branch durante a task.
 
-- [ ] **Step 1: Corrida simultânea, várias rodadas**
+- [ ] **Step 0: Preparar (local, sem tocar o Azure)**
 
-Nas duas worktrees, rodar o `ws-feature.sh` ao mesmo tempo (dois processos em background disparados juntos), com slugs diferentes. Repetir pelo menos 5 vezes.
-Expected: em toda rodada, números diferentes nas duas estações; `git ls-remote origin 'refs/ws-reserved/*'` com uma reserva por número usado. Registrar quantas rodadas caíram em `TF401028` e quantas em `fetch first`.
+Três clones locais (`e1`, `e2` e `e3`) no scratchpad da sessão, cada um com `git remote set-url origin https://dev.azure.com/ARECO/AReCO/_git/industria-logistica.wms.workspace` e `git fetch -q origin main`. Um stub `ws-stub.sh` com `exit 0`. Anotar `git ls-remote origin 'refs/ws-reserved/*'` antes de começar: são as reservas que já existiam e que não podem ser tocadas.
 
-- [ ] **Step 2: Três estações em sequência**
+- [ ] **Step 1: Corrida simultânea entre duas estações, 5 rodadas**
 
-Uma terceira worktree roda logo depois das duas.
-Expected: pega o número seguinte aos já reservados.
+Em cada rodada, `e1` e `e2` disparam juntas, em background, `WS_BIN=<stub> GIT_TRACE_PACKET=<arquivo> bash tools/speckit/ws/scripts/bash/ws-feature.sh --short-name "sp9 teste <rodada> <estação>" "..."`, com slugs diferentes.
+Expected: nas 5 rodadas, `BRANCH_NAME` com números diferentes nas duas estações, `ERROR` vazio e uma reserva no origin por número usado. Registrar, por rodada, os dois números e o caminho de rejeição da perdedora (`TF401028`, `fetch first` ou `non-fast-forward`). Se nenhuma rodada cair em `TF401028`, registrar isso. Não é falha, mas a prova do caminho do servidor continua sendo a do `sp9-teste-azure.md`.
 
-- [ ] **Step 3: Visibilidade**
+- [ ] **Step 2: Três estações**
 
-Expected: `git ls-remote --heads origin` sem nenhuma `ws-reserved`; o usuário confere a tela de branches do Azure **antes** de qualquer limpeza.
+`e1` e `e2` juntas e, logo depois, `e3`.
+Expected: três números diferentes, e `e3` pega o número seguinte aos já reservados.
 
-- [ ] **Step 4: Limpeza**
+- [ ] **Step 3: Uma execução com o `ws start` real (opcional, decidir com o usuário)**
 
-Com o OK do usuário: apagar as branches e as features de teste. As reservas criadas pela validação ficam (o harness nunca apaga reservas, spec seção 3); listar no `sp9-validacao.md` quais números ficaram reservados.
+Uma execução sem o stub em `e1`. Prova que o JSON e o `ws start` continuam encadeados depois da reserva.
+Efeito externo: o `ws start` sincroniza a `ws/sync` e dá push nela, se algum repo tiver mudado desde o último sync. É o mesmo que qualquer dev provoca ao abrir uma feature, mas numa branch do time inteiro. A branch `ws-NNN-*` criada fica só local.
+Expected: `ERROR` vazio, branch `ws-NNN-...` criada em `e1`, número diferente de todos os anteriores.
 
-- [ ] **Step 5: Promover para o main**
+- [ ] **Step 4: Visibilidade**
 
-Só com os Steps 1 a 3 ok: `/ws-pr-main`.
+Expected: `git ls-remote --heads origin` sem nenhuma `ws-reserved`. O usuário confere no Azure, **antes** de qualquer limpeza: Repos → Branches (abas e busca por `ws-reserved`), Tags, o seletor de branch e Pushes.
+
+- [ ] **Step 5: Limpeza**
+
+Com o OK do usuário:
+1. Apagar as reservas da validação pelo SHA, como descrito acima.
+2. Conferir com `ls-remote` que sobraram só as reservas anotadas no Step 0.
+3. Apagar os clones e o stub.
+4. Se o Step 3 rodou, apagar a branch `ws-NNN-*` local de `e1`.
+
+- [ ] **Step 6: Registrar**
+
+Em `docs/discovery/sp9-validacao.md`: a tabela das rodadas (números, caminho de rejeição), o Step 3 (se rodou, e o que o `ws start` enviou), a visibilidade conferida pelo usuário e a limpeza feita.
+
+---
+
+### Task 4: PR para o main
+
+Só com os Steps 1, 2 e 4 da Task 3 ok, e com o OK do usuário: push da `harness/sp9-reserva-numero` e PR direto para o `main` do workspace, como o PR 17341 (SP8).
