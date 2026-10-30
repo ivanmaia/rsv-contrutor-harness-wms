@@ -264,8 +264,9 @@ Atualizado em 2026-10-29. O `main` do workspace está em `4cae287f3` (PR 17480).
     - **Mergeado no `main` pelo PR 17448 (`c9ee80bb7`) em 2026-10-29**, direto ao `main` (a `homolog` do workspace está parada; SP8 e Atlas também foram direto). Suíte 490 ok.
     - Sem validar: a permissão dos outros devs para criar refs fora de `refs/heads` (sem ela, o `/specify` para com a mensagem do Azure, sem colidir). Nenhum teste local pega mais a regressão "reservar com o commit da base"; a prova é a validação real.
 13. **Doc "Atualizar a sua branch com o `main`"** (2026-10-29): seção nova em `docs/harness/1-comecar.md` do workspace e linha no "Quero…" do README. **Mergeado pelo PR 17480 (`4cae287f3`).**
-14. **Pendências e limpeza:**
-    - Acompanhar a feature das chaves centrais (`ws-002-chaves-centrais`, do usuário, em `C:\src\wms-workspace`).
+14. **Estado em 2026-10-30: nenhum subprojeto do harness em andamento** (SP0 a SP9 mergeados, piloto do SP4 concluído). Pendências e limpeza:
+    - Feature das chaves centrais (`ws-002-chaves-centrais`, do usuário, em `C:\src\wms-workspace`, sem commit). Até ela preencher a seção "Chaves centrais" da camada 3, o harness para as fatias de desacoplamento com chave.
+    - Menores registrados, nenhum bloqueia: as 5 pendências adiadas da revisão do SP4 (`sp4-piloto.md`); a URL do espaço de produção vazia no `workspace.pr.ini` (SP7); os achados menores do SP8 (`sp8-validacao.md`); a permissão dos outros devs para criar `refs/ws-reserved` (SP9), que só aparece no primeiro `/specify` de cada um.
     - Worktrees do workspace já mergeados, para apagar quando o usuário quiser: `C:\src\wms-workspace-fatias`, `-feedback`, `-sp7`, `-sp9` e `-doc`. O `main` local de `C:\src\wms-workspace` está em `e9ad0fbe9`, atrás do origin.
     - Fora de escopo por decisão do usuário: corrigir bugs, segurança e segredos nos repos do WMS.
 
