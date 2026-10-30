@@ -116,6 +116,8 @@ Ponta a ponta no Azure real com o repo fixture `industria-logistica.wms.harness-
 - Constitution sem mudança; só `AGENTS.md`, docs e adendo à ADR (3.7).
 - Fatias e segunda rodada de homologação (3.1).
 
+Refinamentos do plano (2026-10-30): o conflito fica num clone blobless de cache em `.ws/teste/<nome>/`, gerido pelo `ws`, e não numa worktree do workspace, porque o histórico raso do workspace quebra a base comum do merge; o `ws pr revisao` não precisa mudar (acha os PRs dos repos pela tabela do PR do workspace); a skill nova usa `ws pr comentarios` e `ws pr responder`.
+
 ## 6. Deixado para quem implementa
 
 - Profundidade de histórico a buscar para o merge do ramo de teste (o `ws` busca raso; o merge precisa da base comum).
