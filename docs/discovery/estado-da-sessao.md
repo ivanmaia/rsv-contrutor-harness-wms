@@ -1,6 +1,6 @@
 # Estado do discovery (handoff entre sessões)
 
-Atualizado em 2026-10-29. **Leia este arquivo primeiro ao retomar.**
+Atualizado em 2026-11-04. **Leia este arquivo primeiro ao retomar.**
 
 ## Objetivo
 Esta pasta serve para **discovery, análise de alternativas e decisão** (ADRs e PoCs descartáveis) sobre um harness de desenvolvimento assistido por IA no ecossistema WMS. **Não** é aqui que o harness será implementado. Premissas: SDD com Spec Kit, ferramentas de grafo (Graphify), simplicidade e eficiência de tokens.
@@ -269,6 +269,9 @@ Atualizado em 2026-10-29. O `main` do workspace está em `4cae287f3` (PR 17480).
     - Menores registrados, nenhum bloqueia: as 5 pendências adiadas da revisão do SP4 (`sp4-piloto.md`); a URL do espaço de produção vazia no `workspace.pr.ini` (SP7); os achados menores do SP8 (`sp8-validacao.md`); a permissão dos outros devs para criar `refs/ws-reserved` (SP9), que só aparece no primeiro `/specify` de cada um.
     - Worktrees do workspace já mergeados, para apagar quando o usuário quiser: `C:\src\wms-workspace-fatias`, `-feedback`, `-sp7`, `-sp9` e `-doc`. O `main` local de `C:\src\wms-workspace` está em `e9ad0fbe9`, atrás do origin.
     - Fora de escopo por decisão do usuário: corrigir bugs, segurança e segredos nos repos do WMS.
+
+15. **Branch de teste por repo e ajustes de PR na feature** (feedback da ws-002, 2026-10-30 a 2026-11-04). Spec e plano em `docs/superpowers/{specs,plans}/2026-10-30-branch-teste-e-ajustes-de-pr*`. A `ws-002-chaves-centrais` foi corrigida (`docs/discovery/ws-002-correcao.md`) e mergeada nos mains. O PR de teste de cada repo sai de `<branch>-teste` (`ws teste`, cache em `.ws/teste/`); o `ws push` tem a guarda contra commits só no repo (`--sobrescrever`) e atualiza a `-teste`; skill nova `/ws-pr-resolve-comments` (`ws pr comentarios` e `ws pr responder`). Suíte 528 ok; validação real C1 a C9 em `docs/discovery/branch-teste-validacao.md`. **PR 17630 (`harness/branch-teste`, worktree `C:\src\wms-workspace-teste`) aberto para o `main` do workspace**, aguardando o usuário completar.
+    - Limpeza pendente, quando o usuário quiser: worktrees mergeados `C:\src\wms-workspace-fatias`, `-feedback`, `-sp7`, `-sp9`, `-doc` e `C:\src\wms-workspace\.wsevisao}68rvore`; depois do merge do PR 17630, a `C:\src\wms-workspace-teste`.
 
 ## Próximo passo (histórico, antes da execução)
 Rodar `/codebase-discovery` nos **16 repos restantes** (ou só nos 6 centrais primeiro: servidor.backend, awx.monorepo, ecommerce.backend, conector.backend, app.frontend, Fly), com os ajustes do piloto:
