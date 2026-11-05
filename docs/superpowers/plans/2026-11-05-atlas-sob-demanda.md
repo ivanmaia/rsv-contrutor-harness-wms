@@ -191,16 +191,17 @@ Regras:
 - [ ] **Step 4:** `run.sh test_atlas_concluir.sh test_atlas_plano.sh` → passam.
 - [ ] **Step 5: Commit** `ws atlas concluir: lacunas, conferidas e árvore revisada`.
 
-### Task 6: `ws atlas mapas` sem plano
+### Task 6: `ws atlas mapas` sem plano, disparado pelo `ws start`
 
 **Files:**
-- Modify: `tools/ws/lib/atlas.sh` (`ws_atlas_mapas`)
-- Test: `tools/ws/tests/test_atlas_mapas.sh`
+- Modify: `tools/ws/lib/atlas.sh` (`ws_atlas_mapas`), `tools/ws/lib/start.sh` (dispara os mapas em segundo plano)
+- Test: `tools/ws/tests/test_atlas_mapas.sh`, `tools/ws/tests/test_start.sh`
 
 **Interfaces:**
 - Produces: `ws atlas mapas` sem argumentos reindexa os repos cujo split atual (`ws_current_split`) difere do gravado em `.ws/mapas/<repo>.split` (local, fora do git); grava o split de cada repo reindexado com sucesso. `--repos` e `--todos` como hoje (também gravam).
+- Produces: o `ws start`, ao criar uma branch nova, dispara `ws atlas mapas` desacoplado (`nohup ... &`, saída em `.ws/mapas.log`) e segue sem esperar; `WS_MAPAS=0` desliga (os testes da suíte usam). Nenhuma skill chama os mapas: o agente não gasta tokens com eles (decisão do usuário, 2026-11-05).
 
-- [ ] **Step 1: Testes que falham:** `test_mapas_sem_plano_reindexa_so_o_que_mudou` (com `WS_CBM` falso que registra chamadas: primeira rodada indexa r1 e r2, segunda nenhum, depois de `upstream_commit r1` + `ws sync` só r1); `test_mapas_falha_nao_grava_o_split`. Ajustar os testes que dependiam de `plano.py lista --mudou`.
+- [ ] **Step 1: Testes que falham:** `test_mapas_sem_plano_reindexa_so_o_que_mudou` (com `WS_CBM` falso que registra chamadas: primeira rodada indexa r1 e r2, segunda nenhum, depois de `upstream_commit r1` + `ws sync` só r1); `test_mapas_falha_nao_grava_o_split`; `test_start_dispara_os_mapas_sem_esperar` (com `WS_CBM` falso que dorme 5 s e grava um marcador: o `ws start` volta antes do marcador, que aparece depois; `.ws/mapas.log` existe); `test_start_sem_mapas_com_ws_mapas_0`. Ajustar os testes que dependiam de `plano.py lista --mudou`.
 - [ ] **Step 2:** rodar → falham.
 - [ ] **Step 3: Implementar;** remover `lista --mudou` do `plano.py` se nada mais usar.
 - [ ] **Step 4:** rodar `test_atlas_mapas.sh test_atlas_plano.sh` → passam.
@@ -244,12 +245,12 @@ Conteúdo:
   - converge: plano → para cada `revisar`, um subagente com `model: "sonnet"` e o `prompt-revisao.md` (teto do `relevancia.ini`), até 4 em paralelo; sem `revisar`, nenhum subagente; subagente que parar por limite de uso, não terminar ou relatar `FALHOU`/`PARCIAL` → `--falhas`, sem retomar e sem bloquear o envio; concluir; não pede confirmação.
   - manual (só o time do harness): `ws start atlas/manual-<data>` + `ws atlas incorpora`; plano; revisa **todas** as afirmações de `revisar` com o `prompt-revisao.md` no modelo da sessão; mostra as lacunas abertas com o custo e pergunta quais preencher; preenche com o `prompt-mapeamento.md` (`<AREAS>` = lacunas escolhidas); concluir `--gatilho manual --lacunas <áreas>`; abre o PR da `atlas/atualizacao`, que leva também a `ws/sync`; `ws atlas mapas`.
 - **atlas-consultar:** antes de confiar num doc de `docs/atlas/<repo>/`, rodar `tools/ws/ws atlas confere <repo> <doc>`; suspeita → conferir no código só o que precisa e registrar com `ws atlas registra`; código sem página → `ws atlas lacuna`. O aviso de "mapeamento pendente" sai.
-- **bug-start, refactor-start, feature:** sai o passo do Atlas (e o "repos prováveis" da feature); entra "rode `tools/ws/ws atlas mapas` em segundo plano; falha só avisa".
+- **bug-start, refactor-start, feature:** sai o passo do Atlas (e o "repos prováveis" da feature); nada sobre mapas (o `ws start` dispara sozinho, Task 6).
 - **bug-submit, refactor-submit, converge:** texto do passo do Atlas: revisa só as afirmações tocadas e as conferidas; sem nenhuma, nada roda.
 - **start.sh:** a mensagem passa a ser `a ws/sync tem <n> commit(s) que não estão no main; o time do harness leva ao main com o /atlas-atualizar manual (PR da atlas/atualizacao)`.
 - **Docs:** camada 3 (receita do Atlas: sob demanda, conferência, lacunas, manual), camada 4 ("PR da `ws/sync`" vira a execução manual; `relevancia.ini` novo; calibração), camada 2 (sintomas: "o `confere` marcou afirmações", "subagente do converge parou", "gatilho start não existe mais"; remove "O `/speckit-specify` demora no Atlas" e ajusta o teste que a exige), `AGENTS.md` (regra de consulta com `confere`).
 
-- [ ] **Step 1: Testes que falham:** `test_hooks_de_inicio_nao_atualizam_o_atlas` (as três fontes de start sem `atlas-atualizar`, com `ws atlas mapas`); `test_atlas_consultar_manda_conferir` (contém `ws atlas confere` e `ws atlas registra`); `test_atlas_atualizar_converge_usa_sonnet_e_nao_bloqueia` (contém `sonnet`, `prompt-revisao.md`, `--falhas`, sem `--gatilho start`); ajustar `test_speckit_install.sh:56` (a feature não contém mais `atlas-atualizar`) e o teste de `start.sh` da mensagem do `ws/sync`.
+- [ ] **Step 1: Testes que falham:** `test_hooks_de_inicio_nao_atualizam_o_atlas` (as três fontes de start sem `atlas-atualizar` e sem `ws atlas mapas`); `test_atlas_consultar_manda_conferir` (contém `ws atlas confere` e `ws atlas registra`); `test_atlas_atualizar_converge_usa_sonnet_e_nao_bloqueia` (contém `sonnet`, `prompt-revisao.md`, `--falhas`, sem `--gatilho start`); ajustar `test_speckit_install.sh:56` (a feature não contém mais `atlas-atualizar`) e o teste de `start.sh` da mensagem do `ws/sync`.
 - [ ] **Step 2:** rodar → falham.
 - [ ] **Step 3: Editar** fontes, skills, `start.sh`, settings e docs; `tools/ws/ws speckit`.
 - [ ] **Step 4:** suíte inteira `bash tools/ws/tests/run.sh` → tudo verde, exceto `test_harness_do_awx_igual_ao_do_repo` se ainda falhar no `main` (registrar).
