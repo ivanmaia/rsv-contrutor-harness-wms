@@ -271,7 +271,8 @@ Atualizado em 2026-10-29. O `main` do workspace está em `4cae287f3` (PR 17480).
     - Fora de escopo por decisão do usuário: corrigir bugs, segurança e segredos nos repos do WMS.
 
 15. **Branch de teste por repo e ajustes de PR na feature** (feedback da ws-002, 2026-10-30 a 2026-11-04). Spec e plano em `docs/superpowers/{specs,plans}/2026-10-30-branch-teste-e-ajustes-de-pr*`. A `ws-002-chaves-centrais` foi corrigida (`docs/discovery/ws-002-correcao.md`) e mergeada nos mains. O PR de teste de cada repo sai de `<branch>-teste` (`ws teste`, cache em `.ws/teste/`); o `ws push` tem a guarda contra commits só no repo (`--sobrescrever`) e atualiza a `-teste`; skill nova `/ws-pr-resolve-comments` (`ws pr comentarios` e `ws pr responder`). Suíte 528 ok; validação real C1 a C9 em `docs/discovery/branch-teste-validacao.md`. **PR 17630 (`harness/branch-teste`, worktree `C:\src\wms-workspace-teste`) aberto para o `main` do workspace**, aguardando o usuário completar.
-    - Limpeza pendente, quando o usuário quiser: worktrees mergeados `C:\src\wms-workspace-fatias`, `-feedback`, `-sp7`, `-sp9`, `-doc` e `C:\src\wms-workspace\.wsevisao}68rvore`; depois do merge do PR 17630, a `C:\src\wms-workspace-teste`.
+    - Worktrees mergeados (`-fatias`, `-feedback`, `-sp7`, `-sp9`, `-doc`) removidos em 2026-11-04, com as branches locais. Ficam: a árvore de revisão do PR 17568 (ainda ativo) e a `C:\src\wms-workspace-teste` até o merge do PR 17630.
+evisao}68rvore`; depois do merge do PR 17630, a `C:\src\wms-workspace-teste`.
 
 ## Próximo passo (histórico, antes da execução)
 Rodar `/codebase-discovery` nos **16 repos restantes** (ou só nos 6 centrais primeiro: servidor.backend, awx.monorepo, ecommerce.backend, conector.backend, app.frontend, Fly), com os ajustes do piloto:
