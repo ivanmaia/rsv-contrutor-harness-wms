@@ -1,0 +1,98 @@
+{
+  "schema": "brand-identity/audit@1",
+  "findings": [
+    {
+      "id": "logo.contrast",
+      "component": "logo",
+      "severity": "warn",
+      "measured": 2.88,
+      "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+      "message": "full-color: brand-2 #ff4f00 on #eef0ef is 2.88:1",
+      "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+      "roles": [
+        "brand-2"
+      ]
+    },
+    {
+      "id": "logo.contrast",
+      "component": "logo",
+      "severity": "warn",
+      "measured": 2.54,
+      "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+      "message": "full-color-dark: brand-3 #2350a8 on #0f0f0f is 2.54:1",
+      "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+      "roles": [
+        "brand-3"
+      ]
+    },
+    {
+      "id": "logo.contrast",
+      "component": "logo",
+      "severity": "warn",
+      "measured": 2.88,
+      "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+      "message": "on-light-background: brand-2 #ff4f00 on #eef0ef is 2.88:1",
+      "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+      "roles": [
+        "brand-2"
+      ]
+    },
+    {
+      "id": "logo.contrast",
+      "component": "logo",
+      "severity": "warn",
+      "measured": 2.54,
+      "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+      "message": "on-dark-background: brand-3 #2350a8 on #0f0f0f is 2.54:1",
+      "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+      "roles": [
+        "brand-3"
+      ]
+    },
+    {
+      "id": "logo.contrast",
+      "component": "logo",
+      "severity": "warn",
+      "measured": 2.88,
+      "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+      "message": "symbol-only: brand-2 #ff4f00 on #eef0ef is 2.88:1",
+      "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+      "roles": [
+        "brand-2"
+      ]
+    },
+    {
+      "id": "logo.thin-feature",
+      "component": "logo",
+      "severity": "warn",
+      "measured": {
+        "stroke_px2": 3.47,
+        "gap_px2": 11.0
+      },
+      "threshold": ">= 1 px = 4.2 units (heuristic, uncalibrated)",
+      "message": "symbol at 24 px (min size): strokes/gaps thinner than 1 px (lost 3.47 px², clogged 11.0 px²)",
+      "suggested_fix": "add symbol_small_svg for small sizes, or raise logo.min_size.px (or thicken the thin part / widen the gap)"
+    },
+    {
+      "id": "logo.small-size",
+      "component": "logo",
+      "severity": "warn",
+      "measured": {
+        "stroke_px2": 1.44,
+        "gap_px2": 4.5
+      },
+      "threshold": "1 px (raster erosion test, heuristic, uncalibrated)",
+      "message": "symbol at 16 px: features narrower than 1 px (lost 1.44 px², clogged 4.5 px²)",
+      "suggested_fix": "add or simplify symbol-small.svg: fewer, bolder parts"
+    },
+    {
+      "id": "logo.near-equal",
+      "component": "logo",
+      "severity": "warn",
+      "measured": 216,
+      "threshold": "equal, or > 4% / 2° apart (tolerance to calibrate)",
+      "message": "almost-equal values in the symbol: external-tank 90.00 vs tank-gap 91.72; external-tank 90.00 vs tank-gap 88.28; external-tank 90.00 vs booster-gap 91.72",
+      "suggested_fix": "make repeated parts share one exact value"
+    }
+  ]
+}

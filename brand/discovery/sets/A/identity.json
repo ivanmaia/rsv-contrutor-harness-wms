@@ -1,0 +1,417 @@
+{
+  "schema": "brand-identity/identity@1",
+  "brand": {
+    "name": "Discovery",
+    "tagline": "Da spec à produção, toda missão volta pra casa.",
+    "languages": [
+      "pt"
+    ],
+    "numbers": false,
+    "doc_lang": "pt",
+    "sector": "Plataforma interna de engenharia (harness de desenvolvimento do WMS)",
+    "copy": {
+      "sentence": {
+        "pt": "Da spec à produção, toda missão volta pra casa."
+      },
+      "nav": [
+        "Missões",
+        "Atlas",
+        "Plano de voo",
+        "Controle"
+      ],
+      "cta": "Iniciar missão"
+    }
+  },
+  "components": {
+    "logo": {
+      "mode": "new",
+      "status": "proposed",
+      "source": null,
+      "sha256": null
+    },
+    "type": {
+      "mode": "new",
+      "status": "proposed",
+      "source": null,
+      "sha256": null
+    },
+    "palette": {
+      "mode": "new",
+      "status": "proposed",
+      "source": null,
+      "sha256": null
+    }
+  },
+  "palette": "palette.json",
+  "set": {
+    "id": "A",
+    "name": "Pilha de Lançamento",
+    "recommended": true,
+    "mechanism": "A pilha de lançamento do ônibus espacial em quatro peças: orbitador em grafite, tanque externo em Laranja Internacional e foguetes laterais em Azul Cobalto.",
+    "expression_move": "O tanque laranja atrás do orbitador: a única cor quente do símbolo.",
+    "differs_by": "Nenhuma ferramenta de dev usada pelo time tem um símbolo figurativo; o laranja é de sinalização, não o terracota do Claude Code, e o azul é cobalto, não o azul médio do Azure DevOps."
+  },
+  "axes": {
+    "classic_contemporary": -1,
+    "quiet_loud": 0,
+    "playful_serious": 1,
+    "warm_cool": 0
+  },
+  "type": {
+    "pairing_mode": "single-family",
+    "display": {
+      "family": "Hanken Grotesk",
+      "source": "google",
+      "license": "OFL-1.1",
+      "weights": [
+        800
+      ],
+      "location": {
+        "wght": 800
+      },
+      "features": [],
+      "case": "as-is",
+      "tracking": -10,
+      "fallback": "system-ui, sans-serif",
+      "file": null
+    },
+    "text": {
+      "family": "Hanken Grotesk",
+      "source": "google",
+      "license": "OFL-1.1",
+      "weights": [
+        400,
+        600
+      ],
+      "location": {
+        "wght": 400
+      },
+      "features": [],
+      "case": "as-is",
+      "tracking": 0,
+      "fallback": "system-ui, sans-serif",
+      "file": null
+    },
+    "mono": null
+  },
+  "logo": {
+    "type": "symbol+wordmark",
+    "concept": "A pilha de lançamento simplificada: orbitador, tanque externo e os dois foguetes laterais.",
+    "symbol": "logo/symbol.svg",
+    "wordmark": {
+      "text": "Discovery",
+      "role": "display",
+      "location": null,
+      "tracking": -10,
+      "case": "as-is"
+    },
+    "monogram": null,
+    "lockups": [
+      "horizontal",
+      "stacked"
+    ],
+    "colors": {
+      "orbiter-shape": "text",
+      "boosters": "brand-3",
+      "external-tank": "brand-2",
+      "wordmark": "text"
+    },
+    "tags": [
+      "literal-object"
+    ],
+    "defect": "A ponta colorida e arredondada do nariz dava leitura indesejada: a cor passou para o tanque inteiro e o nariz virou curva suave na cor do corpo.",
+    "clear_space": {
+      "unit": "cap-height",
+      "multiple": 1,
+      "inferred": true
+    },
+    "min_size": {
+      "px": 24,
+      "mm": 8
+    },
+    "misuse": [
+      {
+        "do": "stretch"
+      },
+      {
+        "do": "rotate"
+      },
+      {
+        "do": "effects"
+      },
+      {
+        "do": "crowd"
+      },
+      {
+        "svg": "logo/misuse-1.svg",
+        "label": "Não pinte o nariz do orbitador"
+      },
+      {
+        "svg": "logo/misuse-2.svg",
+        "label": "Não troque as cores do tanque e dos foguetes"
+      }
+    ]
+  },
+  "palette_build": {
+    "strategy": null,
+    "accent": null,
+    "light_bg": "#eef0ef",
+    "dark_bg": null,
+    "neutral_tint": null,
+    "neutral_chroma": null,
+    "extra": []
+  },
+  "defaults_used": [
+    {
+      "id": "logo-literal-object",
+      "why": "Pedido explícito do usuário: o nome vem do ônibus espacial e ele quer a nave no logo. O ônibus é o único veículo espacial que pousava numa pista, o que sustenta a leitura de toda missão volta pra casa."
+    }
+  ],
+  "rationale": [
+    {
+      "claim": "O ônibus espacial era o único que voltava pousando como avião numa pista, e era reutilizável.",
+      "evidence": "practice",
+      "source": "história do programa"
+    },
+    {
+      "claim": "Logo descritivo ajuda marca nova e interna a ser lembrada; custa distinção.",
+      "evidence": "limited",
+      "source": "references/logo.md (Luffarelli 2019)"
+    },
+    {
+      "claim": "A silhueta é genérica do veículo; nada de insígnia, logotipo ou letreiro da NASA.",
+      "evidence": "judgement",
+      "source": "designer"
+    }
+  ],
+  "audit": {
+    "schema": "brand-identity/audit@1",
+    "passed": true,
+    "counts": {
+      "gate": 0,
+      "warn": 9,
+      "info": 6
+    },
+    "findings": [
+      {
+        "id": "palette.contrast.light.link-on-text",
+        "component": "palette",
+        "severity": "warn",
+        "measured": 2.69,
+        "threshold": 3.0,
+        "message": "light: link #ae3506 on text #1c1c1c is 2.69:1, below 3.0:1 (links distinguishable from body text without underline (WCAG G183); WCAG 2, no rounding)",
+        "suggested_fix": {
+          "change": "modes.light.link",
+          "from": "#ae3506",
+          "to": "#d14209",
+          "how": "use accent-600 (same scale)",
+          "ratio_after": 3.65
+        },
+        "roles": [
+          "light.link",
+          "light.text"
+        ]
+      },
+      {
+        "id": "palette.contrast.light.border-on-background",
+        "component": "palette",
+        "severity": "info",
+        "measured": 1.36,
+        "threshold": 3.0,
+        "message": "light: border #cbd0ce on background #eef0ef is 1.36:1, below 3.0:1 (borders: dividers are exempt, input outlines need 3:1; WCAG 2, no rounding)",
+        "suggested_fix": {
+          "change": "modes.light.border",
+          "from": "#cbd0ce",
+          "to": "#878b89",
+          "how": "darken by OKLCH L -0.22, same hue",
+          "ratio_after": 3.02
+        },
+        "roles": [
+          "light.border",
+          "light.background"
+        ]
+      },
+      {
+        "id": "palette.contrast.dark.link-on-text",
+        "component": "palette",
+        "severity": "info",
+        "measured": 2.97,
+        "threshold": 3.0,
+        "message": "dark: link #ff4f00 on text #f3f3f3 is 2.97:1, below 3.0:1 (underline links in dark mode (WCAG G183: without underline a link needs 3:1 against body text); WCAG 2, no rounding)",
+        "suggested_fix": {
+          "change": "modes.dark.link",
+          "from": "#ff4f00",
+          "to": "#d14209",
+          "how": "use accent-600 (same scale)",
+          "ratio_after": 4.21
+        },
+        "roles": [
+          "dark.link",
+          "dark.text"
+        ]
+      },
+      {
+        "id": "palette.contrast.dark.border-on-background",
+        "component": "palette",
+        "severity": "info",
+        "measured": 1.88,
+        "threshold": 3.0,
+        "message": "dark: border #414141 on background #0f0f0f is 1.88:1, below 3.0:1 (borders: dividers are exempt, input outlines need 3:1; WCAG 2, no rounding)",
+        "suggested_fix": {
+          "change": "modes.dark.border",
+          "from": "#414141",
+          "to": "#737373",
+          "how": "use neutral-500 (same scale)",
+          "ratio_after": 4.04
+        },
+        "roles": [
+          "dark.border",
+          "dark.background"
+        ]
+      },
+      {
+        "id": "palette.gamut.brand-2",
+        "component": "palette",
+        "severity": "info",
+        "measured": 1.0,
+        "threshold": 0.9,
+        "message": "#ff4f00 sits at the sRGB gamut edge (100% of max chroma); vivid colours like this often fall outside CMYK process gamut: specify Lab D50 + tolerance, check with the printer, consider a spot colour",
+        "suggested_fix": null,
+        "roles": [
+          "brand-2"
+        ]
+      },
+      {
+        "id": "palette.harmony.primary-accent",
+        "component": "palette",
+        "severity": "info",
+        "measured": -0.6,
+        "threshold": -0.3,
+        "message": "Ou-Luo two-colour model scores #1a1d22 + #d14209 at -0.60 (negative = less harmonious on a grey CRT test, no context): model signal only; the pairing table in references/pairing.md takes precedence",
+        "suggested_fix": null,
+        "roles": [
+          "light.primary",
+          "light.accent"
+        ]
+      },
+      {
+        "id": "type.display+text.web-weight",
+        "component": "type",
+        "severity": "info",
+        "measured": 29,
+        "threshold": null,
+        "message": "Hanken Grotesk: ~29 KB WOFF2 for the brief's characters (one variable file, all weights; estimate)",
+        "suggested_fix": null
+      },
+      {
+        "id": "logo.contrast",
+        "component": "logo",
+        "severity": "warn",
+        "measured": 2.88,
+        "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+        "message": "full-color: brand-2 #ff4f00 on #eef0ef is 2.88:1",
+        "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+        "roles": [
+          "brand-2"
+        ]
+      },
+      {
+        "id": "logo.contrast",
+        "component": "logo",
+        "severity": "warn",
+        "measured": 2.54,
+        "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+        "message": "full-color-dark: brand-3 #2350a8 on #0f0f0f is 2.54:1",
+        "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+        "roles": [
+          "brand-3"
+        ]
+      },
+      {
+        "id": "logo.contrast",
+        "component": "logo",
+        "severity": "warn",
+        "measured": 2.88,
+        "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+        "message": "on-light-background: brand-2 #ff4f00 on #eef0ef is 2.88:1",
+        "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+        "roles": [
+          "brand-2"
+        ]
+      },
+      {
+        "id": "logo.contrast",
+        "component": "logo",
+        "severity": "warn",
+        "measured": 2.54,
+        "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+        "message": "on-dark-background: brand-3 #2350a8 on #0f0f0f is 2.54:1",
+        "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+        "roles": [
+          "brand-3"
+        ]
+      },
+      {
+        "id": "logo.contrast",
+        "component": "logo",
+        "severity": "warn",
+        "measured": 2.88,
+        "threshold": ">= 3.0:1 (WCAG 2.2 SC 1.4.11, practice)",
+        "message": "symbol-only: brand-2 #ff4f00 on #eef0ef is 2.88:1",
+        "suggested_fix": "use a one-colour version on this ground, or declare logo.device tile|outline",
+        "roles": [
+          "brand-2"
+        ]
+      },
+      {
+        "id": "logo.thin-feature",
+        "component": "logo",
+        "severity": "warn",
+        "measured": {
+          "stroke_px2": 3.47,
+          "gap_px2": 11.0
+        },
+        "threshold": ">= 1 px = 4.2 units (heuristic, uncalibrated)",
+        "message": "symbol at 24 px (min size): strokes/gaps thinner than 1 px (lost 3.47 px², clogged 11.0 px²)",
+        "suggested_fix": "add symbol_small_svg for small sizes, or raise logo.min_size.px (or thicken the thin part / widen the gap)"
+      },
+      {
+        "id": "logo.small-size",
+        "component": "logo",
+        "severity": "warn",
+        "measured": {
+          "stroke_px2": 1.44,
+          "gap_px2": 4.5
+        },
+        "threshold": "1 px (raster erosion test, heuristic, uncalibrated)",
+        "message": "symbol at 16 px: features narrower than 1 px (lost 1.44 px², clogged 4.5 px²)",
+        "suggested_fix": "add or simplify symbol-small.svg: fewer, bolder parts"
+      },
+      {
+        "id": "logo.near-equal",
+        "component": "logo",
+        "severity": "warn",
+        "measured": 216,
+        "threshold": "equal, or > 4% / 2° apart (tolerance to calibrate)",
+        "message": "almost-equal values in the symbol: external-tank 90.00 vs tank-gap 91.72; external-tank 90.00 vs tank-gap 88.28; external-tank 90.00 vs booster-gap 91.72",
+        "suggested_fix": "make repeated parts share one exact value"
+      }
+    ],
+    "defaults": {
+      "matched": [
+        "logo-literal-object"
+      ]
+    }
+  },
+  "derived": [
+    {
+      "file": "card.png",
+      "requires": [
+        "logo",
+        "type",
+        "palette"
+      ],
+      "inputs_sha256": "6c3c4b7341ae379a40f16622c269fb7fcbff5074f2dac51fa320348384bdb460"
+    }
+  ]
+}

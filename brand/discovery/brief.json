@@ -1,0 +1,45 @@
+{
+  "schema": "brand-identity/brief@1",
+  "brand": "Discovery",
+  "tagline": "Da spec à produção, toda missão volta pra casa.",
+  "site": null,
+  "languages": [
+    "pt"
+  ],
+  "doc_lang": "pt",
+  "numbers": false,
+  "components": {
+    "logo": "new",
+    "type": "new",
+    "palette": "new"
+  },
+  "sources": {},
+  "sets": 3,
+  "sector": "Plataforma interna de engenharia (harness de desenvolvimento do WMS)",
+  "audience": "Devs, tech leads, PO e QA do WMS; agentes de IA",
+  "attributes": [
+    "confiável",
+    "guiado",
+    "explorador"
+  ],
+  "competitors": [
+    "Backstage",
+    "GitHub Copilot",
+    "Spec Kit",
+    "Azure DevOps",
+    "Claude Code"
+  ],
+  "axes": [],
+  "copy": {
+    "sentence": {
+      "pt": "Da spec à produção, toda missão volta pra casa."
+    },
+    "nav": [
+      "Missões",
+      "Atlas",
+      "Plano de voo",
+      "Controle"
+    ],
+    "cta": "Iniciar missão"
+  }
+}

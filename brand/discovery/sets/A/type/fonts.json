@@ -1,0 +1,25 @@
+{
+  "display": {
+    "family": "Hanken Grotesk",
+    "file": "C:\\Users\\vital.ivan\\.cache\\brand-identity\\fonts\\instances\\HankenGrotesk-960a9f41402cbe48.ttf",
+    "location": {
+      "wght": 800
+    },
+    "weights": [
+      800
+    ],
+    "features": []
+  },
+  "text": {
+    "family": "Hanken Grotesk",
+    "file": "C:\\Users\\vital.ivan\\.cache\\brand-identity\\fonts\\instances\\HankenGrotesk-cb05c3745ddd267d.ttf",
+    "location": {
+      "wght": 400
+    },
+    "weights": [
+      400,
+      600
+    ],
+    "features": []
+  }
+}

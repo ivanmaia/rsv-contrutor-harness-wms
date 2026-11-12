@@ -1,0 +1,156 @@
+{
+ "units": "wordmark: cap height 100, cap top y=0, baseline y=100, x from the pen origin; index = data-glyph",
+ "text": "Discovery",
+ "glyphs": [
+  {
+   "index": 1,
+   "char": "D",
+   "x0": 9.04,
+   "x1": 91.1,
+   "pen_x": 0.0,
+   "advance": 96.27,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": [
+    [
+     9.04,
+     29.56
+    ],
+    [
+     68.46,
+     89.77
+    ]
+   ]
+  },
+  {
+   "index": 2,
+   "char": "i",
+   "x0": 102.73,
+   "x1": 123.24,
+   "pen_x": 94.84,
+   "advance": 36.15,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": [
+    [
+     103.01,
+     122.67
+    ]
+   ]
+  },
+  {
+   "index": 3,
+   "char": "s",
+   "x0": 131.99,
+   "x1": 192.25,
+   "pen_x": 129.56,
+   "advance": 67.72,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": []
+  },
+  {
+   "index": 4,
+   "char": "c",
+   "x0": 200.86,
+   "x1": 266.86,
+   "pen_x": 195.84,
+   "advance": 75.18,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": [
+    [
+     200.86,
+     220.52
+    ]
+   ]
+  },
+  {
+   "index": 5,
+   "char": "o",
+   "x0": 274.61,
+   "x1": 346.48,
+   "pen_x": 269.58,
+   "advance": 79.2,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": [
+    [
+     274.61,
+     294.26
+    ],
+    [
+     326.68,
+     346.48
+    ]
+   ]
+  },
+  {
+   "index": 6,
+   "char": "v",
+   "x0": 349.21,
+   "x1": 422.96,
+   "pen_x": 347.35,
+   "advance": 74.61,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": [
+    [
+     363.63,
+     382.78
+    ],
+    [
+     389.44,
+     408.54
+    ]
+   ]
+  },
+  {
+   "index": 7,
+   "char": "e",
+   "x0": 425.54,
+   "x1": 492.97,
+   "pen_x": 420.52,
+   "advance": 77.76,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": []
+  },
+  {
+   "index": 8,
+   "char": "r",
+   "x0": 505.16,
+   "x1": 557.25,
+   "pen_x": 496.84,
+   "advance": 62.12,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": [
+    [
+     505.16,
+     524.94
+    ]
+   ]
+  },
+  {
+   "index": 9,
+   "char": "y",
+   "x0": 559.4,
+   "x1": 633.14,
+   "pen_x": 557.53,
+   "advance": 77.33,
+   "cap_top": 0,
+   "baseline": 100,
+   "stems": [
+    [
+     573.83,
+     592.97
+    ],
+    [
+     599.63,
+     618.73
+    ]
+   ]
+  }
+ ]
+}
